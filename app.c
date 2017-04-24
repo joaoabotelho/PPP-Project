@@ -27,8 +27,8 @@ void print_list(List numb){
         }
 }
 
-int main(){
+int main(){ 
         Student lala = new_student();
-        change_data(lala);
+        //change_data(lala);
         return 0;
 }

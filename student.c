@@ -1,27 +1,50 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
 typedef struct student{
         int *numb;
-        char *course;
+        char course[50];
         int *year;
-        char *regime;
+        char regime[50];
 } Student;
 
 Student new_student(){
         Student new;
+        char temp[50];
+
         printf("### Esta a criar um novo aluno ###\n\n");
         printf("Qual e o numero de aluno?\n-->");
-        scanf("%d", new.numb);
+        fgets(temp,50,stdin);
+        new.numb = fgets_to_int(temp); 
+
         printf("Que curso frequenta?\n-->");
-        scanf("%s", new.course);
+        fgets(new.course,50,stdin);
+        
         printf("Que ano frequenta?(1,2,3)\n-->");
-        scanf("%d", new.year);
+        fgets(temp,50,stdin);
+        new.year = fgets_to_int(temp);
+
         printf("Qual o seu regime?\n-->");
-        scanf("%s", new.regime);  
+        fgets(new.regime,50,stdin);
         return new;
 }
+
+int fgets_to_int(char temp[]){
+        int i, numb, len = strlen(temp) - 1;
+        for(i = 0; i < len; i++){
+                if(!isdigit(temp[i]))
+                        return 1;
+        }
+        numb = atoi(temp);
+        return numb;
+}
+/* WITH BUGGS
 char check_answer(){
         char answer;
         printf("Pretende alterar(y/n)? ");
-        scanf("%s", &answer);
+        scanf("%c", &answer);
         return answer;
 } 
 
@@ -56,4 +79,4 @@ void change_data(Student std){
                 printf("O novo regime do aluno e\n-->");
                 scanf("%s", std.regime);
         }
-}
+}*/
