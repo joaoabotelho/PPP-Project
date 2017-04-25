@@ -21,7 +21,7 @@ void menu(Student_list list_student){
                 new_student(list_student);
                 copy = list_student;
                 break;
-            case '2': // BUG: dont change the list in the menu; BUG: cant pick last numb;
+            case '2': // BUG: dont change the list in the menu;
                 change_list_data(list_student);
                 copy = list_student;
                 break;

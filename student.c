@@ -71,7 +71,7 @@ void change_list_data(Student_list head){
     student_numb = fgets_to_int(temp);
     
     node->data.numb = student_numb;
-    while((head->data.numb != node->data.numb) && head)
+    while(head->data.numb != node->data.numb)
         head = head->next;
     if(head->next == NULL){
         printf("Nao existe ninguem com esse numero. Tente de novo.");
