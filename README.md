@@ -1,6 +1,7 @@
 # Project of PPP
 ## Objetivo
 Implementar uma aplicação para gerir os exames do DEI.
+
 ## Competências
 * Escrita de programas em C. Domínio do ambiente de desenvolvimento.
 * Escrita de código corretamente formatado e indentado.
@@ -9,6 +10,7 @@ Implementar uma aplicação para gerir os exames do DEI.
 * Domínio de estruturas de dados dinâmicas.
 * Utilização de listas ligadas.
 * Utilização de soluções eficientes de ordenamento.
+
 ## Descrição do Problema
 ```
 Imagine que o DEI está a planear desenvolver uma nova aplicação para a gestão de exames
@@ -28,10 +30,10 @@ de época normal e recurso estão acessíveis a todos os alunos. Os exames de é
 estão acessíveis apenas a alunos com estatutos de trabalhador-estudante, atletas,
 dirigentes associativos ou alunos que frequentem o último ano do curso (corresponde ao 3º
 ano de matrícula).
-
+```
 O seu programa deverá gerir todos os dados que compõem a aplicação e dar resposta
 especificamente às seguintes operações:
-```
+
 * Criar, alterar e apagar dados dos alunos.
 * Criar, alterar e apagar dados das disciplinas.
 * Criar exames e configurar as salas, assegurando que não existe mais nenhuma
@@ -45,6 +47,7 @@ do exame em causa. Deverá também permitir a remoção de inscrições.
 * Verificar se um dado exame tem salas reservadas que cheguem, com base no número
   de alunos inscritos e no número de lugares em cada sala (assuma que cada sala tem 30
   lugares).
+
 ```
 Todos os dados da aplicação (exames, alunos e disciplinas) deverão ser guardados em
   ficheiros de texto, e carregados para as estruturas de dados adequadas no arranque do
@@ -54,6 +57,7 @@ A interação com o utilizador deverá ser realizada através de uma consola em 
   listagens e pesquisas) deverão, também, poder ser armazenados em ficheiros de texto (a
   pedido do utilizador).
 ```
+
 ##  Implementação
 ```
   A aplicação deve ser implementada na linguagem C e deverá ser baseada em listas ligadas.
