@@ -17,27 +17,6 @@ typedef struct node{
     Student_list next;
 } Student_list_node;
 
-Student new_student(){
-    Student new;
-    char temp[50];
-
-    printf("### Esta a criar um novo aluno ###\n\n");
-    printf("Qual e o numero de aluno?\n-->");
-    fgets(temp,50,stdin);
-    new.numb = fgets_to_int(temp); 
-
-    printf("Que curso frequenta?\n-->");
-    fgets(new.course,50,stdin);
-        
-    printf("Que ano frequenta?(1,2,3)\n-->");
-    fgets(temp,50,stdin);
-    new.year = fgets_to_int(temp);
-
-    printf("Qual o seu regime?\n-->");
-    fgets(new.regime,50,stdin);
-    return new;
-}
-
 Student_list create_students_list(){
     Student_list aux;
     aux = (Student_list) malloc (sizeof (Student_list_node));
@@ -72,6 +51,27 @@ void print_student_list(Student_list list){
     }
 }
 
+
+void new_student(Student_list list){
+    Student new;
+    char temp[50];
+
+    printf("### Esta a criar um novo aluno ###\n\n");
+    printf("Qual e o numero de aluno?\n-->");
+    fgets(temp,50,stdin);
+    new.numb = fgets_to_int(temp); 
+
+    printf("Que curso frequenta?\n-->");
+    fgets(new.course,50,stdin);
+        
+    printf("Que ano frequenta?(1,2,3)\n-->");
+    fgets(temp,50,stdin);
+    new.year = fgets_to_int(temp);
+
+    printf("Qual o seu regime?\n-->");
+    fgets(new.regime,50,stdin);
+    append_student(list, new);
+}
 /* WITH BUGGS
 char* check_answer(){
     char *answer;
