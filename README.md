@@ -3,13 +3,13 @@
 Implementar uma aplicação para gerir os exames do DEI.
 ## Competências
 ```
-1. Escrita de programas em C. Domínio do ambiente de desenvolvimento.
-2. Escrita de código corretamente formatado e indentado.
-3. Acesso a ficheiros.
-4. Definição de novos tipos de dados.
-5. Domínio de estruturas de dados dinâmicas.
-6. Utilização de listas ligadas.
-7. Utilização de soluções eficientes de ordenamento.
+* Escrita de programas em C. Domínio do ambiente de desenvolvimento.
+* Escrita de código corretamente formatado e indentado.
+* Acesso a ficheiros.
+* Definição de novos tipos de dados.
+* Domínio de estruturas de dados dinâmicas.
+* Utilização de listas ligadas.
+* Utilização de soluções eficientes de ordenamento.
 ```
 ## Descrição do Problema
 Imagine que o DEI está a planear desenvolver uma nova aplicação para a gestão de exames
@@ -33,17 +33,17 @@ ano de matrícula).
 O seu programa deverá gerir todos os dados que compõem a aplicação e dar resposta
 especificamente às seguintes operações:
 ```
-1. Criar, alterar e apagar dados dos alunos.
-2. Criar, alterar e apagar dados das disciplinas.
-3. Criar exames e configurar as salas, assegurando que não existe mais nenhuma
+* Criar, alterar e apagar dados dos alunos.
+* Criar, alterar e apagar dados das disciplinas.
+* Criar exames e configurar as salas, assegurando que não existe mais nenhuma
 marcação para essas salas nesse horário.
-4. Apagar exames que já tenham sido realizados.
-5. Listar Exames – disciplina, época, bem como toda a restante informação relevante.
-6. Inscrever alunos, i.e., associar alunos ao exame, assegurando que têm acesso à época
+* Apagar exames que já tenham sido realizados.
+* Listar Exames – disciplina, época, bem como toda a restante informação relevante.
+* Inscrever alunos, i.e., associar alunos ao exame, assegurando que têm acesso à época
 do exame em causa. Deverá também permitir a remoção de inscrições.
-7. Listar alunos inscritos num exame.
-8. Listar exames em que um aluno está inscrito.
-9. Verificar se um dado exame tem salas reservadas que cheguem, com base no número
+* Listar alunos inscritos num exame.
+* Listar exames em que um aluno está inscrito.
+* Verificar se um dado exame tem salas reservadas que cheguem, com base no número
   de alunos inscritos e no número de lugares em cada sala (assuma que cada sala tem 30
   lugares).
 ```
