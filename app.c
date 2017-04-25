@@ -1,7 +1,5 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include "student.c"
+#include "classes.c"
 
 int main(){ 
         Student_list jabuga = create_students_list();
