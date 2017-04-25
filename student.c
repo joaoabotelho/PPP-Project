@@ -73,7 +73,7 @@ void change_list_data(Student_list head){
     node->data.numb = student_numb;
     while(head->data.numb != node->data.numb)
         head = head->next;
-    if(head->next == NULL){
+    if(head == NULL){
         printf("Nao existe ninguem com esse numero. Tente de novo.");
         change_list_data(copy);
     }
