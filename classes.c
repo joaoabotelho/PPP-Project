@@ -42,32 +42,28 @@ void change(node_t *head)
     }
 }
 
-// void remove_data(Classes *cls)
-
-
-void remov(node_t *head)
-{
-    int n=0;
+void remov(node_t *head){
     char classname[50];
-    node_t *temp;
+    node_t *temp,*ant,*actual;
     temp=head;
+    ant=temp;
+    actual=temp->next;
     printf("### Esta a querer remover os dados de uma disciplina ###\n\n");
     printf("Introduza o nome da disciplina que pretende remover.");
     fflush(stdin);
     fgets(classname,50,stdin);
-    while ((temp!=NULL) && (n==0))
-    {
-        if (strcmp(temp->val.name,classname)==0)
-        {
-            n=1;
-            // remove_data(&temp->val);
+    while (temp!=NULL){
+        if (strcmp(temp->val.name,classname)==0){
+            ant->next = actual->next;
+            free (actual);
+            break;
         }
+        ant=actual;
+        actual=temp->next;
         temp=temp->next;
     }
 }
 */
-
-
 
 
 
