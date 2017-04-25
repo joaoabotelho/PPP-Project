@@ -2,7 +2,6 @@
 ## Objetivo
 Implementar uma aplicação para gerir os exames do DEI.
 ## Competências
-```
 * Escrita de programas em C. Domínio do ambiente de desenvolvimento.
 * Escrita de código corretamente formatado e indentado.
 * Acesso a ficheiros.
@@ -10,8 +9,8 @@ Implementar uma aplicação para gerir os exames do DEI.
 * Domínio de estruturas de dados dinâmicas.
 * Utilização de listas ligadas.
 * Utilização de soluções eficientes de ordenamento.
-```
 ## Descrição do Problema
+```
 Imagine que o DEI está a planear desenvolver uma nova aplicação para a gestão de exames
 e que a direção do departamento lhe pede para escrever esta aplicação. O objetivo é
 permitir que os funcionários responsáveis pela organização dos exames possam inserir toda
@@ -54,7 +53,9 @@ A interação com o utilizador deverá ser realizada através de uma consola em 
   para permitir a entrada de dados e a apresentação de resultados. Os resultados (ex.:
   listagens e pesquisas) deverão, também, poder ser armazenados em ficheiros de texto (a
   pedido do utilizador).
+```
 ##  Implementação
+```
   A aplicação deve ser implementada na linguagem C e deverá ser baseada em listas ligadas.
   Mais concretamente, deverá usar listas ligadas em memória para manter os dados dos
   exames e dos alunos. As relações entre estes deverão depois ser mantidas com novas listas
@@ -68,3 +69,4 @@ A interação com o utilizador deverá ser realizada através de uma consola em 
   Utilize ficheiros para armazenar os dados sempre que sair da aplicação e para os recuperar,
   sempre que reentrar. Deve utilizar ficheiros de texto, para permitir a sua leitura quer por si,
   quer pelo seu professor.
+```
