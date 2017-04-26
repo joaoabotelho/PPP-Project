@@ -15,20 +15,14 @@ void change_classes_data(Class* cls){
         char answer;
               
         printf("### Esta a querer alterar os dados de uma disciplina ###\n\n");
+       
         // Name
         printf("Este e o nome da disciplina --> %s\n", (*cls).name);
-        answer = check_answer();
-        if(answer == 'y'){
-            printf("O novo nome da disciplina e\n-->\n");
-            fgets((*cls).name,50,stdin);
-        }
+        confirm_answer("O novo nome da disciplina e\n-->", 0, (*cls).name); 
+
         // Teacher
         printf("Este e o nome do professor--> %s\n\n", (*cls).teacher);
-        answer = check_answer();
-        if(answer == 'y'){
-            printf("O nome do novo professor da disciplina e\n-->\n");
-            fgets((*cls).teacher,50,stdin);
-        }
+        confirm_answer("O nome do novo professor da disciplina e\n-->", 0, (*cls).teacher); 
 }
 /*
 void change(node_t *head)

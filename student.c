@@ -23,39 +23,27 @@ void new_student(Student_list list){
     append_student(list, new);
 }
 
-void change_student_data(Student* change){
+void change_student_data(Student* change) {
     char answer, temp[50];
+    
     printf("### Esta a querer alterar os dados de um aluno ###\n\n");
+   
+   
     // Numb
     printf("Este e o numero do aluno --> %d\n", (*change).numb);
-    answer = check_answer();
-    if(answer == 'y'){
-        printf("O novo numero do aluno e\n-->");
-        fgets(temp,50,stdin);
-        (*change).numb = fgets_to_int(temp);
-    }
+    confirm_answer("O novo numero do aluno e\n-->", &(*change).numb, "0");
+    
     // Course
     printf("Este e o curso do aluno --> %s\n", (*change).course);
-    answer = check_answer();
-    if(answer == 'y'){
-        printf("O novo curso do aluno e\n-->");
-        fgets((*change).course,50,stdin);
-    }
+    confirm_answer("O novo curso do aluno e\n-->", 0, (*change).course); 
+    
     // Year
     printf("O aluno esta neste ano --> %d\n", (*change).year);
-    answer = check_answer();
-    if(answer == 'y'){
-        printf("O novo ano do aluno e\n-->");
-        fgets(temp,50,stdin);
-        (*change).year = fgets_to_int(temp);
-    }
+    confirm_answer("O novo ano do aluno e\n-->", &(*change).year, "0");
+
     // Regime 
-    printf("Este e o regime do aluno --> %s\n", (*change).regime);
-    answer = check_answer();
-    if(answer == 'y'){
-        printf("O novo regime do aluno e\n-->");
-        fgets((*change).regime,50,stdin);
-    }    
+    printf("Este e o regime do aluno --> %s\n", (*change).regime); 
+    confirm_answer("O novo regime do aluno e\n-->", 0, (*change).regime); 
 }
 
 void change_list_data(Student_list head){
@@ -71,9 +59,9 @@ void change_list_data(Student_list head){
     student_numb = fgets_to_int(temp);
     
     node->data.numb = student_numb;
-    while(head->data.numb != node->data.numb)
+    while((head->data.numb != node->data.numb) && (head->next != NULL))
         head = head->next;
-    if(head == NULL){
+    if(head->data.numb != node->data.numb){
         printf("Nao existe ninguem com esse numero. Tente de novo.");
         change_list_data(copy);
     }
