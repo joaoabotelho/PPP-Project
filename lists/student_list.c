@@ -84,7 +84,7 @@ Student_list sort_student(Student_list head){
         for(i=0; i<size; i++){
 
                 Student_list copy = head; // creates a copy of the list every time it cycles
-                node->data = big->data;
+                node->data = big->data; // BUG: (SOLUTION) PRINT THE NODE
                 while(copy->next != NULL){
                         copy = copy->next;  
                         if((temp->data.numb < copy->data.numb) && (node->data.numb > copy->data.numb))
