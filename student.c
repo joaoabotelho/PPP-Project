@@ -10,22 +10,23 @@ void new_student(Student_list list){
     printf("Qual e o numero de aluno?\n-->");
     fgets(temp,50,stdin);
     new.numb = fgets_to_int(temp); 
-    //new.numb = 1 + rand() % 10;
+    
     printf("Que curso frequenta?\n-->");
     fgets(new.course,50,stdin);
         
     printf("Que ano frequenta?(1,2,3)\n-->");
     fgets(temp,50,stdin);
     new.year = fgets_to_int(temp);
-//    new.year = 1 + rand() % 3;
-    printf("Qual o seu regime?\n-->");
-    fgets(new.regime,50,stdin);
+    
+    printf("Qual o seu regime?\n");
+    regime(new.regime);
     append_student(list, new);
 }
 
 void change_student_data(Student* change) {
     char answer, temp[50];
-    
+    int numb = -1; 
+
     printf("### Esta a querer alterar os dados de um aluno ###\n\n");
    
    
@@ -43,7 +44,7 @@ void change_student_data(Student* change) {
 
     // Regime 
     printf("Este e o regime do aluno --> %s\n", (*change).regime); 
-    confirm_answer("O novo regime do aluno e\n-->", 0, (*change).regime); 
+    confirm_answer("O novo regime do aluno e", &numb, (*change).regime); 
 }
 
 void change_slist_data(Student_list head){
