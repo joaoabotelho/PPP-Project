@@ -20,7 +20,7 @@ void new_student(Student_list list){
     
     printf("Qual o seu regime?\n");
     regime(new.regime);
-    append_student(list, new);
+    append_student_wOrder(list, new);
 }
 
 void change_student_data(Student* change) {
@@ -47,7 +47,7 @@ void change_student_data(Student* change) {
     confirm_answer("O novo regime do aluno e", &numb, (*change).regime); 
 }
 
-void change_slist_data(Student_list head){
+void change_slist_data(Student_list head) {
     Student_list copy = head;
     int student_numb;
     char temp[50];
@@ -67,3 +67,27 @@ void change_slist_data(Student_list head){
     else
         change_student_data(&head->data);
 }
+
+void remove_student_data(Student_list head) {
+    Student_list copy = head;
+    int student_numb;
+    char temp[50];
+    
+    printf("### ESTA A QUERER REMOVER UM ALUNO DA BASE DE DADOS ###\n\n");
+    printf("Que aluno deseja remover?(n de aluno)\n)");
+    print_student_list(head);
+    printf("-->");
+    fgets(temp,50,stdin);
+    student_numb = fgets_to_int(temp);
+    
+    while((head->data.numb != student_numb) && (head->next != NULL))
+        head = head->next;
+    if(head->data.numb != student_numb){
+        printf("Nao existe ninguem com esse numero. Tente de novo.");
+        remove_student_data(copy);
+    }
+    else
+        removes_from_student_list(copy, student_numb);
+        printf("Aluno numero: %d foi retirado da base de dados\n\n", student_numb); 
+}
+    
