@@ -63,13 +63,3 @@ void remove_class_data(Classes_list head) {
         removes_from_classes_list(copy, head->data);
         printf("A disciplina: %s foi retirado da base de dados\n\n", class_name);
 }
-        
-
-
-
-
-
-
-
-
-
