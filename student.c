@@ -46,11 +46,10 @@ void change_student_data(Student* change) {
     confirm_answer("O novo regime do aluno e\n-->", 0, (*change).regime); 
 }
 
-void change_list_data(Student_list head){
-    Student_list node, copy = head;
+void change_slist_data(Student_list head){
+    Student_list copy = head;
     int student_numb;
     char temp[50];
-    node = (Student_list) malloc (sizeof (Student_node));
    
     printf("Que aluno deseja alterar?(n de aluno)\n");
     print_student_list(head);
@@ -58,12 +57,11 @@ void change_list_data(Student_list head){
     fgets(temp,50,stdin);
     student_numb = fgets_to_int(temp);
     
-    node->data.numb = student_numb;
-    while((head->data.numb != node->data.numb) && (head->next != NULL))
+    while((head->data.numb != student_numb) && (head->next != NULL))
         head = head->next;
-    if(head->data.numb != node->data.numb){
+    if(head->data.numb != student_numb){
         printf("Nao existe ninguem com esse numero. Tente de novo.");
-        change_list_data(copy);
+        change_slist_data(copy);
     }
     else
         change_student_data(&head->data);

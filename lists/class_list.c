@@ -18,6 +18,7 @@ Classes_list create_classes_list(){
     Classes_list aux;
     Class null;
     aux = (Classes_list) malloc (sizeof (Classes_node));
+
     if(aux != NULL){
         aux->data = null;
         aux->next = NULL;
@@ -27,9 +28,12 @@ Classes_list create_classes_list(){
 
 void print_classes_list(Classes_list head){
     Classes_list I = head->next;
+
+    printf("### LISTA ACTUAL DE DISCIPLINAS ###\n\n");
     while(I){
         printf("Disciplina--> %s\n", I->data.name);
-        printf("Docente--> %s\n", I->data.name);
+        printf("Docente--> %s\n", I->data.teacher);
+        printf("---------------------------\n");
         I = I->next;
     }
 }
@@ -37,6 +41,7 @@ void print_classes_list(Classes_list head){
 void append_class(Classes_list head, Class new){
     Classes_list node;
     node = (Classes_list) malloc (sizeof (Classes_node));
+
     node->data = new;
     while(head->next != NULL)
         head = head->next;

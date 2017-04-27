@@ -21,11 +21,20 @@ void menu(Student_list list_student, Classes_list list_class) {
             case '1': 
                 new_student(list_student);
                 break;
-            case '2': // BUG: dont change the first element of the  list in the menu;
-                change_list_data(list_student);
+            case '2': 
+                change_slist_data(list_student);
                 break;
             case '3':
                 print_student_list(list_student);
+                break;
+            case '4':
+                new_class(list_class);
+                break;
+            case('5'):
+                change_clist_data(list_class);
+                break;
+            case '6':
+                print_classes_list(list_class);
                 break;
             default:
                 printf("Wrong choice. Enter again.\n");
