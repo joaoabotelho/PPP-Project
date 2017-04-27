@@ -42,46 +42,28 @@ void change_clist_data(Classes_list head) {
         else
             change_classes_data(&head->data);
 }        
+ 
+void remove_class_data(Classes_list head) {
+    Classes_list copy = head;
+    char class_name[50];
+    
+    printf("### ESTA A QUERER REMOVER UMA DISCIPLINA DA BASE DE DADOS ###\n\n");
+    printf("Que disciplina deseja remover?(n de aluno)\n");
+    print_classes_list(head);
+    printf("-->");
+    fgets(class_name,50,stdin);
+ 
+    while((strcmp(head->data.name, class_name) != 0) && (head->next != NULL))
+        head = head->next;
+    if(strcmp(head->data.name, class_name) != 0) {
+        printf("Nao existe ninguem com esse numero. Tente de novo.");
+        remove_class_data(copy);
+    }
+    else
+        removes_from_classes_list(copy, head->data);
+        printf("A disciplina: %s foi retirado da base de dados\n\n", class_name);
+}
         
-/*
-void change(node_t *head)
-{
-    node_t *temp;
-    temp=head;
-    while (temp!=NULL)
-    {
-        change_data(&temp->val);
-        temp=temp->next;
-    }
-}
-
-// void remove_data(Classes *cls)
-
-
-void remov(node_t *head)
-{
-    int n=0;
-    char classname[50];
-    node_t *temp;
-    temp=head;
-    printf("### Esta a querer remover os dados de uma disciplina ###\n\n");
-    printf("Introduza o nome da disciplina que pretende remover.");
-    fflush(stdin);
-    fgets(classname,50,stdin);
-    while ((temp!=NULL) && (n==0))
-    {
-        if (strcmp(temp->val.name,classname)==0)
-        {
-            n=1;
-            // remove_data(&temp->val);
-        }
-        temp=temp->next;
-    }
-}
-*/
-
-
-
 
 
 
