@@ -1,6 +1,6 @@
 #include "lists/class_list.c"
 
-void new_class(Classes_list head){
+void new_class(Classes_list head) {
     Class new;
 
     printf("### Esta a criar uma nova disciplina ###\n\n");
@@ -11,66 +11,55 @@ void new_class(Classes_list head){
     append_class(head, new);
 }
 
-void change_classes_data(Class* cls){
+void change_classes_data(Class* cls) {
         char answer;
               
         printf("### Esta a querer alterar os dados de uma disciplina ###\n\n");
+       
         // Name
         printf("Este e o nome da disciplina --> %s\n", (*cls).name);
-        answer = check_answer();
-        if(answer == 'y'){
-            printf("O novo nome da disciplina e\n-->\n");
-            fgets((*cls).name,50,stdin);
-        }
+        confirm_answer("O novo nome da disciplina e\n-->", 0, (*cls).name); 
+
         // Teacher
         printf("Este e o nome do professor--> %s\n\n", (*cls).teacher);
-        answer = check_answer();
-        if(answer == 'y'){
-            printf("O nome do novo professor da disciplina e\n-->\n");
-            fgets((*cls).teacher,50,stdin);
+        confirm_answer("O nome do novo professor da disciplina e\n-->", 0, (*cls).teacher); 
+}
+
+void change_clist_data(Classes_list head) {
+        Classes_list copy = head;
+        char class_name[50];
+
+        printf("Que disciplina deseja alterar?\n");
+        print_classes_list(head);
+        printf("-->");
+        fgets(class_name,50,stdin);
+        while((strcmp(head->data.name, class_name) != 0) && (head->next != NULL))
+            head = head->next;
+        if(strcmp(head->data.name, class_name) != 0) {
+            printf("Nao existe nenhuma disciplina com esse nome. Tente de novo.\n");
+            change_clist_data(copy);
         }
-}
-/*
-void change(node_t *head)
-{
-    node_t *temp;
-    temp=head;
-    while (temp!=NULL)
-    {
-        change_data(&temp->val);
-        temp=temp->next;
+        else
+            change_classes_data(&head->data);
+}        
+ 
+void remove_class_data(Classes_list head) {
+    Classes_list copy = head;
+    char class_name[50];
+    
+    printf("### ESTA A QUERER REMOVER UMA DISCIPLINA DA BASE DE DADOS ###\n\n");
+    printf("Que disciplina deseja remover?(n de aluno)\n");
+    print_classes_list(head);
+    printf("-->");
+    fgets(class_name,50,stdin);
+ 
+    while((strcmp(head->data.name, class_name) != 0) && (head->next != NULL))
+        head = head->next;
+    if(strcmp(head->data.name, class_name) != 0) {
+        printf("Nao existe ninguem com esse numero. Tente de novo.");
+        remove_class_data(copy);
     }
+    else
+        removes_from_classes_list(copy, head->data);
+        printf("A disciplina: %s foi retirado da base de dados\n\n", class_name);
 }
-
-void remov(node_t *head){
-    char classname[50];
-    node_t *temp,*ant,*actual;
-    temp=head;
-    ant=temp;
-    actual=temp->next;
-    printf("### Esta a querer remover os dados de uma disciplina ###\n\n");
-    printf("Introduza o nome da disciplina que pretende remover.");
-    fflush(stdin);
-    fgets(classname,50,stdin);
-    while (temp!=NULL){
-        if (strcmp(temp->val.name,classname)==0){
-            ant->next = actual->next;
-            free (actual);
-            break;
-        }
-        ant=actual;
-        actual=temp->next;
-        temp=temp->next;
-    }
-}
-*/
-
-
-
-
-
-
-
-
-
-
