@@ -12,9 +12,9 @@ void menu(Student_list list_student, Classes_list list_class) {
     char choice[50];
 
     while(1) { 
-        printf("@@@@@@      Welcome to this app      @@@@@@\n");
-        printf("$ MENU $\t1.Crie um novo perfil estudante.\t2.Mude os dados de um estudante.\t3.Mostrar a lista de estudantes.\n");
-        printf("        \t4.Crie uma numa disciplina.\t5.Mude os dados de uma disciplina.\t6.Mostrar as disciplinas existentes.\n-->");
+        printf("@@@@@@      Welcome to this app      @@@@@@\n\n");
+        printf("$ MENU $\t1.Crie um novo perfil estudante.\t2.Mude os dados de um estudante.\t3.Mostrar a lista de estudantes.\t4.Remover um estudant da base de dados.\n");
+        printf("        \t5.Crie uma numa disciplina.\t6.Mude os dados de uma disciplina.\t7.Mostrar as disciplinas existentes.\t8.Remover uma disciplina da base de dados.\n-->");
         fgets(choice,50,stdin);
 
         switch(choice[0]) {
@@ -28,12 +28,15 @@ void menu(Student_list list_student, Classes_list list_class) {
                 print_student_list(list_student);
                 break;
             case '4':
+                remove_student_data(list_student);
+                break;
+            case '5':
                 new_class(list_class);
                 break;
-            case('5'):
+            case('6'):
                 change_clist_data(list_class);
                 break;
-            case '6':
+            case '7':
                 print_classes_list(list_class);
                 break;
             default:
