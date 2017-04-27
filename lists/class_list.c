@@ -26,6 +26,28 @@ Classes_list create_classes_list(){
     return aux;
 }
 
+void search_classes_list(Classes_list head, Class search, Classes_list *prev, Classes_list *curr) {
+
+    *prev = head;
+    *curr = head->next;
+    while((*curr) != NULL && strcmp((*curr)->data.name, search.name) != 0) {
+        *prev = *curr;
+        *curr = (*curr)->next;
+    }
+    if((*curr) != NULL && strcmp((*curr)->data.name, search.name) != 0)
+        *curr = NULL;
+}
+
+void removes_from_classes_list(Classes_list head, Class remv) {
+    Classes_list prev, curr;
+
+    search_classes_list(head, remv, &prev, &curr);
+    if(curr != NULL) {
+        prev->next = curr->next;
+        free(curr);
+    }
+}
+
 void print_classes_list(Classes_list head){
     Classes_list I = head->next;
 
@@ -49,5 +71,3 @@ void append_class(Classes_list head, Class new){
     head = node;
     head->next = NULL;
 }
-
-

@@ -39,6 +39,9 @@ void menu(Student_list list_student, Classes_list list_class) {
             case '7':
                 print_classes_list(list_class);
                 break;
+            case '8':
+                remove_class_data(list_class);
+                break;
             default:
                 printf("Wrong choice. Enter again.\n");
                 break;
@@ -52,13 +55,6 @@ int main() {
     Classes_list list_class = create_classes_list();
 
     menu(list_student, list_class);
-   /* new_student(list_student);
-    new_student(list_student);
-    new_student(list_student);
-    print_student_list(list_student);
-    //lala = sort_student(jabuga);
-    //print_student_list(lala);
-    change_list_data(list_student);
-    print_student_list(list_student);*/
+   
     return 0;
 }
