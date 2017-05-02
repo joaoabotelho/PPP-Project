@@ -1,8 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-
 typedef struct student{
     int numb;
     char course[50];
@@ -72,6 +67,33 @@ void print_student_list(Student_list head){
         printf("Regime do estudante--> %s\n", I->data.regime);
         printf("----------------------\n\n");
         I = I->next;
+    }
+}
+
+void regime(char str[]) {
+    char temp[50];
+
+    printf("1.Normal\n2.Trabalhador-estudante\n3.Atleta\n4.Dirigente associativo\n5.Aluno de Erasmus\n-->");
+    fgets(temp,50,stdin);
+    switch(temp[0]) {
+        case '1':
+            strcpy(str, "Normal");
+            break;
+        case '2':
+            strcpy(str, "Trabalhador-estudante");
+            break;
+        case '3':
+            strcpy(str, "Atleta");
+            break;
+        case '4':
+            strcpy(str, "Dirigente associativo");
+            break;
+        case '5':
+            strcpy(str, "Aluno de Erasmus");
+            break;
+        default:
+            printf("Wrong choice. Enter again.\n");
+            regime(str);
     }
 }
 

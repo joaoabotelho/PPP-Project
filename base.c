@@ -7,34 +7,11 @@ int fgets_to_int(char *temp) {
     numb = atoi(temp);
     return numb;
 }
-
-void regime(char str[]) {
+void fgets_int(int *numb) {
     char temp[50];
-
-    printf("1.Normal\n2.Trabalhador-estudante\n3.Atleta\n4.Dirigente associativo\n5.Aluno de Erasmus\n-->");
     fgets(temp,50,stdin);
-    switch(temp[0]) {
-        case '1':
-            strcpy(str, "Normal");
-            break;
-        case '2':
-            strcpy(str, "Trabalhador-estudante");
-            break;
-        case '3':
-            strcpy(str, "Atleta");
-            break;
-        case '4':
-            strcpy(str, "Dirigente associativo");
-            break;
-        case '5':
-            strcpy(str, "Aluno de Erasmus");
-            break;
-        default:
-            printf("Wrong choice. Enter again.\n");
-            regime(str);
-    }
+    *numb = fgets_to_int(temp);
 }
-
 
 char check_answer() {
     char answer[50];
@@ -60,3 +37,20 @@ void confirm_answer(char print[], int *numb, char str[]) {
         }
     }
 }
+
+void time_of_exam(Time *time, int n, int hour, int minutes) {
+    Time time_available[n];
+    int i;
+    
+    possible_hours(time_available, n, hour, minutes);
+    printf("Horas disponiveis:\n\n");
+    for (i = 0; i < n; i++) {
+        printf("%d.\t%d : %d\n", i+1, time_available[i].hour, time_available[i].minutes);
+    }
+
+    fgets_int(&i);
+    (*time).hour = time_available[i-1].hour;
+    (*time).minutes = time_available[i-1].minutes;
+}
+
+

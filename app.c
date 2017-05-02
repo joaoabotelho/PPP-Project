@@ -3,12 +3,15 @@
 #include <string.h>
 #include <ctype.h>
 
+#include "lists/student_list.c"
+#include "lists/class_list.c"
+#include "lists/exam_list.c"
 #include "base.c"
 #include "student.c"
 #include "classes.c"
+#include "exams.c"
 
-
-void menu(Student_list list_student, Classes_list list_class) {
+void menu(Student_list list_student, Classes_list list_class, Exams_list list_exam) {
     char choice[50];
 
     while(1) { 
@@ -42,19 +45,23 @@ void menu(Student_list list_student, Classes_list list_class) {
             case '8':
                 remove_class_data(list_class);
                 break;
+            case '9':
+                create_exam(list_exam, list_class);
+                break;
             default:
                 printf("Wrong choice. Enter again.\n");
                 break;
         } 
-        menu(list_student, list_class);
+        menu(list_student, list_class, list_exam);
     }
 }
 
 int main() { 
     Student_list list_student = create_students_list();
     Classes_list list_class = create_classes_list();
+    Exams_list list_exam = create_exams_list();
 
-    menu(list_student, list_class);
+    menu(list_student, list_class, list_exam);
    
     return 0;
 }
