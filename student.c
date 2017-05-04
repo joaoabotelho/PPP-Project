@@ -1,22 +1,17 @@
 #include <time.h>
 
-#include "lists/student_list.c"
-
-void new_student(Student_list list){
+void new_student(Student_list list) {
     Student new;
-    char temp[50];
 
     printf("### Esta a criar um novo aluno ###\n\n");
     printf("Qual e o numero de aluno?\n-->");
-    fgets(temp,50,stdin);
-    new.numb = fgets_to_int(temp); 
+    fgets_int(&new.numb);
     
     printf("Que curso frequenta?\n-->");
     fgets(new.course,50,stdin);
         
     printf("Que ano frequenta?(1,2,3)\n-->");
-    fgets(temp,50,stdin);
-    new.year = fgets_to_int(temp);
+    fgets_int(&new.year);
     
     printf("Qual o seu regime?\n");
     regime(new.regime);
@@ -50,13 +45,11 @@ void change_student_data(Student* change) {
 void change_slist_data(Student_list head) {
     Student_list copy = head;
     int student_numb;
-    char temp[50];
    
     printf("Que aluno deseja alterar?(n de aluno)\n");
     print_student_list(head);
     printf("-->");
-    fgets(temp,50,stdin);
-    student_numb = fgets_to_int(temp);
+    fgets_int(&student_numb);
     
     while((head->data.numb != student_numb) && (head->next != NULL))
         head = head->next;
@@ -71,14 +64,12 @@ void change_slist_data(Student_list head) {
 void remove_student_data(Student_list head) {
     Student_list copy = head;
     int student_numb;
-    char temp[50];
     
     printf("### ESTA A QUERER REMOVER UM ALUNO DA BASE DE DADOS ###\n\n");
     printf("Que aluno deseja remover?(n de aluno)\n)");
     print_student_list(head);
     printf("-->");
-    fgets(temp,50,stdin);
-    student_numb = fgets_to_int(temp);
+    fgets_int(&student_numb); 
     
     while((head->data.numb != student_numb) && (head->next != NULL))
         head = head->next;

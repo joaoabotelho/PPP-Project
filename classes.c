@@ -1,5 +1,3 @@
-#include "lists/class_list.c"
-
 void new_class(Classes_list head) {
     Class new;
 
@@ -27,20 +25,10 @@ void change_classes_data(Class* cls) {
 
 void change_clist_data(Classes_list head) {
         Classes_list copy = head;
-        char class_name[50];
 
         printf("Que disciplina deseja alterar?\n");
-        print_classes_list(head);
-        printf("-->");
-        fgets(class_name,50,stdin);
-        while((strcmp(head->data.name, class_name) != 0) && (head->next != NULL))
-            head = head->next;
-        if(strcmp(head->data.name, class_name) != 0) {
-            printf("Nao existe nenhuma disciplina com esse nome. Tente de novo.\n");
-            change_clist_data(copy);
-        }
-        else
-            change_classes_data(&head->data);
+        get_class(&head);
+        change_classes_data(&head->data);
 }        
  
 void remove_class_data(Classes_list head) {
@@ -49,19 +37,9 @@ void remove_class_data(Classes_list head) {
     
     printf("### ESTA A QUERER REMOVER UMA DISCIPLINA DA BASE DE DADOS ###\n\n");
     printf("Que disciplina deseja remover?(n de aluno)\n");
-    print_classes_list(head);
-    printf("-->");
-    fgets(class_name,50,stdin);
- 
-    while((strcmp(head->data.name, class_name) != 0) && (head->next != NULL))
-        head = head->next;
-    if(strcmp(head->data.name, class_name) != 0) {
-        printf("Nao existe ninguem com esse numero. Tente de novo.");
-        remove_class_data(copy);
-    }
-    else
-        removes_from_classes_list(copy, head->data);
-        printf("A disciplina: %s foi retirado da base de dados\n\n", class_name);
+    get_class(&head);
+    removes_from_classes_list(copy, head->data);
+    printf("A disciplina: %s foi retirado da base de dados\n\n", class_name);
 }
         
 
