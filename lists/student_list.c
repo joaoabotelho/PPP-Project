@@ -22,6 +22,7 @@ Student_list create_students_list(){
     }
     return aux;
 }
+
 void search_student_list(Student_list head, int student_numb, Student_list *prev, Student_list *curr) {
 
     *prev = head;
@@ -92,7 +93,7 @@ void regime(char str[]) {
             strcpy(str, "Aluno de Erasmus");
             break;
         default:
-            printf("Wrong choice. Enter again.\n");
+            printf("Escolha errada. Tente de novo.\n");
             regime(str);
     }
 }

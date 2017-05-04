@@ -7,6 +7,7 @@ int fgets_to_int(char *temp) {
     numb = atoi(temp);
     return numb;
 }
+
 void fgets_int(int *numb) {
     char temp[50];
     fgets(temp,50,stdin);

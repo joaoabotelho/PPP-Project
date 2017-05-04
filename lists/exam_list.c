@@ -10,8 +10,9 @@ typedef struct time {
 } Time;
 
 typedef struct classroom {
-    float numb;
     char letter;
+    int floor;
+    int room;
 } Classroom;
 
 typedef struct rnode *Classroom_list;
@@ -42,7 +43,7 @@ Exams_list create_exams_list() {
     Exam null;
 
     aux = (Exams_list) malloc (sizeof (Exams_node));
-    if(aux != NULL){
+    if(aux != NULL) {
         aux->data = null;
         aux->next = NULL;
     }
@@ -54,7 +55,7 @@ Classroom_list create_classroom_list() {
     Classroom null;
 
     aux = (Classroom_list) malloc (sizeof (Classrooms_node));
-    if(aux != NULL){
+    if(aux != NULL) {
         aux->data = null;
         aux->next = NULL;
     }
@@ -63,8 +64,8 @@ Classroom_list create_classroom_list() {
 void print_classroom_list(Classroom_list head) {
     Classroom_list I = head->next;
 
-    while(I){
-        printf("Sala--> %c %f\n", I->data.letter, I->data.numb);
+    while(I) { 
+        printf("Sala--> %c%d.%d\n", I->data.letter, I->data.floor, I->data.room);
         I=I->next;
     }
 
@@ -73,23 +74,51 @@ void print_classroom_list(Classroom_list head) {
 void print_exams_list(Exams_list head) {
     Exams_list I = head->next;
 
-    while(I){
+    while(I) {
         printf("%s\n", I->data.type);
         printf("Nome da Disciplina--> %s\n", I->data.subject.name);
         printf("Docente da Disciplina--> %s\n", I->data.subject.teacher);
         printf("Data do exame--> %d / %d / %d\n", I->data.date.day, I->data.date.month, I->data.date.year);
-        printf("Hora do exame--> %d : %d\n", I->data.time.hour, I->data.time.minutes);
-        printf("Duracao do exame--> %d : %d\n", I->data.duration.hour, I->data.duration.minutes);
-//        printf("Lista de salas do exame\n\n");
-  //      print_classroom_list(I->data.classrooms);
+        printf("Inicio do exame--> %d : %d\n", I->data.time.hour, I->data.time.minutes);
+        printf("Fim do exame--> %d : %d\n", I->data.final.hour, I->data.final.minutes);
+        print_classroom_list(I->data.classrooms);
         I = I->next;
     }
+}
+
+int search_room(Exams_list head, Classroom room) {
+    Classroom_list copy;
+    int num = 0;
+
+    while(head->next != NULL) {
+        head = head->next;
+        copy = head->data.classrooms;
+        while(copy->next != NULL) {
+            copy = copy->next;
+            if((copy->data.letter == room.letter) && (copy->data.floor == room.floor) && (copy->data.room == room.room))
+                num = 1;
+        }   
+    }
+    return num;
 }
 
 void append_exam(Exams_list head, Exam new) {
     Exams_list node;
 
     node = (Exams_list) malloc (sizeof (Exams_node));
+    node->data = new;
+
+    while(head->next != NULL)
+        head = head->next;
+    head->next = node;
+    head = node;
+    head->next = NULL;
+}
+
+void append_classroom(Classroom_list head, Classroom new) {
+    Classroom_list node;
+
+    node = (Classroom_list) malloc (sizeof (Classrooms_node));
     node->data = new;
 
     while(head->next != NULL)
@@ -107,6 +136,15 @@ int comparehours(Time a,Time b) {
         return -1; // "a" after "b"
     else
         return 1; // "b" after "a"
+}
+
+int compare_dates(Date a,Date b) {
+    if ((a.day==b.day) && (a.month==b.month) && (a.year==b.year))
+        return 0;
+    if ((a.year>b.year) || ((a.year==b.year) && (a.month>b.month)) || ((a.year==b.year) && (a.month==b.month) && (a.day>b.day)))
+        return -1;
+    else
+        return 1;
 }
 
 void type_of_exam(char str[]) {
@@ -147,22 +185,4 @@ void possible_hours(Time time_available[], int n, int hour, int minutes) {
     }
 }
 
-void possible_room(Exams_list head, Date date, Time time, Time final, Classroom_list *exam_room) {
-    Exams_list node = create_exams_list();;
-    Exams_list cnode = create_exams_list();
 
-    while(head->next != NULL) {
-        if((head->data.date.day == date.day) && (head->data.date.month == date.month) && (head->data.date.year == date.year)) 
-            append_exam(node, head->data);
-        head = head->next;
-    
-    }
-    while(node->next != NULL) {
-        if(((comparehours(node->data.time, time) == 1) && (comparehours(node->data.final, time) == -1)) || ((comparehours(node->data.time, final) == 1) && (comparehours(node->data.final, final) == -1)) || (comparehours(node->data.time, time) == 0) || (comparehours(node->data.final, final) == 0)) {
-            append_exam(cnode, node->data);
-            node = node->next;
-        }
-    }
-
-    
-}

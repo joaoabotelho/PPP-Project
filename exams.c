@@ -1,5 +1,66 @@
+void chose_room(Exams_list head, Classroom *new) {   
+    char temp[50];
+
+    printf("Bloco?\n");
+    fgets(temp,50,stdin); // funcao check_answer para 1 char tirar o print
+    strncpy(&(*new).letter, temp, 1);
+
+    printf("Piso?\n");
+    fgets_int(&(*new).floor);
+
+    printf("Sala?\n");
+    fgets_int(&(*new).room);
+
+    if(search_room(head, *new) == 1) {
+        printf("Essa sala esta ocupada. Por favor escolha outra.\n");
+        chose_room(head, new);
+    }
+}
+
+void check_same_dates(Exams_list head, Exams_list *node, Date date) {
+
+    while(head->next != NULL) {
+        head = head->next;
+        if(compare_dates(head->data.date, date) == 0)
+            append_exam(*node, head->data);
+    }
+} 
+
+void check_same_time(Exams_list head, Exams_list *node, Time time, Time final) {
+    while(head->next != NULL) {
+        head = head->next;
+        if(((comparehours(head->data.time, time) == 1) && (comparehours(head->data.final, time) == -1)) || ((comparehours(head->data.time, final) == 1) && (comparehours(head->data.final, final) == -1)) || (comparehours(head->data.time, time) == 0) || (comparehours(head->data.final, final) == 0)) {
+            append_exam(*node, head->data);
+        }
+    }
+}    
+void possible_room(Exams_list head, Date date, Time time, Time final, Classroom_list exam_room) {
+    Exams_list node = create_exams_list();;
+    Exams_list cnode = create_exams_list();
+    Exams_list copy;
+    Classroom new;
+   
+    check_same_dates(head, &node, date);
+
+    if(node->next != NULL) {
+        check_same_time(node, &cnode, time, final);
+        copy = cnode; 
+        printf("### Estas salas estao ocupadas ###\n");
+        while(cnode->next != NULL) {
+            cnode = cnode->next;
+            print_classroom_list(cnode->data.classrooms);
+            printf("-------------------\n"); 
+        }
+        chose_room(copy, &new);
+    } else 
+        chose_room(cnode, &new);
+
+    append_classroom(exam_room, new);
+}
+
 void create_exam(Exams_list head, Classes_list classes){
     Exam new;
+    Exams_list copy = head;
     char class_name[50];
 
     printf("### Esta a criar um novo exame ###\n\n");
@@ -10,7 +71,7 @@ void create_exam(Exams_list head, Classes_list classes){
     printf("Qual e o tipo do exame?\n");
     type_of_exam(new.type);
 
-    printf("A que dia/mes/ano se realiza o exame?\n(Day)-->"); // YEAR??
+    printf("A que dia/mes/ano se realiza o exame?\n(Day)-->");
     fgets_int(&new.date.day); 
     printf("\n(Month)-->");
     fgets_int(&new.date.month);
@@ -31,17 +92,14 @@ void create_exam(Exams_list head, Classes_list classes){
     }
 
     new.students_submited = create_students_list();
+
     new.classrooms = create_classroom_list();
+    possible_room(copy, new.date, new.time, new.final, new.classrooms);
+    
+    append_exam(head, new);
 }
 /* FOR REVIEW
-int comparedates(Date a,Date b) {
-    if ((a.day==b.day) && (a.year==b.year) && (a.year==b.year))
-        return 0;
-    if ((a.year>b.year) || ((a.year==b.year) && (a.month>b.month)) || ((a.year==b.year) && (a.month==b.month) && (a.day>b.day)))
-        return -1; //a mais recente que b
-    else
-        return 1;
-}
+
 
 void remov(Exams_list head)
 {
