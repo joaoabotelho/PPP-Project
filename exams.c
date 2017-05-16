@@ -18,7 +18,6 @@ void chose_room(Exams_list head, Classroom *new) {
 }
 
 void check_same_dates(Exams_list head, Exams_list *node, Date date) {
-
     while(head->next != NULL) {
         head = head->next;
         if(compare_dates(head->data.date, date) == 0)
@@ -96,51 +95,13 @@ void create_exam(Exams_list head, Classes_list classes){
     new.classrooms = create_classroom_list();
     possible_room(copy, new.date, new.time, new.final, new.classrooms);
     
-    append_exam(head, new);
+     append_exam(head, new);
 }
-/* FOR REVIEW
 
-
-void remov(Exams_list head)
-{
-    int day,month,year,hour,minutes;
-    Date a0;
-    Time a1;
-    Exams_list I = head->next;
-    Exams_list ant,current;
-    ant=I;
-    current=I->next;
-    printf("### Esta funÁ„o vai remover os dados dos exames passados ###\n\n");
-    printf("Introduza a data de hoje.\n");
-    printf("Dia:\n");
-    scanf("%d",&a.day);
-    printf("MÍs:\n");
-    scanf("%d",&a.month);
-    printf("Ano:\n");
-    scanf("%d",&a.year);
-    printf("Hora:\n");
-    scanf("%d",&a1.hour);
-    printf("Minutos:\n");
-    scanf("%d",&a1.minutes);
-    while (temp!=NULL)
-    {
-        if (compare(a0,I->data.date)==-1)
-        {
-            ant->next = current->next;
-            free (current);
-
-        }
-        if (compare(a0,I->data.date)==0)
-        {
-            if (comparehours(a0,I->data.time)==-1))
-            {
-                ant->next = current->next;
-                free (current);
-            }
-
-        }
-        ant=current;
-        current=I->next;
-        I=I->next;
-    }
-}*/
+void submit_students(Student_list all, Exams_list head) {
+    printf("\n\n### Esta a querer submeter um aluno a um exame ###/n/n");
+    printf("Exame em causa\n-->");
+    
+    
+    
+}

@@ -73,16 +73,21 @@ void print_classroom_list(Classroom_list head) {
 
 void print_exams_list(Exams_list head) {
     Exams_list I = head->next;
+    int i = 1;
 
+    printf("\n\n#### Lista de exames ####");
     while(I) {
-        printf("\n\n%s\n", I->data.type);
+        printf("\nExame num --> %d\n", i);
+        printf("%s\n", I->data.type);
         printf("Nome da Disciplina--> %s\n", I->data.subject->name);
         printf("Docente da Disciplina--> %s\n", I->data.subject->teacher);
         printf("Data do exame--> %d / %d / %d\n", I->data.date.day, I->data.date.month, I->data.date.year);
         printf("Inicio do exame--> %d : %d\n", I->data.time.hour, I->data.time.minutes);
         printf("Fim do exame--> %d : %d\n", I->data.final.hour, I->data.final.minutes);
         print_classroom_list(I->data.classrooms);
+        printf("--------------------\n");
         I = I->next;
+        i++;
     }
 }
 
@@ -102,17 +107,44 @@ int search_room(Exams_list head, Classroom room) {
     return num;
 }
 
+int comparehours(Time a,Time b) {
+    if ((a.hour == b.hour) && (a.minutes == b.minutes))
+        return 0; // "a" = "b"
+    else if ((a.hour > b.hour) || ((a.hour == b.hour) && (a.minutes > b.minutes)))
+        return -1; // "a" after "b"
+    else
+        return 1; // "b" after "a"
+}
+
+int compare_dates(Date a,Date b) {
+    if ((a.day==b.day) && (a.month==b.month) && (a.year==b.year))  
+        return 0;
+    if ((a.year>b.year) || ((a.year==b.year) && (a.month>b.month)) || ((a.year==b.year) && (a.month==b.month) && (a.day>b.day)))
+        return -1;
+    else
+        return 1;
+}
+
+void search_exam_list(Exams_list head, Date date, Time time, Exams_list *prev, Exams_list *curr) {
+     
+    *prev = head;
+    *curr = head->next;
+    while(((*curr) != NULL) && ((compare_dates(date, (*curr)->data.date) == -1) || (comparehours(time, (*curr)->data.time)))) {
+        *prev = *curr;
+        *curr = (*curr)->next;
+    }
+}
+
 void append_exam(Exams_list head, Exam new) {
-    Exams_list node;
+    Exams_list node, prev, useless;
 
     node = (Exams_list) malloc (sizeof (Exams_node));
-    node->data = new;
-
-    while(head->next != NULL)
-        head = head->next;
-    head->next = node;
-    head = node;
-    head->next = NULL;
+    if(node != NULL) {
+        node->data = new;
+        search_exam_list(head, new.date, new.time, &prev, &useless);
+        node->next = prev->next;
+        prev->next = node;
+    }
 }
 
 void append_classroom(Classroom_list head, Classroom new) {
@@ -126,25 +158,6 @@ void append_classroom(Classroom_list head, Classroom new) {
     head->next = node;
     head = node;
     head->next = NULL;
-}
-
-int comparehours(Time a,Time b) {
-
-    if ((a.hour == b.hour) && (a.minutes == b.minutes))
-        return 0; // "a" = "b"
-    else if ((a.hour > b.hour) || ((a.hour == b.hour) && (a.minutes > b.minutes)))
-        return -1; // "a" after "b"
-    else
-        return 1; // "b" after "a"
-}
-
-int compare_dates(Date a,Date b) {
-    if ((a.day==b.day) && (a.month==b.month) && (a.year==b.year))
-        return 0;
-    if ((a.year>b.year) || ((a.year==b.year) && (a.month>b.month)) || ((a.year==b.year) && (a.month==b.month) && (a.day>b.day)))
-        return -1;
-    else
-        return 1;
 }
 
 void type_of_exam(char str[]) {
@@ -184,5 +197,21 @@ void possible_hours(Time time_available[], int n, int hour, int minutes) {
         }
     }
 }
+/*
+void get_class(Exams_list *head) {
+    _name[50];
+    Exams_list *copy = head;
+
+    print_exams_list(*head);
+    printf("-->");
+    fgets(class_name,50,stdin);
+    while((strcmp((*head)->data.name, class_name) != 0) && ((*head)->next != NULL))
+        *head = (*head)->next;
+
+    if(strcmp((*head)->data.name, class_name) != 0) {
+        get_class(copy);
+    }
+}
+*/
 
 
