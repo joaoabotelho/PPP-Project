@@ -23,12 +23,12 @@ void change_classes_data(Class* cls) {
         confirm_answer("O nome do novo professor da disciplina e\n-->", 0, (*cls).teacher); 
 }
 
-void change_clist_data(Classes_list head) {
-        Classes_list copy = head;
+void change_clist_data(Classes_list *head) {
+        Classes_list copy = *head;
 
         printf("Que disciplina deseja alterar?\n");
-        get_class(&head);
-        change_classes_data(&head->data);
+        get_class(&(*head));
+        change_classes_data(&(*head)->data);
 }        
  
 void remove_class_data(Classes_list head) {

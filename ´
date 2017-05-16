@@ -105,13 +105,12 @@ int size_of_list(Student_list head) {
         head = head->next;
         elements++;
     }
-
     return elements;
 }
 
 int find_pivot(Student_list head) {
     int pivot, i;
-    int half_size = 1 + size_of_list(head)  / 2;
+    int half_size = size_of_list(head)  / 2;
     
     for(i = 0; i < half_size; i++) {
         head = head->next;
@@ -121,41 +120,22 @@ int find_pivot(Student_list head) {
     return pivot;
 }
 
-void join_student_list(Student_list first, Student_list last) {
-    
-    while (first->next != NULL)
-        first = first->next;
-    first->next = last->next;
-
-}
-
-void delete_student_list(Student_list *head) {
-    Student_list curr = *head;
-    Student_list after;
-
-    while (curr != NULL)
-    {
-        after = curr->next;
-        free(curr);
-        curr = after;
-    }
-    *head = create_students_list();
-}
-
 void quick_sort(Student_list *head) {
-
     int pivot = find_pivot(*head);
     Student_list smaller = create_students_list();
     Student_list bigger = create_students_list();
 
     while((*head)->next != NULL) {
-        (*head) = (*head)->next;
         if((*head)->data.numb < pivot)
             append_student_wOrder(smaller, (*head)->data);
         else
             append_student_wOrder(bigger, (*head)->data);
 
+        (*head) = (*head)->next;
     }
     
-    join_student_list(smaller, bigger);
+    while(smaller->next != NULL)
+        smaller = smaller->next;
+    smaller->next = bigger;
+    
 }

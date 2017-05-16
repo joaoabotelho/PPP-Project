@@ -63,10 +63,10 @@ void create_exam(Exams_list head, Classes_list classes){
     Exams_list copy = head;
     char class_name[50];
 
-    printf("### Esta a criar um novo exame ###\n\n");
+    printf("\n\n### Esta a criar um novo exame ###\n\n");
     printf("Disciplina em causa\n");
     get_class(&classes); 
-    new.subject = classes->data;
+    new.subject = &classes->data;
 
     printf("Qual e o tipo do exame?\n");
     type_of_exam(new.type);

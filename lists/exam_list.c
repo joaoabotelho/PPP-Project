@@ -23,7 +23,7 @@ typedef struct rnode {
 
 typedef struct exam {
     char type[50];
-    Class subject;
+    Class *subject;
     Date date;
     Time time;
     Time duration;
@@ -75,9 +75,9 @@ void print_exams_list(Exams_list head) {
     Exams_list I = head->next;
 
     while(I) {
-        printf("%s\n", I->data.type);
-        printf("Nome da Disciplina--> %s\n", I->data.subject.name);
-        printf("Docente da Disciplina--> %s\n", I->data.subject.teacher);
+        printf("\n\n%s\n", I->data.type);
+        printf("Nome da Disciplina--> %s\n", I->data.subject->name);
+        printf("Docente da Disciplina--> %s\n", I->data.subject->teacher);
         printf("Data do exame--> %d / %d / %d\n", I->data.date.day, I->data.date.month, I->data.date.year);
         printf("Inicio do exame--> %d : %d\n", I->data.time.hour, I->data.time.minutes);
         printf("Fim do exame--> %d : %d\n", I->data.final.hour, I->data.final.minutes);

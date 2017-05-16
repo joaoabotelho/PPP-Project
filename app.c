@@ -58,7 +58,7 @@ void main_menu(Student_list list_student, Classes_list list_class, Exams_list li
                 new_class(list_class);
                 break;
             case('6'):
-                change_clist_data(list_class);
+                change_clist_data(&list_class);
                 break;
             case '7':
                 print_classes_list(list_class);

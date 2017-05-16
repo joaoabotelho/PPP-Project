@@ -59,6 +59,11 @@ void change_slist_data(Student_list head) {
     }
     else
         change_student_data(&head->data);
+        quick_sort(&copy);
+        print_student_list(copy);
+        delete_student_list(&head);
+        print_student_list(head);
+        head = copy; 
 }
 
 void remove_student_data(Student_list head) {
