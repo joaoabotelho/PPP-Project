@@ -63,24 +63,24 @@ void create_exam(Exams_list head, Classes_list classes){
     char class_name[50];
 
     printf("\n\n### Esta a criar um novo exame ###\n\n");
-    printf("Disciplina em causa\n");
+    printf("\tDisciplina em causa\n");
     get_class(&classes); 
     new.subject = &classes->data;
 
-    printf("Qual e o tipo do exame?\n");
+    printf("\tQual e o tipo do exame?\n");
     type_of_exam(new.type);
 
-    printf("A que dia/mes/ano se realiza o exame?\n(Day)-->");
+    printf("\tA que dia/mes/ano se realiza o exame?\n(Day)-->");
     fgets_int(&new.date.day); 
-    printf("\n(Month)-->");
+    printf("\n\t\t(Month)-->");
     fgets_int(&new.date.month);
-    printf("\n(Year)-->");
+    printf("\n\t\t(Year)-->");
     fgets_int(&new.date.year);
 
-    printf("\nA que horas?\n\n");
+    printf("\n\tA que horas?\n\n");
     time_of_exam(&new.time, 19, 9, 0); 
 
-    printf("\nDuracao?\n\n");
+    printf("\n\tDuracao?\n\n");
     time_of_exam(&new.duration, 6, 0 ,30); 
 
     new.final.hour = new.time.hour + new.duration.hour;
@@ -94,14 +94,39 @@ void create_exam(Exams_list head, Classes_list classes){
 
     new.classrooms = create_classroom_list();
     possible_room(copy, new.date, new.time, new.final, new.classrooms);
-    
-     append_exam(head, new);
+
+    append_exam(head, new);
+}
+
+void search_exam(Exams_list *head) {
+    int num, i;
+
+    print_exams_list(*head);
+    printf("\tExame em causa (n de exame)\n-->");
+    fgets_int(&num);
+
+    for(i = 0; i < num; i++) {
+        *head = (*head)->next;
+    }
 }
 
 void submit_students(Student_list all, Exams_list head) {
+    Student_list copy_st = all;
+    Exams_list copy_ex = head;
+    int num, i, student_numb;
+
     printf("\n\n### Esta a querer submeter um aluno a um exame ###/n/n");
-    printf("Exame em causa\n-->");
+    search_exam(&head);
+
+    what_student(&all);
+
+    if(strncmp(head->data.type, "Epoca Especial", 14) == 0) {
+        if((strncmp(all->data.regime, "Normal", 6) == 0) && (all->data.year != 3)) {
+            printf("\tEste aluno não está elegivel para este exame.");
+            submit_students(copy_st, copy_ex);
+        }  
+    } 
     
-    
-    
+    append_student_wOrder(head->data.students_submited, all->data); 
+    print_student_list(head->data.students_submited); 
 }

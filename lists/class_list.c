@@ -47,10 +47,10 @@ void removes_from_classes_list(Classes_list head, Class remv) {
 void print_classes_list(Classes_list head) {
     Classes_list I = head->next;
 
-    printf("### LISTA ACTUAL DE DISCIPLINAS ###\n\n");
+    printf("\n\n### LISTA ACTUAL DE DISCIPLINAS ###\n\n");
     while(I){
-        printf("Disciplina--> %s\n", I->data.name);
-        printf("Docente--> %s\n", I->data.teacher);
+        printf("\tDisciplina--> %s\n", I->data.name);
+        printf("\tDocente--> %s\n", I->data.teacher);
         printf("---------------------------\n");
         I = I->next;
     }
@@ -60,13 +60,15 @@ void get_class(Classes_list *head) {
     char class_name[50];
     Classes_list *copy = head;
 
+    printf("\t Que disciplina pretende?");
     print_classes_list(*head);
-    printf("-->");
+    printf("\t-->");
     fgets(class_name,50,stdin);
+    
     while((strcmp((*head)->data.name, class_name) != 0) && ((*head)->next != NULL))
         *head = (*head)->next;
-
     if(strcmp((*head)->data.name, class_name) != 0) {
+        printf("\t\tNome de disciplina nao existente. Tende de novo.\n");
         get_class(copy);
     }
 }

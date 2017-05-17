@@ -44,9 +44,9 @@ void time_of_exam(Time *time, int n, int hour, int minutes) {
     int i;
     
     possible_hours(time_available, n, hour, minutes);
-    printf("Horas disponiveis:\n\n");
+    printf("\tHoras disponiveis:\n\n");
     for (i = 0; i < n; i++) {
-        printf("%d.\t%d : %d\n", i+1, time_available[i].hour, time_available[i].minutes);
+        printf("\t\t%d.\t%d : %d\n", i+1, time_available[i].hour, time_available[i].minutes);
     }
 
     fgets_int(&i);

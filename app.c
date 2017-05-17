@@ -14,7 +14,7 @@
 void exams_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam) {
     char choice[50];
 
-    printf("\n\n$ EXAMS MENU $\n\t1.Crie um novo exame.\n\t2.Mostrar os exames.\n-->");
+    printf("\n\n$ EXAMS MENU $\n\t1.Crie um novo exame.\n\t2.Mostrar os exames.\n\t3.Submeter um aluno a um exame.\n-->");
     fgets(choice,50,stdin);
 
     switch(choice[0]) {
@@ -24,6 +24,9 @@ void exams_menu(Student_list list_student, Classes_list list_class, Exams_list l
             break;
         case '2':
             print_exams_list(list_exam);
+            break;
+        case '3':
+            submit_students(list_student, list_exam);
             break;
         default:
             printf("Wrong choice. Enter again.\n");
@@ -72,6 +75,7 @@ void students_menu(Student_list list_student, Classes_list list_class, Exams_lis
             break;
         case '2': 
             change_slist_data(list_student);
+            bubbleSort(list_student);
             break;
         case '3':
             print_student_list(list_student);
@@ -88,7 +92,7 @@ void main_menu(Student_list list_student, Classes_list list_class, Exams_list li
     char choice[50];
 
     while(1) { 
-        printf("@@@@@@      Welcome to this app      @@@@@@\n\n");
+        printf("\n\n@@@@@@      Welcome to this app      @@@@@@\n\n");
         printf("$ MENU $\t1. Students Menu\n");
         printf("        \t2. Classes Menu\n"); 
         printf("        \t3. Exams Menu\n-->");
