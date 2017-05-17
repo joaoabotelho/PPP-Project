@@ -3,9 +3,12 @@ void new_class(Classes_list head) {
 
     printf("\n\n### Esta a criar uma nova disciplina ###\n\n");
     printf("\tQual o nome da disciplina?\n\t-->");
-    fgets(new.name,50,stdin);
+    new.name = (char *) malloc (CHAR_SIZE * sizeof(char));
+    fgets(new.name, CHAR_SIZE, stdin);
+
     printf("\tQual o nome do professor da disciplina?\n\t-->");
-    fgets(new.teacher,50,stdin);
+    new.teacher = (char *) malloc (CHAR_SIZE * sizeof(char));
+    fgets(new.teacher, CHAR_SIZE, stdin);
     append_class(head, new);
 }
 

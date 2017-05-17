@@ -1,6 +1,6 @@
 typedef struct class{
-    char name[50];
-    char teacher[50];
+    char *name;
+    char *teacher;
 } Class;
 
 typedef struct cnode *Classes_list;
@@ -57,13 +57,13 @@ void print_classes_list(Classes_list head) {
 }
 
 void get_class(Classes_list *head) {
-    char class_name[50];
+    char *class_name = (char *) malloc (CHAR_SIZE * sizeof(char));
     Classes_list *copy = head;
 
     printf("\t Que disciplina pretende?");
     print_classes_list(*head);
     printf("\t-->");
-    fgets(class_name,50,stdin);
+    fgets(class_name, CHAR_SIZE, stdin);
     
     while((strcmp((*head)->data.name, class_name) != 0) && ((*head)->next != NULL))
         *head = (*head)->next;

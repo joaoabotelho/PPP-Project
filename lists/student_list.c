@@ -1,17 +1,17 @@
-typedef struct student{
+typedef struct student {
     int numb;
-    char course[50];
+    char *course;
     int year;
-    char regime[50];
+    char *regime;
 } Student;
 
 typedef struct node *Student_list;
-typedef struct node{
+typedef struct node {
     Student data;
     Student_list next;
 } Student_node;
 
-Student_list create_students_list(){
+Student_list create_students_list() {
     Student_list aux;
     Student null;
 
@@ -45,13 +45,13 @@ void removes_from_student_list(Student_list head, int student_numb) {
     }
 }
 
-void append_student_wOrder(Student_list head, Student new) {
+void append_student_wOrder(Student_list *head, Student new) {
     Student_list node, prev, useless;
 
     node = (Student_list) malloc (sizeof (Student_node));
     if(node != NULL) {
         node->data = new;
-        search_student_list(head, new.numb, &prev, &useless);
+        search_student_list(*head, new.numb, &prev, &useless);
         node->next = prev->next;
         prev->next = node;
     }
@@ -72,10 +72,10 @@ void print_student_list(Student_list head){
 }
 
 void regime(char str[]) {
-    char temp[50];
+    char *temp = (char *) malloc (CHAR_SIZE * sizeof(char));
 
     printf("\t\t1.Normal\n\t\t2.Trabalhador-estudante\n\t\t3.Atleta\n\t\t4.Dirigente associativo\n\t\t5.Aluno de Erasmus\n\t-->");
-    fgets(temp,50,stdin);
+    fgets(temp, CHAR_SIZE, stdin);
 
     switch(temp[0]) {
         case '1':

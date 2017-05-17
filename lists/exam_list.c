@@ -22,7 +22,7 @@ typedef struct rnode {
 } Classrooms_node;
 
 typedef struct exam {
-    char type[50];
+    char *type;
     Class *subject;
     Date date;
     Time time;
@@ -85,7 +85,7 @@ void print_exams_list(Exams_list head) {
         printf("\tInicio do exame--> %d : %d\n", I->data.time.hour, I->data.time.minutes);
         printf("\tFim do exame--> %d : %d\n", I->data.final.hour, I->data.final.minutes);
         print_classroom_list(I->data.classrooms);
-        printf("--------------------\n");
+        printf("\n--------------------\n");
         I = I->next;
         i++;
     }
@@ -161,10 +161,10 @@ void append_classroom(Classroom_list head, Classroom new) {
 }
 
 void type_of_exam(char str[]) {
-    char temp[50];
+    char *temp = (char*) malloc (CHAR_SIZE * sizeof(char));
 
-    printf("\t\t1.Epoca Normal\n\t\t2.Epoca de Recurso\n\t\t3.Epoca Especial\n-->");
-    fgets(temp,50,stdin);
+    printf("\t\t1.Epoca Normal\n\t\t2.Epoca de Recurso\n\t\t3.Epoca Especial\n\t-->");
+    fgets(temp, CHAR_SIZE, stdin);
 
     switch(temp[0]) {
         case '1':

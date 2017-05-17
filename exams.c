@@ -1,14 +1,14 @@
 void chose_room(Exams_list head, Classroom *new) {   
-    char temp[50];
+    char *temp = (char*) malloc (CHAR_SIZE * sizeof(char));
 
-    printf("Bloco?\n");
-    fgets(temp,50,stdin); // funcao check_answer para 1 char tirar o print
+    printf("\tBloco?\n\t-->");
+    fgets(temp, CHAR_SIZE, stdin); // funcao check_answer para 1 char tirar o print
     strncpy(&(*new).letter, temp, 1);
 
-    printf("Piso?\n");
+    printf("\tPiso?\n\t-->");
     fgets_int(&(*new).floor);
 
-    printf("Sala?\n");
+    printf("\tSala?\n\t-->");
     fgets_int(&(*new).room);
 
     if(search_room(head, *new) == 1) {
@@ -57,24 +57,41 @@ void possible_room(Exams_list head, Date date, Time time, Time final, Classroom_
     append_classroom(exam_room, new);
 }
 
+void time_of_exam(Time *time, int n, int hour, int minutes) {
+    Time time_available[n];
+    int i;
+    
+    possible_hours(time_available, n, hour, minutes);
+    printf("\tHoras disponiveis:\n\n");
+    for (i = 0; i < n; i++) {
+        printf("\t\t%d.\t%d : %d\n", i+1, time_available[i].hour, time_available[i].minutes);
+    }
+
+    printf("\t-->");
+    fgets_int(&i);
+    (*time).hour = time_available[i-1].hour;
+    (*time).minutes = time_available[i-1].minutes;
+}
+
+
 void create_exam(Exams_list head, Classes_list classes){
     Exam new;
     Exams_list copy = head;
-    char class_name[50];
+    char *class_name = (char*) malloc (CHAR_SIZE * sizeof(char));
 
     printf("\n\n### Esta a criar um novo exame ###\n\n");
-    printf("\tDisciplina em causa\n");
     get_class(&classes); 
     new.subject = &classes->data;
 
     printf("\tQual e o tipo do exame?\n");
+    new.type = (char*) malloc (CHAR_SIZE * sizeof(char));
     type_of_exam(new.type);
 
-    printf("\tA que dia/mes/ano se realiza o exame?\n(Day)-->");
+    printf("\tA que dia/mes/ano se realiza o exame?\n\t(Day)-->");
     fgets_int(&new.date.day); 
-    printf("\n\t\t(Month)-->");
+    printf("\n\t(Month)-->");
     fgets_int(&new.date.month);
-    printf("\n\t\t(Year)-->");
+    printf("\n\t(Year)-->");
     fgets_int(&new.date.year);
 
     printf("\n\tA que horas?\n\n");
@@ -96,6 +113,7 @@ void create_exam(Exams_list head, Classes_list classes){
     possible_room(copy, new.date, new.time, new.final, new.classrooms);
 
     append_exam(head, new);
+    printf("\nExame Criado.");
 }
 
 void search_exam(Exams_list *head) {
@@ -113,7 +131,6 @@ void search_exam(Exams_list *head) {
 void submit_students(Student_list all, Exams_list head) {
     Student_list copy_st = all;
     Exams_list copy_ex = head;
-    int num, i, student_numb;
 
     printf("\n\n### Esta a querer submeter um aluno a um exame ###/n/n");
     search_exam(&head);
@@ -126,7 +143,14 @@ void submit_students(Student_list all, Exams_list head) {
             submit_students(copy_st, copy_ex);
         }  
     } 
-    
-    append_student_wOrder(head->data.students_submited, all->data); 
-    print_student_list(head->data.students_submited); 
+
+    append_student_wOrder(&head->data.students_submited, all->data);
 }
+
+void print_submited_students(Exams_list head) {
+    search_exam(&head);
+    print_student_list(head->data.students_submited);
+}
+
+
+

@@ -8,14 +8,16 @@ void new_student(Student_list list) {
     fgets_int(&new.numb);
     
     printf("\tQue curso frequenta?\n\t-->");
-    fgets(new.course,50,stdin);
+    new.course = (char *) malloc (CHAR_SIZE * sizeof(char));
+    fgets(new.course, CHAR_SIZE, stdin);
         
     printf("\tQue ano frequenta?(1,2,3)\n\t-->");
     fgets_int(&new.year);
     
     printf("\tQual o seu regime?\n");
+    new.regime = (char *) malloc (CHAR_SIZE * sizeof(char));
     regime(new.regime);
-    append_student_wOrder(list, new);
+    append_student_wOrder(&list, new);
 }
    
 void what_student(Student_list *head) {
