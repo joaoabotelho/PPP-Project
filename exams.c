@@ -1,14 +1,14 @@
-void chose_room(Exams_list head, Classroom *new) {   
-    char temp[50];
+void chose_room(Exams_list head, Classroom *new) {
+    char *temp = (char*) malloc (CHAR_SIZE * sizeof(char));
 
-    printf("Bloco?\n");
-    fgets(temp,50,stdin); // funcao check_answer para 1 char tirar o print
+    printf("\tBloco?\n\t-->");
+    fgets(temp, CHAR_SIZE, stdin); // funcao check_answer para 1 char tirar o print
     strncpy(&(*new).letter, temp, 1);
 
-    printf("Piso?\n");
+    printf("\tPiso?\n\t-->");
     fgets_int(&(*new).floor);
 
-    printf("Sala?\n");
+    printf("\tSala?\n\t-->");
     fgets_int(&(*new).room);
 
     if(search_room(head, *new) == 1) {
@@ -57,30 +57,47 @@ void possible_room(Exams_list head, Date date, Time time, Time final, Classroom_
     append_classroom(exam_room, new);
 }
 
+void time_of_exam(Time *time, int n, int hour, int minutes) {
+    Time time_available[n];
+    int i;
+    
+    possible_hours(time_available, n, hour, minutes);
+    printf("\tHoras disponiveis:\n\n");
+    for (i = 0; i < n; i++) {
+        printf("\t\t%d.\t%d : %d\n", i+1, time_available[i].hour, time_available[i].minutes);
+    }
+
+    printf("\t-->");
+    fgets_int(&i);
+    (*time).hour = time_available[i-1].hour;
+    (*time).minutes = time_available[i-1].minutes;
+}
+
+
 void create_exam(Exams_list head, Classes_list classes){
     Exam new;
     Exams_list copy = head;
-    char class_name[50];
+    char *class_name = (char*) malloc (CHAR_SIZE * sizeof(char));
 
     printf("\n\n### Esta a criar um novo exame ###\n\n");
-    printf("Disciplina em causa\n");
     get_class(&classes); 
     new.subject = &classes->data;
 
-    printf("Qual e o tipo do exame?\n");
+    printf("\tQual e o tipo do exame?\n");
+    new.type = (char*) malloc (CHAR_SIZE * sizeof(char));
     type_of_exam(new.type);
 
-    printf("A que dia/mes/ano se realiza o exame?\n(Day)-->");
+    printf("\tA que dia/mes/ano se realiza o exame?\n\t(Day)-->");
     fgets_int(&new.date.day); 
-    printf("\n(Month)-->");
+    printf("\n\t(Month)-->");
     fgets_int(&new.date.month);
-    printf("\n(Year)-->");
+    printf("\n\t(Year)-->");
     fgets_int(&new.date.year);
 
-    printf("\nA que horas?\n\n");
+    printf("\n\tA que horas?\n\n");
     time_of_exam(&new.time, 19, 9, 0); 
 
-    printf("\nDuracao?\n\n");
+    printf("\n\tDuracao?\n\n");
     time_of_exam(&new.duration, 6, 0 ,30); 
 
     new.final.hour = new.time.hour + new.duration.hour;
@@ -94,14 +111,71 @@ void create_exam(Exams_list head, Classes_list classes){
 
     new.classrooms = create_classroom_list();
     possible_room(copy, new.date, new.time, new.final, new.classrooms);
-    
-     append_exam(head, new);
+
+    append_exam(head, new);
+    printf("\nExame Criado.");
+}
+
+void search_exam(Exams_list *head) {
+    int num, i;
+
+    print_exams_list(*head);
+    printf("\tExame em causa (n de exame)\n-->");
+    fgets_int(&num);
+
+    for(i = 0; i < num; i++) {
+        *head = (*head)->next;
+    }
 }
 
 void submit_students(Student_list all, Exams_list head) {
+    Student_list copy_st = all;
+    Student_list useless, curr;
+    Exams_list copy_ex = head;
+    int num_students = 0;
+    const int MAX_ROOM_CAPACITY = 2;
+
     printf("\n\n### Esta a querer submeter um aluno a um exame ###/n/n");
-    printf("Exame em causa\n-->");
-    
-    
-    
+    search_exam(&head);
+
+    what_student(&all);
+
+    if(strncmp(head->data.type, "Epoca Especial", 14) == 0) {
+        if((strncmp(all->data.regime, "Normal", 6) == 0) && (*all->data.year != 3)) {
+            printf("\tEste aluno não está elegivel para este exame.");
+            submit_students(copy_st, copy_ex);
+        }  
+    } 
+
+    if(head->data.students_submited->next == NULL) { 
+        append_student_wOrder(&head->data.students_submited, all->data);
+
+    } else {
+        num_students = size_of_sList(head->data.students_submited);
+        search_student_list(head->data.students_submited, *all->data.numb, &useless, &curr);
+
+        if(curr != NULL) {
+            printf("\n\tO aluno %d ja esta inscrito neste exame", *all->data.numb);
+
+        } else {
+            bubbleSort(head->data.students_submited);
+            append_student_wOrder(&head->data.students_submited, all->data);
+
+            if(num_students % MAX_ROOM_CAPACITY == 0) {
+                printf("Tem de reservar mais uma sala. Tem neste momento 1 aluno a mais.");
+                possible_room(copy_ex, head->data.date, head->data.time, head->data.final, head->data.classrooms);
+            }
+        }
+   }
+}
+
+void print_submited_students(Exams_list head) {
+    search_exam(&head);
+    bubbleSort(head->data.students_submited);
+    print_student_list(head->data.students_submited);
+}
+
+void print_classrooms(Exams_list head) {
+    search_exam(&head);
+    print_classroom_list(head->data.classrooms); 
 }

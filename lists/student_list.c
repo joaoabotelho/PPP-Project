@@ -1,17 +1,17 @@
-typedef struct student{
-    int numb;
-    char course[50];
-    int year;
-    char regime[50];
+typedef struct student {
+    int *numb;
+    char *course;
+    int *year;
+    char *regime;
 } Student;
 
 typedef struct node *Student_list;
-typedef struct node{
+typedef struct node {
     Student data;
     Student_list next;
 } Student_node;
 
-Student_list create_students_list(){
+Student_list create_students_list() {
     Student_list aux;
     Student null;
 
@@ -27,11 +27,11 @@ void search_student_list(Student_list head, int student_numb, Student_list *prev
 
     *prev = head;
     *curr = head->next;
-    while((*curr) != NULL && (*curr)->data.numb < student_numb) {
+    while((*curr) != NULL && *(*curr)->data.numb < student_numb) {
         *prev = *curr;
         *curr = (*curr)->next;
     }
-    if((*curr) != NULL && (*curr)->data.numb != student_numb)
+    if((*curr) != NULL && *(*curr)->data.numb != student_numb)
         *curr = NULL;
 }
 
@@ -45,37 +45,37 @@ void removes_from_student_list(Student_list head, int student_numb) {
     }
 }
 
-void append_student_wOrder(Student_list head, Student new) {
+void append_student_wOrder(Student_list *head, Student new) {
     Student_list node, prev, useless;
 
     node = (Student_list) malloc (sizeof (Student_node));
     if(node != NULL) {
         node->data = new;
-        search_student_list(head, new.numb, &prev, &useless);
+        search_student_list(*head, *new.numb, &prev, &useless);
         node->next = prev->next;
         prev->next = node;
     }
 }
-     
+
 void print_student_list(Student_list head){
     Student_list I = head->next;
 
-    printf("### LISTA ACTUAL DE ALUNOS ###\n\n");
+    printf("\n\n### LISTA ACTUAL DE ALUNOS ###\n\n");
     while(I){
-        printf("Num de estudante--> %d\n", I->data.numb);
-        printf("Curso do estudant--> %s\n", I->data.course);
-        printf("Ano do estudante--> %d\n", I->data.year);
-        printf("Regime do estudante--> %s\n", I->data.regime);
+        printf("\tNum de estudante--> %d\n", *I->data.numb);
+        printf("\tCurso do estudant--> %s\n", I->data.course);
+        printf("\tAno do estudante--> %d\n", *I->data.year);
+        printf("\tRegime do estudante--> %s\n", I->data.regime);
         printf("----------------------\n\n");
         I = I->next;
     }
-}
-
+}   
 void regime(char str[]) {
-    char temp[50];
+    char *temp = (char *) malloc (CHAR_SIZE * sizeof(char));
 
-    printf("1.Normal\n2.Trabalhador-estudante\n3.Atleta\n4.Dirigente associativo\n5.Aluno de Erasmus\n-->");
-    fgets(temp,50,stdin);
+    printf("\t\t1.Normal\n\t\t2.Trabalhador-estudante\n\t\t3.Atleta\n\t\t4.Dirigente associativo\n\t\t5.Aluno de Erasmus\n\t-->");
+    fgets(temp, CHAR_SIZE, stdin);
+
     switch(temp[0]) {
         case '1':
             strcpy(str, "Normal");
@@ -93,69 +93,46 @@ void regime(char str[]) {
             strcpy(str, "Aluno de Erasmus");
             break;
         default:
-            printf("Escolha errada. Tente de novo.\n");
+            printf("\t\tEscolha errada. Tente de novo.\n");
             regime(str);
     }
 }
 
-int size_of_list(Student_list head) {
-    int elements = 0;
+void swap(Student_list a, Student_list b) {
+    Student temp = a->data;
 
+    a->data = b->data;
+    b->data = temp;
+}
+
+void bubbleSort(Student_list head) {
+    int i, swapped;
+    Student_list ptr1, lptr = NULL;
+    if(ptr1 == NULL)
+        return;
+    do {
+        swapped = 0;
+        ptr1 = head->next;
+
+        while(ptr1->next != lptr) {
+            if(ptr1->data.numb > ptr1->next->data.numb) {
+                swap(ptr1, ptr1->next);
+                swapped = 1;
+            }
+            ptr1 = ptr1->next;
+        }
+        lptr = ptr1;
+    }
+    while(swapped);
+}
+
+int size_of_sList(Student_list head) {
+    int num = 0;
+    
     while(head->next != NULL) {
         head = head->next;
-        elements++;
+        num++;
     }
 
-    return elements;
-}
-
-int find_pivot(Student_list head) {
-    int pivot, i;
-    int half_size = 1 + size_of_list(head)  / 2;
-    
-    for(i = 0; i < half_size; i++) {
-        head = head->next;
-    }
-    pivot = head->data.numb;
-
-    return pivot;
-}
-
-void join_student_list(Student_list first, Student_list last) {
-    
-    while (first->next != NULL)
-        first = first->next;
-    first->next = last->next;
-
-}
-
-void delete_student_list(Student_list *head) {
-    Student_list curr = *head;
-    Student_list after;
-
-    while (curr != NULL)
-    {
-        after = curr->next;
-        free(curr);
-        curr = after;
-    }
-    *head = create_students_list();
-}
-
-void quick_sort(Student_list *head) {
-
-    int pivot = find_pivot(*head);
-    Student_list smaller = create_students_list();
-    Student_list bigger = create_students_list();
-
-    while((*head)->next != NULL) {
-        (*head) = (*head)->next;
-        if((*head)->data.numb < pivot)
-            append_student_wOrder(smaller, (*head)->data);
-        else
-            append_student_wOrder(bigger, (*head)->data);
-
-    }
-    
-    join_student_list(smaller, bigger);
+    return num;
 }

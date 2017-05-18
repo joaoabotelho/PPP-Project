@@ -22,7 +22,7 @@ typedef struct rnode {
 } Classrooms_node;
 
 typedef struct exam {
-    char type[50];
+    char *type;
     Class *subject;
     Date date;
     Time time;
@@ -65,7 +65,7 @@ void print_classroom_list(Classroom_list head) {
     Classroom_list I = head->next;
 
     while(I) { 
-        printf("Sala--> %c%d.%d\n", I->data.letter, I->data.floor, I->data.room);
+        printf("\tSala--> %c%d.%d\n", I->data.letter, I->data.floor, I->data.room);
         I=I->next;
     }
 
@@ -77,15 +77,15 @@ void print_exams_list(Exams_list head) {
 
     printf("\n\n#### Lista de exames ####");
     while(I) {
-        printf("\nExame num --> %d\n", i);
-        printf("%s\n", I->data.type);
-        printf("Nome da Disciplina--> %s\n", I->data.subject->name);
-        printf("Docente da Disciplina--> %s\n", I->data.subject->teacher);
-        printf("Data do exame--> %d / %d / %d\n", I->data.date.day, I->data.date.month, I->data.date.year);
-        printf("Inicio do exame--> %d : %d\n", I->data.time.hour, I->data.time.minutes);
-        printf("Fim do exame--> %d : %d\n", I->data.final.hour, I->data.final.minutes);
+        printf("\n\tExame num --> %d\n", i);
+        printf("\t%s\n", I->data.type);
+        printf("\tNome da Disciplina--> %s\n", I->data.subject->name);
+        printf("\tDocente da Disciplina--> %s\n", I->data.subject->teacher);
+        printf("\tData do exame--> %d / %d / %d\n", I->data.date.day, I->data.date.month, I->data.date.year);
+        printf("\tInicio do exame--> %d : %d\n", I->data.time.hour, I->data.time.minutes);
+        printf("\tFim do exame--> %d : %d\n", I->data.final.hour, I->data.final.minutes);
         print_classroom_list(I->data.classrooms);
-        printf("--------------------\n");
+        printf("\n--------------------\n");
         I = I->next;
         i++;
     }
@@ -161,10 +161,10 @@ void append_classroom(Classroom_list head, Classroom new) {
 }
 
 void type_of_exam(char str[]) {
-    char temp[50];
+    char *temp = (char*) malloc (CHAR_SIZE * sizeof(char));
 
-    printf("1.Epoca Normal\n2.Epoca de Recurso\n3.Epoca Especial\n-->");
-    fgets(temp,50,stdin);
+    printf("\t\t1.Epoca Normal\n\t\t2.Epoca de Recurso\n\t\t3.Epoca Especial\n\t-->");
+    fgets(temp, CHAR_SIZE, stdin);
 
     switch(temp[0]) {
         case '1':
@@ -177,7 +177,7 @@ void type_of_exam(char str[]) {
             strcpy(str, "Epoca Especial");
             break;
         default:
-            printf("Wrong choice. Enter again.\n");
+            printf("\t\tWrong choice. Enter again.\n");
             type_of_exam(str);
     }
 }
@@ -197,21 +197,3 @@ void possible_hours(Time time_available[], int n, int hour, int minutes) {
         }
     }
 }
-/*
-void get_class(Exams_list *head) {
-    _name[50];
-    Exams_list *copy = head;
-
-    print_exams_list(*head);
-    printf("-->");
-    fgets(class_name,50,stdin);
-    while((strcmp((*head)->data.name, class_name) != 0) && ((*head)->next != NULL))
-        *head = (*head)->next;
-
-    if(strcmp((*head)->data.name, class_name) != 0) {
-        get_class(copy);
-    }
-}
-*/
-
-

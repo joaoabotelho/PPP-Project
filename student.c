@@ -3,87 +3,72 @@
 void new_student(Student_list list) {
     Student new;
 
-    printf("### Esta a criar um novo aluno ###\n\n");
-    printf("Qual e o numero de aluno?\n-->");
-    fgets_int(&new.numb);
+    printf("\n\n### Esta a criar um novo aluno ###\n\n");
+    printf("\tQual e o numero de aluno?\n\t-->");
+    new.numb = (int *) malloc (sizeof(int));
+    fgets_int(new.numb);
     
-    printf("Que curso frequenta?\n-->");
-    fgets(new.course,50,stdin);
+    printf("\tQue curso frequenta?\n\t-->");
+    new.course = (char *) malloc (CHAR_SIZE * sizeof(char));
+    fgets(new.course, CHAR_SIZE, stdin);
         
-    printf("Que ano frequenta?(1,2,3)\n-->");
-    fgets_int(&new.year);
+    printf("\tQue ano frequenta?(1,2,3)\n\t-->");
+    new.year = (int *) malloc (sizeof(int));
+    fgets_int(new.year);
     
-    printf("Qual o seu regime?\n");
+    printf("\tQual o seu regime?\n");
+    new.regime = (char *) malloc (CHAR_SIZE * sizeof(char));
     regime(new.regime);
-    append_student_wOrder(list, new);
+    append_student_wOrder(&list, new);
 }
-
-void change_student_data(Student* change) {
-    char answer, temp[50];
-    int numb = -1; 
-
-    printf("### Esta a querer alterar os dados de um aluno ###\n\n");
    
-   
-    // Numb
-    printf("Este e o numero do aluno --> %d\n", (*change).numb);
-    confirm_answer("O novo numero do aluno e\n-->", &(*change).numb, "0");
-    
-    // Course
-    printf("Este e o curso do aluno --> %s\n", (*change).course);
-    confirm_answer("O novo curso do aluno e\n-->", 0, (*change).course); 
-    
-    // Year
-    printf("O aluno esta neste ano --> %d\n", (*change).year);
-    confirm_answer("O novo ano do aluno e\n-->", &(*change).year, "0");
+void what_student(Student_list *head) {
+    int student_numb;
+    Student_list copy = *head;
 
-    // Regime 
-    printf("Este e o regime do aluno --> %s\n", (*change).regime); 
-    confirm_answer("O novo regime do aluno e", &numb, (*change).regime); 
+    printf("\tQue aluno pretende?(n de aluno)");
+    print_student_list(*head);
+    printf("\t-->");
+    fgets_int(&student_numb);
+     
+    while((*(*head)->data.numb != student_numb) && ((*head)->next != NULL))
+        *head = (*head)->next;
+    if(*(*head)->data.numb != student_numb) {
+        printf("\tNao existe ninguem com esse numero. Tente de novo.");
+        what_student(&copy);
+    }
 }
 
 void change_slist_data(Student_list head) {
-    Student_list copy = head;
-    int student_numb;
-   
-    printf("Que aluno deseja alterar?(n de aluno)\n");
-    print_student_list(head);
-    printf("-->");
-    fgets_int(&student_numb);
+    int numb = -1; 
+
+    printf("\n\n### Esta a querer alterar os dados de um aluno ###\n\n");
+    what_student(&head);
+ 
+    // Numb
+    printf("\n\tEste e o numero do aluno --> %d\n", *head->data.numb);
+    confirm_answer("\tO novo numero do aluno e\n\t-->", head->data.numb, "0");
     
-    while((head->data.numb != student_numb) && (head->next != NULL))
-        head = head->next;
-    if(head->data.numb != student_numb){
-        printf("Nao existe ninguem com esse numero. Tente de novo.");
-        change_slist_data(copy);
-    }
-    else
-        change_student_data(&head->data);
-        quick_sort(&copy);
-        print_student_list(copy);
-        delete_student_list(&head);
-        print_student_list(head);
-        head = copy; 
+    // Course
+    printf("\n\tEste e o curso do aluno --> %s", head->data.course);
+    confirm_answer("\tO novo curso do aluno e\n\t-->", 0, head->data.course); 
+    
+    // Year
+    printf("\n\tO aluno esta neste ano --> %d\n", *head->data.year);
+    confirm_answer("\tO novo ano do aluno e\n\t-->", head->data.year, "0");
+
+    // Regime 
+    printf("\n\tEste e o regime do aluno --> %s\n", head->data.regime); 
+    confirm_answer("\tO novo regime do aluno e\n", &numb, head->data.regime); 
 }
 
 void remove_student_data(Student_list head) {
     Student_list copy = head;
-    int student_numb;
     
-    printf("### ESTA A QUERER REMOVER UM ALUNO DA BASE DE DADOS ###\n\n");
-    printf("Que aluno deseja remover?(n de aluno)\n)");
-    print_student_list(head);
-    printf("-->");
-    fgets_int(&student_numb); 
-    
-    while((head->data.numb != student_numb) && (head->next != NULL))
-        head = head->next;
-    if(head->data.numb != student_numb){
-        printf("Nao existe ninguem com esse numero. Tente de novo.");
-        remove_student_data(copy);
-    }
-    else
-        removes_from_student_list(copy, student_numb);
-        printf("Aluno numero: %d foi retirado da base de dados\n\n", student_numb); 
+    printf("\n\n### ESTA A QUERER REMOVER UM ALUNO DA BASE DE DADOS ###\n\n");
+    what_student(&head);
+
+    removes_from_student_list(copy, *head->data.numb);
+    printf("\tAluno numero: %d foi retirado da base de dados\n\n", *head->data.numb); 
 }
-    
+
