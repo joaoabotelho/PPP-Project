@@ -8,12 +8,14 @@ const int CHAR_SIZE = 50;
 #include "lists/student_list.c"
 #include "lists/class_list.c"
 #include "lists/exam_list.c"
+#include "lists/student_exams_list.c"
 #include "base.c"
 #include "student.c"
 #include "classes.c"
 #include "exams.c"
+#include "student_exams.c"
 
-void exams_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam) {
+void exams_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
     char *choice = (char*) malloc (CHAR_SIZE * sizeof(char));
 
     printf("\n\n$ EXAMS MENU $\n\t1.Crie um novo exame.\n\t2.Mostrar os exames.\n\t3.Submeter um aluno a um exame.\n\t4.Remover um aluno inscrito de um exame.\n\t5.Mostrar lista de alunos inscritos num exame.\n\t6.Mostrar lista de salas ocupadas num exame.\n-->");
@@ -28,10 +30,10 @@ void exams_menu(Student_list list_student, Classes_list list_class, Exams_list l
             print_exams_list(list_exam);
             break;
         case '3':
-            submit_students(list_student, list_exam);
+            submit_students(list_student, list_exam, list_student_exams);
             break;
         case '4':
-            remove_submit_students(list_exam);
+            remove_submit_students(list_exam, list_student_exams);
             break;
         case '5':
             print_submited_students(list_exam);
@@ -41,11 +43,11 @@ void exams_menu(Student_list list_student, Classes_list list_class, Exams_list l
             break;
         default:
             printf("Wrong choice. Enter again.\n");
-            exams_menu(list_student, list_class, list_exam);
-    }  
+            exams_menu(list_student, list_class, list_exam, list_student_exams);
+    }   
 }
 
-void classes_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam) {
+void classes_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
     char *choice = (char*) malloc (CHAR_SIZE * sizeof(char));
 
     printf("\n\n$ CLASSES MENU $\n");
@@ -68,15 +70,15 @@ void classes_menu(Student_list list_student, Classes_list list_class, Exams_list
             break;
         default:
             printf("Wrong choice. Enter again.\n");
-            classes_menu(list_student, list_class, list_exam);
+            classes_menu(list_student, list_class, list_exam, list_student_exams);
     }  
 }
 
-void students_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam) {
+void students_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
     char *choice = (char*) malloc (CHAR_SIZE * sizeof(char));
 
     printf("\n\n$ STUDENTS MENU $\n");
-    printf("\t1.Crie um novo aluno.\n\t2.Mude os dados de um aluno.\n\t3.Mostrar lista de alunos existentes.\n\t4.Remover um aluno da base de dados.\n-->");
+    printf("\t1.Crie um novo aluno.\n\t2.Mude os dados de um aluno.\n\t3.Mostrar lista de alunos existentes.\n\t4.Remover um aluno da base de dados.\n\t5.Mostrar exames inscritos por um aluno.\n-->");
     fgets(choice, CHAR_SIZE, stdin);
 
     switch(choice[0]) {
@@ -94,12 +96,15 @@ void students_menu(Student_list list_student, Classes_list list_class, Exams_lis
         case '4':
             remove_student_data(list_student);
             break;
+        case '5':
+            print_exams_of_student(list_student_exams, list_student);
+            break;
         default:
             printf("Wrong choice. Enter again.\n");
-            students_menu(list_student, list_class, list_exam);
+            students_menu(list_student, list_class, list_exam, list_student_exams);
     }
 }
-void main_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam) {
+void main_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
     char *choice = (char*) malloc (CHAR_SIZE * sizeof(char));
 
     while(1) { 
@@ -111,19 +116,19 @@ void main_menu(Student_list list_student, Classes_list list_class, Exams_list li
 
         switch(choice[0]) {
             case '1':
-                students_menu(list_student, list_class, list_exam);
+                students_menu(list_student, list_class, list_exam, list_student_exams);
                 break;
             case '2':
-                classes_menu(list_student, list_class, list_exam);
+                classes_menu(list_student, list_class, list_exam, list_student_exams);
                 break;
             case '3':
-                exams_menu(list_student, list_class, list_exam);
+                exams_menu(list_student, list_class, list_exam, list_student_exams);
                 break;
             default:
                 printf("Wrong choice. Enter again.\n");
                 break;
         } 
-        main_menu(list_student, list_class, list_exam);
+        main_menu(list_student, list_class, list_exam, list_student_exams);
     }
 }
 
@@ -131,8 +136,9 @@ int main() {
     Student_list list_student = create_students_list();
     Classes_list list_class = create_classes_list();
     Exams_list list_exam = create_exams_list();
+    Student_exams_list list_student_exams = create_student_exams_list();
 
-    main_menu(list_student, list_class, list_exam);
+    main_menu(list_student, list_class, list_exam, list_student_exams);
 
     return 0;
 }
