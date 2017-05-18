@@ -108,6 +108,7 @@ void swap(Student_list a, Student_list b) {
 void bubbleSort(Student_list head) {
     int i, swapped;
     Student_list ptr1, lptr = NULL;
+
     if(ptr1 == NULL)
         return;
     do {
@@ -115,7 +116,7 @@ void bubbleSort(Student_list head) {
         ptr1 = head->next;
 
         while(ptr1->next != lptr) {
-            if(ptr1->data.numb > ptr1->next->data.numb) {
+            if(*ptr1->data.numb > *ptr1->next->data.numb) {
                 swap(ptr1, ptr1->next);
                 swapped = 1;
             }
