@@ -135,13 +135,13 @@ void search_exam_list(Exams_list head, Date date, Time time, Exams_list *prev, E
     }
 }
 
-void append_exam(Exams_list head, Exam new) {
+void append_exam(Exams_list *head, Exam new) {
     Exams_list node, prev, useless;
 
     node = (Exams_list) malloc (sizeof (Exams_node));
     if(node != NULL) {
         node->data = new;
-        search_exam_list(head, new.date, new.time, &prev, &useless);
+        search_exam_list(*head, new.date, new.time, &prev, &useless);
         node->next = prev->next;
         prev->next = node;
     }
@@ -195,5 +195,15 @@ void possible_hours(Time time_available[], int n, int hour, int minutes) {
         } else {
             minutes += 30;
         }
+    }
+}
+
+void remove_from_exams_list(Exams_list head, Date date, Time time) {
+    Exams_list prev, curr;
+
+    search_exam_list(head, date, time, &prev, &curr);
+    if(curr != NULL) {
+        prev->next = curr->next;
+        free(curr);
     }
 }
