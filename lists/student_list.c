@@ -1,7 +1,7 @@
 typedef struct student {
-    int numb;
+    int *numb;
     char *course;
-    int year;
+    int *year;
     char *regime;
 } Student;
 
@@ -27,11 +27,11 @@ void search_student_list(Student_list head, int student_numb, Student_list *prev
 
     *prev = head;
     *curr = head->next;
-    while((*curr) != NULL && (*curr)->data.numb < student_numb) {
+    while((*curr) != NULL && *(*curr)->data.numb < student_numb) {
         *prev = *curr;
         *curr = (*curr)->next;
     }
-    if((*curr) != NULL && (*curr)->data.numb != student_numb)
+    if((*curr) != NULL && *(*curr)->data.numb != student_numb)
         *curr = NULL;
 }
 
@@ -51,26 +51,25 @@ void append_student_wOrder(Student_list *head, Student new) {
     node = (Student_list) malloc (sizeof (Student_node));
     if(node != NULL) {
         node->data = new;
-        search_student_list(*head, new.numb, &prev, &useless);
+        search_student_list(*head, *new.numb, &prev, &useless);
         node->next = prev->next;
         prev->next = node;
     }
 }
-     
+
 void print_student_list(Student_list head){
     Student_list I = head->next;
 
     printf("\n\n### LISTA ACTUAL DE ALUNOS ###\n\n");
     while(I){
-        printf("\tNum de estudante--> %d\n", I->data.numb);
+        printf("\tNum de estudante--> %d\n", *I->data.numb);
         printf("\tCurso do estudant--> %s\n", I->data.course);
-        printf("\tAno do estudante--> %d\n", I->data.year);
+        printf("\tAno do estudante--> %d\n", *I->data.year);
         printf("\tRegime do estudante--> %s\n", I->data.regime);
         printf("----------------------\n\n");
         I = I->next;
     }
-}
-
+}   
 void regime(char str[]) {
     char *temp = (char *) malloc (CHAR_SIZE * sizeof(char));
 
@@ -125,4 +124,15 @@ void bubbleSort(Student_list head) {
         lptr = ptr1;
     }
     while(swapped);
+}
+
+int size_of_sList(Student_list head) {
+    int num = 0;
+    
+    while(head->next != NULL) {
+        head = head->next;
+        num++;
+    }
+
+    return num;
 }

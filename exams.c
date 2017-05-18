@@ -1,4 +1,4 @@
-void chose_room(Exams_list head, Classroom *new) {   
+void chose_room(Exams_list head, Classroom *new) {
     char *temp = (char*) malloc (CHAR_SIZE * sizeof(char));
 
     printf("\tBloco?\n\t-->");
@@ -130,7 +130,10 @@ void search_exam(Exams_list *head) {
 
 void submit_students(Student_list all, Exams_list head) {
     Student_list copy_st = all;
+    Student_list useless, curr;
     Exams_list copy_ex = head;
+    int num_students = 0;
+    const int MAX_ROOM_CAPACITY = 2;
 
     printf("\n\n### Esta a querer submeter um aluno a um exame ###/n/n");
     search_exam(&head);
@@ -138,19 +141,41 @@ void submit_students(Student_list all, Exams_list head) {
     what_student(&all);
 
     if(strncmp(head->data.type, "Epoca Especial", 14) == 0) {
-        if((strncmp(all->data.regime, "Normal", 6) == 0) && (all->data.year != 3)) {
+        if((strncmp(all->data.regime, "Normal", 6) == 0) && (*all->data.year != 3)) {
             printf("\tEste aluno não está elegivel para este exame.");
             submit_students(copy_st, copy_ex);
         }  
     } 
 
-    append_student_wOrder(&head->data.students_submited, all->data);
+    if(head->data.students_submited->next == NULL) { 
+        append_student_wOrder(&head->data.students_submited, all->data);
+
+    } else {
+        num_students = size_of_sList(head->data.students_submited);
+        search_student_list(head->data.students_submited, *all->data.numb, &useless, &curr);
+
+        if(curr != NULL) {
+            printf("\n\tO aluno %d ja esta inscrito neste exame", *all->data.numb);
+
+        } else {
+            bubbleSort(head->data.students_submited);
+            append_student_wOrder(&head->data.students_submited, all->data);
+
+            if(num_students % MAX_ROOM_CAPACITY == 0) {
+                printf("Tem de reservar mais uma sala. Tem neste momento 1 aluno a mais.");
+                possible_room(copy_ex, head->data.date, head->data.time, head->data.final, head->data.classrooms);
+            }
+        }
+   }
 }
 
 void print_submited_students(Exams_list head) {
     search_exam(&head);
+    bubbleSort(head->data.students_submited);
     print_student_list(head->data.students_submited);
 }
 
-
-
+void print_classrooms(Exams_list head) {
+    search_exam(&head);
+    print_classroom_list(head->data.classrooms); 
+}
