@@ -179,3 +179,10 @@ void print_classrooms(Exams_list head) {
     search_exam(&head);
     print_classroom_list(head->data.classrooms); 
 }
+
+void remove_submit_students(Exams_list head) {
+    printf("\n\n### Esta a querer remover a inscricao de um aluno ###\n\n");
+    search_exam(&head);
+
+    remove_student_data(head->data.students_submited);
+}

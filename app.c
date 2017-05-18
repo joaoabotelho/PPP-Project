@@ -16,7 +16,7 @@ const int CHAR_SIZE = 50;
 void exams_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam) {
     char *choice = (char*) malloc (CHAR_SIZE * sizeof(char));
 
-    printf("\n\n$ EXAMS MENU $\n\t1.Crie um novo exame.\n\t2.Mostrar os exames.\n\t3.Submeter um aluno a um exame.\n\t4.Mostrar lista de alunos inscritos num exame.\n\t5.Mostrar lista de salas ocupadas num exame.\n-->");
+    printf("\n\n$ EXAMS MENU $\n\t1.Crie um novo exame.\n\t2.Mostrar os exames.\n\t3.Submeter um aluno a um exame.\n\t4.Remover um aluno inscrito de um exame.\n\t5.Mostrar lista de alunos inscritos num exame.\n\t6.Mostrar lista de salas ocupadas num exame.\n-->");
     fgets(choice, CHAR_SIZE, stdin);
 
     switch(choice[0]) {
@@ -31,9 +31,12 @@ void exams_menu(Student_list list_student, Classes_list list_class, Exams_list l
             submit_students(list_student, list_exam);
             break;
         case '4':
-            print_submited_students(list_exam);
+            remove_submit_students(list_exam);
             break;
         case '5':
+            print_submited_students(list_exam);
+            break;
+        case '6':
             print_classrooms(list_exam);
             break;
         default:
