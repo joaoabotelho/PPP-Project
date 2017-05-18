@@ -71,11 +71,11 @@ void submit_students(Student_list all, Exams_list head, Student_exams_list conne
 }
 
 void print_submited_students(Exams_list head) {
-    if(head->next != NULL) {
+    if(head->next != NULL) {
         search_exam(&head);
         bubbleSort(head->data.students_submited);
         print_student_list(head->data.students_submited);
-    } else {
+    } else {
         printf("Nao existe alunos inscritos");
     }
 }
