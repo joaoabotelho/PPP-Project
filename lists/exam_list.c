@@ -22,6 +22,7 @@ typedef struct rnode {
 } Classrooms_node;
 
 typedef struct exam {
+    int id;
     char *type;
     Class *subject;
     Date date;
@@ -61,6 +62,7 @@ Classroom_list create_classroom_list() {
     }
     return aux;
 }
+
 void print_classroom_list(Classroom_list head) {
     Classroom_list I = head->next;
 

@@ -15,6 +15,8 @@ const int CHAR_SIZE = 50;
 #include "classes.c"
 #include "exams.c"
 #include "student_exams.c"
+#include "extract_files.c"
+#include "import_files.c"
 
 void display_of_options(char *options[], int n) {
     int i;
@@ -144,36 +146,46 @@ void students_menu(Student_list list_student, Classes_list list_class, Exams_lis
     }
 }
 
+void exit_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
+    imp_classes(list_class);
+    printf("\nObrigado. Os dados foram atualizados nos ficheiros.");
+}
+
 // Goes to other menus Student/Classes/Exams
 void main_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
     char *choice = (char*) malloc (CHAR_SIZE * sizeof(char));
     char *options[] = {
         "Students Menu",
         "Classes Menu",
-        "Exams Menu"
+        "Exams Menu",
+        "Exit Menu"
     };
-    while(1) {
-        printf("\n\n@@@@@@      Welcome to this app      @@@@@@\n\n");
-        printf("$ MENU $");
-        display_of_options(options, 3);
-        printf("\n-->");
-        fgets(choice, CHAR_SIZE, stdin);
+    printf("\n\n@@@@@@      Welcome to this app      @@@@@@\n\n");
+    printf("$ MENU $");
+    display_of_options(options, 4);
+    printf("\n-->");
+    fgets(choice, CHAR_SIZE, stdin);
 
-        switch(choice[0]) {
-            case '1':
-                students_menu(list_student, list_class, list_exam, list_student_exams);
-                break;
-            case '2':
-                classes_menu(list_student, list_class, list_exam, list_student_exams);
-                break;
-            case '3':
-                exams_menu(list_student, list_class, list_exam, list_student_exams);
-                break;
-            default:
-                printf("Escolha errada. Tente de novo.\n");
-                main_menu(list_student, list_class, list_exam, list_student_exams);
-        } 
-    }
+    switch(choice[0]) {
+        case '1':
+            students_menu(list_student, list_class, list_exam, list_student_exams);
+            main_menu(list_student, list_class, list_exam, list_student_exams);
+            break;
+        case '2':
+            classes_menu(list_student, list_class, list_exam, list_student_exams);
+            main_menu(list_student, list_class, list_exam, list_student_exams);
+            break;
+        case '3':
+            exams_menu(list_student, list_class, list_exam, list_student_exams);
+            main_menu(list_student, list_class, list_exam, list_student_exams);
+            break;
+        case '4':
+            exit_menu(list_student, list_class, list_exam, list_student_exams);
+            break;
+        default:
+            printf("Escolha errada. Tente de novo.\n");
+            main_menu(list_student, list_class, list_exam, list_student_exams);
+    } 
 }
 
 int main() { 
@@ -182,6 +194,7 @@ int main() {
     Exams_list list_exam = create_exams_list();
     Student_exams_list list_student_exams = create_student_exams_list();
 
+    ex_classes(list_class);
     main_menu(list_student, list_class, list_exam, list_student_exams);
 
     return 0;
