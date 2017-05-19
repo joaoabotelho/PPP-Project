@@ -135,6 +135,16 @@ void search_exam_list(Exams_list head, Date date, Time time, Exams_list *prev, E
     }
 }
 
+void remove_from_exam_list(Exams_list head, Date date, Time time) {
+    Exams_list prev, curr;
+
+    search_exam_list(head, date, time, &prev, &curr);
+    if(curr != NULL) {
+        prev->next = curr->next;
+        free(curr);
+    }
+}
+
 void append_exam(Exams_list *head, Exam new) {
     Exams_list node, prev, useless;
 
@@ -160,7 +170,7 @@ void append_classroom(Classroom_list head, Classroom new) {
     head->next = NULL;
 }
 
-void type_of_exam(char str[]) {
+void exam_type(char str[]) {
     char *temp = (char*) malloc (CHAR_SIZE * sizeof(char));
 
     printf("\t\t1.Epoca Normal\n\t\t2.Epoca de Recurso\n\t\t3.Epoca Especial\n\t-->");
@@ -178,7 +188,7 @@ void type_of_exam(char str[]) {
             break;
         default:
             printf("\t\tWrong choice. Enter again.\n");
-            type_of_exam(str);
+            exam_type(str);
     }
 }
 

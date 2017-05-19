@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
 
 const int CHAR_SIZE = 50;
 
@@ -32,11 +33,12 @@ void exams_menu(Student_list list_student, Classes_list list_class, Exams_list l
         "Submeter um aluno a um exame.",
         "Remover um aluno inscrito de um exame.",
         "Mostrar lista de alunos inscritos num exame.",
-        "Mostrar lista de salas ocupadas num exame."
+        "Mostrar lista de salas ocupadas num exame.",
+        "Apagar exame"
     };
 
     printf("\n\n$ EXAMS MENU $");
-    display_of_options(options, 6);
+    display_of_options(options, 7);
     printf("\n-->");
     fgets(choice, CHAR_SIZE, stdin);
 
@@ -58,6 +60,9 @@ void exams_menu(Student_list list_student, Classes_list list_class, Exams_list l
             break;
         case '6':
             print_classrooms(list_exam);
+            break;
+        case '7':
+            delete_exam(list_exam, list_student_exams);
             break;
         default:
             printf("Escolha errada. Tente de novo.\n");
@@ -147,27 +152,28 @@ void main_menu(Student_list list_student, Classes_list list_class, Exams_list li
         "Classes Menu",
         "Exams Menu"
     };
+    while(1) {
+        printf("\n\n@@@@@@      Welcome to this app      @@@@@@\n\n");
+        printf("$ MENU $");
+        display_of_options(options, 3);
+        printf("\n-->");
+        fgets(choice, CHAR_SIZE, stdin);
 
-    printf("\n\n@@@@@@      Welcome to this app      @@@@@@\n\n");
-    printf("$ MENU $");
-    display_of_options(options, 3);
-    printf("\n-->");
-    fgets(choice, CHAR_SIZE, stdin);
-
-    switch(choice[0]) {
-        case '1':
-            students_menu(list_student, list_class, list_exam, list_student_exams);
-            break;
-        case '2':
-            classes_menu(list_student, list_class, list_exam, list_student_exams);
-            break;
-        case '3':
-            exams_menu(list_student, list_class, list_exam, list_student_exams);
-            break;
-        default:
-            printf("Escolha errada. Tente de novo.\n");
-            main_menu(list_student, list_class, list_exam, list_student_exams);
-    } 
+        switch(choice[0]) {
+            case '1':
+                students_menu(list_student, list_class, list_exam, list_student_exams);
+                break;
+            case '2':
+                classes_menu(list_student, list_class, list_exam, list_student_exams);
+                break;
+            case '3':
+                exams_menu(list_student, list_class, list_exam, list_student_exams);
+                break;
+            default:
+                printf("Escolha errada. Tente de novo.\n");
+                main_menu(list_student, list_class, list_exam, list_student_exams);
+        } 
+    }
 }
 
 int main() { 
