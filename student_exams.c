@@ -32,25 +32,25 @@ void submit_students(Student_list all, Exams_list head, Student_exams_list conne
     const int MAX_ROOM_CAPACITY = 30;
     int num_students;
     Student_list copy_st = all;
-    Exams_list copy_ex = head;
+    Exams_list copy_ex = head, prev, current;
     Student_exams_list copy_st_ex = connect;
     Student_list submited, useless, curr;
 
     if(head->next != NULL && all->next != NULL) {
         printf("\n\n### Esta a querer submeter um aluno a um exame ###/n/n");
-        search_exam(&head);
+        search_exam(head, &prev, &current);
 
         what_student(&all);
 
-        if(eligble_for_exam(head->data, all->data) == 1)
+        if(eligble_for_exam(current->data, all->data) == 1)
             submit_students(copy_st, copy_ex, copy_st_ex);
 
         check_student_exams(connect, all->data); 
-        submited = head->data.students_submited;
+        submited = current->data.students_submited;
 
-        if(head->data.students_submited->next == NULL) { 
+        if(current->data.students_submited->next == NULL) { 
             append_student_wOrder(&submited, all->data);
-            append_exam_stex_list(connect, all->data, head->data);
+            append_exam_stex_list(connect, all->data, current->data);
 
         } else {
             num_students = size_of_sList(submited);
@@ -62,11 +62,11 @@ void submit_students(Student_list all, Exams_list head, Student_exams_list conne
             } else {
                 bubbleSort(submited);
                 append_student_wOrder(&submited, all->data);
-                append_exam_stex_list(connect, all->data, head->data);
+                append_exam_stex_list(connect, all->data, current->data);
 
                 if(num_students % MAX_ROOM_CAPACITY == 0) {
                     printf("Tem de reservar mais uma sala. Tem neste momento 1 aluno a mais.");
-                    possible_room(copy_ex, head->data.date, head->data.time, head->data.final, head->data.classrooms);
+                    possible_room(copy_ex, current->data.date, current->data.time, current->data.final, current->data.classrooms);
                 }
             }
         }
@@ -80,10 +80,11 @@ void submit_students(Student_list all, Exams_list head, Student_exams_list conne
 
 void print_submited_students(Exams_list head) {
     Student_list submited;
+    Exams_list prev, curr;
 
     if(head->next != NULL) {
-        search_exam(&head);
-        submited = head->data.students_submited;
+        search_exam(head, &prev, &curr);
+        submited = curr->data.students_submited;
 
         if(submited->next != NULL) {
             bubbleSort(submited);
@@ -118,22 +119,27 @@ void remove_submit_students(Exams_list head, Student_exams_list head2) {
     int student_num;
     Student_list copy, submited;
     Student_exams_list useless, curr;
+    Exams_list less, current;
 
     if(head->next != NULL && head2->next != NULL) {
         printf("\n\n### Esta a querer remover a inscricao de um aluno ###\n\n");
-        search_exam(&head);
+        search_exam(head, &less, &current);
 
-        submited = head->data.students_submited;
-        copy = head->data.students_submited;
-        what_student(&submited);
+        submited = current->data.students_submited;
+        copy = current->data.students_submited;
+        if(submited->next != NULL) {
+            what_student(&submited);
 
-        student_num = *submited->data.numb;
+            student_num = *submited->data.numb;
 
-        removes_from_student_list(copy, student_num);
-        search_student_exams_list(head2, student_num, &useless, &curr);
-        remove_from_exams_list(curr->data.submited, head->data.date, head->data.time); 
+            removes_from_student_list(copy, student_num);
+            search_student_exams_list(head2, student_num, &useless, &curr);
+            remove_from_exams_list(curr->data.submited, current->data.id); 
 
-        printf("O aluno %d ja nao esta inscrito no exame de %s", student_num, head->data.subject->name); 
+            printf("O aluno %d ja nao esta inscrito no exame de %s", student_num, current->data.subject->name); 
+        } else {
+            printf("Nao existem alunos inscritos neste exame.");
+        }
     } else {
         if(head->next == NULL)
             printf("Nao existem exames na base de dados");
@@ -143,18 +149,18 @@ void remove_submit_students(Exams_list head, Student_exams_list head2) {
 }
 
 void delete_exam(Exams_list head, Student_exams_list head2) {
-    Exams_list copy = head;
+    Exams_list curr, prev;
     Exams_list submited;
 
     printf("\n\n### Esta a querer apagar um exame ###\n\n");
-    search_exam(&copy);
+    search_exam(head, &prev, &curr);
 
     while(head2->next != NULL) {
         head2 = head2->next;
         submited = head2->data.submited;
-        remove_from_exam_list(submited, copy->data.date, copy->data.time);
+        remove_from_exam_list(submited, curr->data.id);
     }
-    remove_from_exam_list(head, copy->data.date, copy->data.time);
+    remove_from_exam_list(head, curr->data.id);
 }
 
 

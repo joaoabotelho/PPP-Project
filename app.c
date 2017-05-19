@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include <stdbool.h>
 
+static int EXAM_ID;
 const int CHAR_SIZE = 50;
 
 #include "lists/student_list.c"
@@ -148,6 +149,7 @@ void students_menu(Student_list list_student, Classes_list list_class, Exams_lis
 
 void exit_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
     imp_classes(list_class);
+    imp_exams(list_exam);
     printf("\nObrigado. Os dados foram atualizados nos ficheiros.");
 }
 
@@ -194,6 +196,7 @@ int main() {
     Exams_list list_exam = create_exams_list();
     Student_exams_list list_student_exams = create_student_exams_list();
 
+    ex_id(&EXAM_ID);
     ex_classes(list_class);
     main_menu(list_student, list_class, list_exam, list_student_exams);
 

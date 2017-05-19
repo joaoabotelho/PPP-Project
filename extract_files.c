@@ -39,3 +39,11 @@ void ex_classes(Classes_list head){
     }
     fclose(classes);
 }
+
+void ex_id(int *num) {
+    FILE *exams;
+
+    exams = fopen("files/exams.txt", "r");
+    fscanf(exams, "%d", num);
+    fclose(exams);
+}

@@ -14,3 +14,11 @@ void imp_classes(Classes_list head) {
     }
     fclose(classes);
 }
+
+void imp_exams(Exams_list head) {
+    FILE *exams;
+
+    exams = fopen("files/exams.txt", "w");
+    fprintf(exams, "%d", EXAM_ID);
+    fclose(exams);
+}

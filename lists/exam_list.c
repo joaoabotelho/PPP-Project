@@ -75,11 +75,10 @@ void print_classroom_list(Classroom_list head) {
 
 void print_exams_list(Exams_list head) {
     Exams_list I = head->next;
-    int i = 1;
 
     printf("\n\n#### Lista de exames ####");
     while(I) {
-        printf("\n\tExame num --> %d\n", i);
+        printf("\n\tExame num --> %d\n", I->data.id);
         printf("\t%s\n", I->data.type);
         printf("\tNome da Disciplina--> %s\n", I->data.subject->name);
         printf("\tDocente da Disciplina--> %s\n", I->data.subject->teacher);
@@ -89,7 +88,6 @@ void print_exams_list(Exams_list head) {
         print_classroom_list(I->data.classrooms);
         printf("\n--------------------\n");
         I = I->next;
-        i++;
     }
 }
 
@@ -127,20 +125,22 @@ int compare_dates(Date a,Date b) {
         return 1;
 }
 
-void search_exam_list(Exams_list head, Date date, Time time, Exams_list *prev, Exams_list *curr) {
+void search_exam_list(Exams_list head, int id, Exams_list *prev, Exams_list *curr) {
      
     *prev = head;
     *curr = head->next;
-    while(((*curr) != NULL) && ((compare_dates(date, (*curr)->data.date) == -1) || (comparehours(time, (*curr)->data.time)))) {
+    while((*curr) != NULL && (*curr)->data.id < id) {
         *prev = *curr;
         *curr = (*curr)->next;
     }
+    if((*curr) != NULL && (*curr)->data.id != id)
+        *curr = NULL;
 }
 
-void remove_from_exam_list(Exams_list head, Date date, Time time) {
+void remove_from_exam_list(Exams_list head, int id) {
     Exams_list prev, curr;
 
-    search_exam_list(head, date, time, &prev, &curr);
+    search_exam_list(head, id, &prev, &curr);
     if(curr != NULL) {
         prev->next = curr->next;
         free(curr);
@@ -153,7 +153,7 @@ void append_exam(Exams_list *head, Exam new) {
     node = (Exams_list) malloc (sizeof (Exams_node));
     if(node != NULL) {
         node->data = new;
-        search_exam_list(*head, new.date, new.time, &prev, &useless);
+        search_exam_list(*head, new.id, &prev, &useless);
         node->next = prev->next;
         prev->next = node;
     }
@@ -210,10 +210,10 @@ void possible_hours(Time time_available[], int n, int hour, int minutes) {
     }
 }
 
-void remove_from_exams_list(Exams_list head, Date date, Time time) {
+void remove_from_exams_list(Exams_list head, int id) {
     Exams_list prev, curr;
 
-    search_exam_list(head, date, time, &prev, &curr);
+    search_exam_list(head, id, &prev, &curr);
     if(curr != NULL) {
         prev->next = curr->next;
         free(curr);

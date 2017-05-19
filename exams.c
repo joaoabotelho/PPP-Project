@@ -118,72 +118,78 @@ void create_exam(Exams_list head, Classes_list classes) {
     char *class_name = (char*) malloc (CHAR_SIZE * sizeof(char));
 
     if (classes->next != NULL) {
-    // goes to class list and gets the pretended class
-    printf("\n\n### Esta a criar um novo exame ###\n\n");
-    get_class(&classes); 
-    new.subject = &classes->data;
+        // goes to class list and gets the pretended class
+        printf("\n\n### Esta a criar um novo exame ###\n\n");
+        get_class(&classes); 
+        new.subject = &classes->data;
 
-    // type
-    printf("\tQual e o tipo do exame?\n");
-    new.type = (char*) malloc (CHAR_SIZE * sizeof(char));
-    exam_type(new.type); // func in "lists/exam_list.c"
+        //id
+        new.id = EXAM_ID + 1;
 
-    // date
-    printf("\tA que dia/mes/ano se realiza o exame?\n\t(Day)-->");
-    fgets_int(&new.date.day); 
-    printf("\n\t(Month)-->");
-    fgets_int(&new.date.month);
-    printf("\n\t(Year)-->");
-    fgets_int(&new.date.year);
+        // type
+        printf("\tQual e o tipo do exame?\n");
+        new.type = (char*) malloc (CHAR_SIZE * sizeof(char));
+        exam_type(new.type); // func in "lists/exam_list.c"
 
-    // time
-    printf("\n\tA que horas?\n\n");
-    exam_time(&new.time, 19, 9, 0); 
+        // date
+        printf("\tA que dia/mes/ano se realiza o exame?\n\t(Day)-->");
+        fgets_int(&new.date.day); 
+        printf("\n\t(Month)-->");
+        fgets_int(&new.date.month);
+        printf("\n\t(Year)-->");
+        fgets_int(&new.date.year);
 
-    // duration
-    printf("\n\tDuracao?\n\n");
-    exam_time(&new.duration, 6, 0 ,30); 
+        // time
+        printf("\n\tA que horas?\n\n");
+        exam_time(&new.time, 19, 9, 0); 
 
-    // establishing the time when it ends the exam
-    new.final.hour = new.time.hour + new.duration.hour;
-    new.final.minutes = new.time.minutes + new.duration.minutes;
-    if (new.final.minutes == 60) {
-        new.final.minutes = 0;
-        new.final.hour += 1;
-    }
+        // duration
+        printf("\n\tDuracao?\n\n");
+        exam_time(&new.duration, 6, 0 ,30); 
 
-    // creates the list for the students to register
-    new.students_submited = create_students_list();
+        // establishing the time when it ends the exam
+        new.final.hour = new.time.hour + new.duration.hour;
+        new.final.minutes = new.time.minutes + new.duration.minutes;
+        if (new.final.minutes == 60) {
+            new.final.minutes = 0;
+            new.final.hour += 1;
+        }
 
-    // creates the list for the rooms that the exam is going to take place
-    new.classrooms = create_classroom_list();
-    possible_room(copy, new.date, new.time, new.final, new.classrooms); // picks the first room
+        // creates the list for the students to register
+        new.students_submited = create_students_list();
 
-    append_exam(&head, new);
-    printf("\nExame Criado.");
+        // creates the list for the rooms that the exam is going to take place
+        new.classrooms = create_classroom_list();
+        possible_room(copy, new.date, new.time, new.final, new.classrooms); // picks the first room
+
+        append_exam(&head, new);
+        printf("\nExame Criado.");
+        EXAM_ID++;
     } else {
         printf("\tNao existem disciplinas na base de dados.");
     }
 }
 
-// search the exam for their number associated 
-void search_exam(Exams_list *head) {
+// search the exam for their number associated R
+void search_exam(Exams_list head, Exams_list *prev, Exams_list *curr) {
     int num, i;
 
-    print_exams_list(*head);
+    print_exams_list(head);
     printf("\tExame em causa (n de exame)\n-->");
     fgets_int(&num);
-
-    for(i = 0; i < num; i++) {
-        *head = (*head)->next;
+    search_exam_list(head, num, prev, curr);     
+    if(*curr == NULL) {
+        printf("Nao existem nenhum exame com esse id. Tente de novo.");
+        search_exam(head, prev, curr);
     }
 }
 
 // print list of classrooms of a exam
 void print_classrooms(Exams_list head) {
+    Exams_list curr, prev;
     if(head->next != NULL) {
-    search_exam(&head);
-    print_classroom_list(head->data.classrooms); 
+    search_exam(head, &prev, &curr);
+    print_classroom_list(curr->data.classrooms); 
     } else {
         printf("\t Nao existem exames na base de dados");
     }
