@@ -93,16 +93,18 @@ and makes the user choose a time for the exam */
 void exam_time(Time *time, int n, int hour, int minutes) {
     Time time_available[n];
     int i;
-    
-    possible_hours(time_available, n, hour, minutes); 
 
-    printf("\tHoras disponiveis:\n\n");
-    for (i = 0; i < n; i++) {
-        printf("\t\t%d.\t%d : %d\n", i + 1, time_available[i].hour, time_available[i].minutes);
-    }
+    do {
+        possible_hours(time_available, n, hour, minutes); 
 
-    printf("\t-->");
-    fgets_int(&i);
+        printf("\tHoras disponiveis:\n\n");
+        for (i = 0; i < n; i++) {
+            printf("\t\t%d.\t%d : %d\n", i + 1, time_available[i].hour, time_available[i].minutes);
+        }
+
+        printf("\t-->");
+        fgets_int(&i);
+    } while(i > n || i <  1);
 
     (*time).hour = time_available[i-1].hour;
     (*time).minutes = time_available[i-1].minutes;

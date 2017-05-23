@@ -178,10 +178,10 @@ void append_classroom(Classroom_list head, Classroom new) {
 void exam_type(char str[]) {
     char *temp = (char*) malloc (CHAR_SIZE * sizeof(char));
 
+    while(temp[0] != '1' && temp[0] != '2' && temp[0] != '3') { 
     printf("\t\t1.Epoca Normal\n\t\t2.Epoca de Recurso\n\t\t3.Epoca Especial\n\t-->");
     fgets(temp, CHAR_SIZE, stdin);
 
-    while(temp[0] != '1' || temp[0] != '2' || temp[0] != '3') { 
         switch(temp[0]) {
             case '1':
                 strcpy(str, "Epoca Normal");
@@ -193,7 +193,7 @@ void exam_type(char str[]) {
                 strcpy(str, "Epoca Especial");
                 break;
             default:
-                printf("\t\tWrong choice. Enter again.\n");
+                printf("\t\tEscolha errada. Tente de novo..\n");
         }
     }
 }

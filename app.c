@@ -157,7 +157,7 @@ void main_menu(Student_list list_student, Classes_list list_class, Exams_list li
         "Exit Menu"
     };
 
-    while(choice[0] != '1' || choice[0] != '2' || choice[0] != '3' || choice[0] != '4') {
+    while(1) {
         printf("\n\n@@@@@@      Welcome to this app      @@@@@@\n\n");
         printf("$ MENU $");
         display_of_options(options, 4);

@@ -76,10 +76,10 @@ void print_student_list(Student_list head){
 void regime(char str[]) {
     char *temp = (char *) malloc (CHAR_SIZE * sizeof(char));
 
-    printf("\t\t1.Normal\n\t\t2.Trabalhador-estudante\n\t\t3.Atleta\n\t\t4.Dirigente associativo\n\t\t5.Aluno de Erasmus\n\t-->");
-    fgets(temp, CHAR_SIZE, stdin);
-    
-    while(temp[0] != '1' || temp[0] != '2' ||  temp[0] != '3' || temp[0] != '4' || temp[0] != '5') {
+    while(temp[0] != '1' && temp[0] != '2' &&  temp[0] != '3' && temp[0] != '4' && temp[0] != '5') {
+        printf("\t\t1.Normal\n\t\t2.Trabalhador-estudante\n\t\t3.Atleta\n\t\t4.Dirigente associativo\n\t\t5.Aluno de Erasmus\n\t-->");
+        fgets(temp, CHAR_SIZE, stdin);
+
         switch(temp[0]) {
             case '1':
                 strcpy(str, "Normal");
@@ -99,6 +99,7 @@ void regime(char str[]) {
             default:
                 printf("\t\tEscolha errada. Tente de novo.\n");
         }
+        printf("lalal\n");
     }
 }
 
