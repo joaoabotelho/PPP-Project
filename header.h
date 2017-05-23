@@ -90,7 +90,7 @@ typedef struct senode {
 
 /* Helpers */
 int fgets_to_int(char *temp);
-int fgets_int(int *numb);
+void fgets_int(int *numb);
 char check_answer();
 void confirm_answer(char print[], int *numb, char str[]);
 
