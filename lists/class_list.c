@@ -11,11 +11,13 @@ typedef struct cnode {
 
 Classes_list create_classes_list() {
     Classes_list aux;
-    Class null;
+    Class useless;
 
+    useless.name = (char *) malloc (CHAR_SIZE * sizeof(char));
+    useless.name = "";
     aux = (Classes_list) malloc (sizeof (Classes_node));
     if(aux != NULL){
-        aux->data = null;
+        aux->data = useless;
         aux->next = NULL;
     }
     return aux;
@@ -58,7 +60,7 @@ void print_classes_list(Classes_list head) {
 
 void get_class(Classes_list *head) {
     char *class_name = (char *) malloc (CHAR_SIZE * sizeof(char));
-    Classes_list *copy = head;
+    Classes_list copy = *head;
 
     printf("\t Que disciplina pretende?");
     print_classes_list(*head);
@@ -69,7 +71,7 @@ void get_class(Classes_list *head) {
         *head = (*head)->next;
     if(strcmp((*head)->data.name, class_name) != 0) {
         printf("\t\tNome de disciplina nao existente. Tende de novo.\n");
-        get_class(copy);
+        get_class(&copy);
     }
 }
 

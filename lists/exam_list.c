@@ -41,11 +41,13 @@ typedef struct enode {
 
 Exams_list create_exams_list() {
     Exams_list aux;
-    Exam null;
+    Exam useless;
 
+    useless.type = (char *) malloc (CHAR_SIZE * sizeof(char));
+    useless.type = "";
     aux = (Exams_list) malloc (sizeof (Exams_node));
     if(aux != NULL) {
-        aux->data = null;
+        aux->data = useless;
         aux->next = NULL;
     }
     return aux;
@@ -53,11 +55,12 @@ Exams_list create_exams_list() {
 
 Classroom_list create_classroom_list() {
     Classroom_list aux;
-    Classroom null;
+    Classroom useless;
 
+    useless.room = 0;
     aux = (Classroom_list) malloc (sizeof (Classrooms_node));
     if(aux != NULL) {
-        aux->data = null;
+        aux->data = useless;
         aux->next = NULL;
     }
     return aux;
@@ -109,11 +112,11 @@ int search_room(Exams_list head, Classroom room) {
 
 int comparehours(Time a,Time b) {
     if ((a.hour == b.hour) && (a.minutes == b.minutes))
-        return 0; // "a" = "b"
+        return 0; /* "a" = "b" */
     else if ((a.hour > b.hour) || ((a.hour == b.hour) && (a.minutes > b.minutes)))
-        return -1; // "a" after "b"
+        return -1; /* "a" after "b" */
     else
-        return 1; // "b" after "a"
+        return 1; /* "b" after "a" */
 }
 
 int compare_dates(Date a,Date b) {

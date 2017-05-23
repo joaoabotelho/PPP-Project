@@ -11,11 +11,14 @@ typedef struct senode {
 
 Student_exams_list create_student_exams_list() {
     Student_exams_list aux;
-    Student_exams null;
+    Student_exams useless;
 
+    useless.a.numb = (int *) malloc (sizeof(int));
+    *useless.a.numb = 0;
+    useless.submited = create_exams_list();
     aux = (Student_exams_list) malloc (sizeof (Student_exams_node));
     if(aux != NULL) {
-        aux->data = null;
+        aux->data = useless;
         aux->next = NULL;
     }
     return aux;

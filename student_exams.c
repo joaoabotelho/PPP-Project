@@ -17,8 +17,8 @@ int eligble_for_exam(Exam ex, Student st) {
         if((strncmp(st.regime, "Normal", 6) == 0) && (*st.year != LAST_YEAR)) {
             printf("\tEste aluno não está elegivel para este exame.");
             return 1;
-        } else return -1;  
-    } else return -1;
+        } else return 0;  
+    } else return 0;
 }
 
 void append_exam_stex_list(Student_exams_list head, Student st, Exam new) {
@@ -42,15 +42,17 @@ void submit_students(Student_list all, Exams_list head, Student_exams_list conne
 
         what_student(&all);
 
-        if(eligble_for_exam(current->data, all->data) == 1)
+        if(eligble_for_exam(current->data, all->data) == 1) {
             submit_students(copy_st, copy_ex, copy_st_ex);
+        }
 
         check_student_exams(connect, all->data); 
         submited = current->data.students_submited;
 
-        if(current->data.students_submited->next == NULL) { 
+        if(submited->next == NULL) { 
             append_student_wOrder(&submited, all->data);
             append_exam_stex_list(connect, all->data, current->data);
+            printf("%d\n", *all->data.numb);
 
         } else {
             num_students = size_of_sList(submited);

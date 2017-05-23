@@ -27,7 +27,6 @@ void display_of_options(char *options[], int n) {
     }
 }
 
-// Menu to add/see/associate with other data/manage data of exams
 void exams_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
     char *choice = (char*) malloc (CHAR_SIZE * sizeof(char));
     char *options[] = {
@@ -73,9 +72,7 @@ void exams_menu(Student_list list_student, Classes_list list_class, Exams_list l
     }   
 }
 
-// Menu to add/change/see/remove data from classes
 void classes_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
-    int i;
     char *choice = (char*) malloc (CHAR_SIZE * sizeof(char));
     char *options[] = { 
         "Crie uma nova disciplina.",
@@ -108,7 +105,6 @@ void classes_menu(Student_list list_student, Classes_list list_class, Exams_list
     }  
 }
 
-// Menu to add/change/see/remove data of students
 void students_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
     char *choice = (char*) malloc (CHAR_SIZE * sizeof(char));
     char *options[] = {
@@ -149,11 +145,12 @@ void students_menu(Student_list list_student, Classes_list list_class, Exams_lis
 
 void exit_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
     imp_classes(list_class);
-    imp_exams(list_exam);
+    imp_students(list_student);
+    imp_exams(list_exam); 
+    imp_student_exams(list_student_exams);
     printf("\nObrigado. Os dados foram atualizados nos ficheiros.");
 }
 
-// Goes to other menus Student/Classes/Exams
 void main_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
     char *choice = (char*) malloc (CHAR_SIZE * sizeof(char));
     char *options[] = {
@@ -162,6 +159,7 @@ void main_menu(Student_list list_student, Classes_list list_class, Exams_list li
         "Exams Menu",
         "Exit Menu"
     };
+
     printf("\n\n@@@@@@      Welcome to this app      @@@@@@\n\n");
     printf("$ MENU $");
     display_of_options(options, 4);
@@ -192,12 +190,15 @@ void main_menu(Student_list list_student, Classes_list list_class, Exams_list li
 
 int main() { 
     Student_list list_student = create_students_list();
-    Classes_list list_class = create_classes_list();
+    Classes_list list_class = create_classes_list(), copy;
     Exams_list list_exam = create_exams_list();
     Student_exams_list list_student_exams = create_student_exams_list();
 
-    ex_id(&EXAM_ID);
     ex_classes(list_class);
+    ex_students(list_student);
+    copy = list_class;
+    ex_exams(list_exam, &copy, list_student);
+    ex_student_exams(list_exam, list_student, list_student_exams);
     main_menu(list_student, list_class, list_exam, list_student_exams);
 
     return 0;

@@ -1,4 +1,4 @@
-// Transforms the char of fgets to int
+/* Transforms the char of fgets to int */
 int fgets_to_int(char *temp) {
     int i, numb, len = strlen(temp) - 1;
 
@@ -11,7 +11,7 @@ int fgets_to_int(char *temp) {
     return numb;
 }
 
-// Gets the value of numb(int) from a fgets
+/* Gets the value of numb(int) from a fgets */
 void fgets_int(int *numb) {
     char *temp = (char*) malloc (CHAR_SIZE * sizeof(char));
 
@@ -19,7 +19,7 @@ void fgets_int(int *numb) {
     *numb = fgets_to_int(temp);
 }
 
-// yes or no question to confirm if user wants to change something
+/* yes or no question to confirm if user wants to change something */
 char check_answer() {
     char *answer = (char*) malloc (CHAR_SIZE * sizeof(char));
 

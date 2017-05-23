@@ -1,10 +1,2 @@
-Algebra linear, Margarida Camarinha;
-Analise Matematica I, Jorge Neves;
-Estruturas Discretas, Olga Azenhas;
-IPRP, Bernardete Ribeiro;
-TC, Gabriel Falcao;
-Analise Matematica II, Julio Neves;
-AC, Paulo Peixoto;
-ESTA, Cristina Martins;
 PPP, Marco Vieira;
-TFM, Maria Helena Alberto;
+IPRP, Bernardete;

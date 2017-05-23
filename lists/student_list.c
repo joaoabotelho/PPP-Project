@@ -13,11 +13,13 @@ typedef struct node {
 
 Student_list create_students_list() {
     Student_list aux;
-    Student null;
+    Student useless;
 
+    useless.numb = (int *) malloc (sizeof(int));
+    *useless.numb = 0;
     aux = (Student_list) malloc (sizeof (Student_node));
     if(aux != NULL){
-        aux->data = null;
+        aux->data = useless;
         aux->next = NULL;
     }
     return aux;
@@ -70,6 +72,7 @@ void print_student_list(Student_list head){
         I = I->next;
     }
 }   
+
 void regime(char str[]) {
     char *temp = (char *) malloc (CHAR_SIZE * sizeof(char));
 
@@ -106,11 +109,9 @@ void swap(Student_list a, Student_list b) {
 }
 
 void bubbleSort(Student_list head) {
-    int i, swapped;
+    int swapped;
     Student_list ptr1, lptr = NULL;
-
-    if(ptr1 == NULL)
-        return;
+    
     do {
         swapped = 0;
         ptr1 = head->next;

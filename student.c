@@ -62,19 +62,19 @@ void change_slist_data(Student_list head) {
         printf("\n\n### Esta a querer alterar os dados de um aluno ###\n\n");
         what_student(&head);
 
-        // Numb
+        /* Numb */
         printf("\n\tEste e o numero do aluno --> %d\n", *head->data.numb);
         confirm_answer("\tO novo numero do aluno e\n\t-->", head->data.numb, "0");
 
-        // Course
+        /* Course */
         printf("\n\tEste e o curso do aluno --> %s", head->data.course);
         confirm_answer("\tO novo curso do aluno e\n\t-->", 0, head->data.course); 
 
-        // Year
+        /* Year */
         printf("\n\tO aluno esta neste ano --> %d\n", *head->data.year);
         confirm_answer("\tO novo ano do aluno e\n\t-->", head->data.year, "0");
 
-        // Regime 
+        /* Regime  */
         printf("\n\tEste e o regime do aluno --> %s\n", head->data.regime); 
         confirm_answer("\tO novo regime do aluno e\n", &numb, head->data.regime); 
     } else {
