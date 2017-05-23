@@ -11,7 +11,7 @@ const int CHAR_SIZE = 50;
 #include "lists/class_list.c"
 #include "lists/exam_list.c"
 #include "lists/student_exams_list.c"
-#include "base.c"
+#include "helpers.c"
 #include "student.c"
 #include "classes.c"
 #include "exams.c"
