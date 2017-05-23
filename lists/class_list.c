@@ -60,7 +60,6 @@ void print_classes_list(Classes_list head) {
 
 void get_class(Classes_list *head) {
     char *class_name = (char *) malloc (CHAR_SIZE * sizeof(char));
-    Classes_list copy = *head;
 
     do {
         printf("\t Que disciplina pretende?");
