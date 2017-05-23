@@ -43,21 +43,20 @@ void check_same_time(Exams_list head, Exams_list *node, Time time, Time final) {
 void chose_room(Exams_list head, Classroom *new) {
     char *temp = (char*) malloc (CHAR_SIZE * sizeof(char));
 
-    printf("\tBloco?\n\t-->");
-    fgets(temp, CHAR_SIZE, stdin);  
-    strncpy(&(*new).letter, temp, 1);
+    do {
+        printf("\tBloco?\n\t-->");
+        fgets(temp, CHAR_SIZE, stdin);  
+        strncpy(&(*new).letter, temp, 1);
 
-    printf("\tPiso?\n\t-->");
-    fgets_int(&(*new).floor);
+        printf("\tPiso?\n\t-->");
+        fgets_int(&(*new).floor);
 
-    printf("\tSala?\n\t-->");
-    fgets_int(&(*new).room);
+        printf("\tSala?\n\t-->");
+        fgets_int(&(*new).room);
 
-    /* If the room is already in use calls for chose_room func again */
-    if(search_room(head, *new) == 1) { 
-        printf("Essa sala esta ocupada. Por favor escolha outra.\n");
-        chose_room(head, new);
-    }
+        if(search_room(head, *new) == 1) 
+            printf("Essa sala esta ocupada. Por favor escolha outra.\n");
+    } while(search_room(head, *new) == 1);
 }    
 
 /* Sees what rooms are available at the time of the exam in question  */
@@ -160,14 +159,14 @@ void create_exam(Exams_list head, Classes_list classes) {
 void search_exam(Exams_list head, Exams_list *prev, Exams_list *curr) {
     int num;
 
-    print_exams_list(head);
-    printf("\tExame em causa (n de exame)\n-->");
-    fgets_int(&num);
-    search_exam_list(head, num, prev, curr);     
-    if(*curr == NULL) {
-        printf("Nao existem nenhum exame com esse id. Tente de novo.");
-        search_exam(head, prev, curr);
-    }
+    do {
+        print_exams_list(head);
+        printf("\tExame em causa (n de exame)\n-->");
+        fgets_int(&num);
+        search_exam_list(head, num, prev, curr);     
+        if(*curr == NULL)
+            printf("Nao existem nenhum exame com esse id. Tente de novo.");
+    } while(*curr == NULL);
 }
 
 void print_classrooms(Exams_list head) {

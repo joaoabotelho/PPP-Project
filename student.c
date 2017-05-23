@@ -42,6 +42,7 @@ void what_student(Student_list *head) {
     int student_numb;
     Student_list copy = *head;
 
+    do {
     printf("\tQue aluno pretende?(n de aluno)");
     print_student_list(*head);
     printf("\t-->");
@@ -49,10 +50,9 @@ void what_student(Student_list *head) {
      
     while((*(*head)->data.numb != student_numb) && ((*head)->next != NULL))
         *head = (*head)->next;
-    if(*(*head)->data.numb != student_numb) {
+    if(*(*head)->data.numb != student_numb)
         printf("\tNao existe ninguem com esse numero. Tente de novo.");
-        what_student(&copy);
-    }
+    } while(*(head)->data.numb != student_numb);
 }
 
 void change_slist_data(Student_list head) {

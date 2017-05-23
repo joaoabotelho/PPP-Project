@@ -33,6 +33,7 @@ void imp_students(Student_list head) {
 
         fprintf(students, " %s;\n", head->data.regime); 
     }
+    fclose(students);
 }
 
 void imp_exams(Exams_list head) {

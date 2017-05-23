@@ -181,19 +181,20 @@ void exam_type(char str[]) {
     printf("\t\t1.Epoca Normal\n\t\t2.Epoca de Recurso\n\t\t3.Epoca Especial\n\t-->");
     fgets(temp, CHAR_SIZE, stdin);
 
-    switch(temp[0]) {
-        case '1':
-            strcpy(str, "Epoca Normal");
-            break;
-        case '2':
-            strcpy(str, "Epoca de Recurso");
-            break;
-        case '3':
-            strcpy(str, "Epoca Especial");
-            break;
-        default:
-            printf("\t\tWrong choice. Enter again.\n");
-            exam_type(str);
+    while(temp[0] != '1' || temp[0] != '2' || temp[0] != '3') { 
+        switch(temp[0]) {
+            case '1':
+                strcpy(str, "Epoca Normal");
+                break;
+            case '2':
+                strcpy(str, "Epoca de Recurso");
+                break;
+            case '3':
+                strcpy(str, "Epoca Especial");
+                break;
+            default:
+                printf("\t\tWrong choice. Enter again.\n");
+        }
     }
 }
 

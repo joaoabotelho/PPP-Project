@@ -31,9 +31,7 @@ void append_exam_stex_list(Student_exams_list head, Student st, Exam new) {
 void submit_students(Student_list all, Exams_list head, Student_exams_list connect) {
     const int MAX_ROOM_CAPACITY = 30;
     int num_students;
-    Student_list copy_st = all;
     Exams_list copy_ex = head, prev, current;
-    Student_exams_list copy_st_ex = connect;
     Student_list submited, useless, curr;
 
     if(head->next != NULL && all->next != NULL) {
@@ -42,33 +40,32 @@ void submit_students(Student_list all, Exams_list head, Student_exams_list conne
 
         what_student(&all);
 
-        if(eligble_for_exam(current->data, all->data) == 1) {
-            submit_students(copy_st, copy_ex, copy_st_ex);
-        }
+        if(eligble_for_exam(current->data, all->data) != 1) {
 
-        check_student_exams(connect, all->data); 
-        submited = current->data.students_submited;
+            check_student_exams(connect, all->data); 
+            submited = current->data.students_submited;
 
-        if(submited->next == NULL) { 
-            append_student_wOrder(&submited, all->data);
-            append_exam_stex_list(connect, all->data, current->data);
-            printf("%d\n", *all->data.numb);
-
-        } else {
-            num_students = size_of_sList(submited);
-            search_student_list(submited, *all->data.numb, &useless, &curr);
-
-            if(curr != NULL) {
-                printf("\n\tO aluno %d ja esta inscrito neste exame", *all->data.numb);
-
-            } else {
-                bubbleSort(submited);
+            if(submited->next == NULL) { 
                 append_student_wOrder(&submited, all->data);
                 append_exam_stex_list(connect, all->data, current->data);
+                printf("%d\n", *all->data.numb);
 
-                if(num_students % MAX_ROOM_CAPACITY == 0) {
-                    printf("Tem de reservar mais uma sala. Tem neste momento 1 aluno a mais.");
-                    possible_room(copy_ex, current->data.date, current->data.time, current->data.final, current->data.classrooms);
+            } else {
+                num_students = size_of_sList(submited);
+                search_student_list(submited, *all->data.numb, &useless, &curr);
+
+                if(curr != NULL) {
+                    printf("\n\tO aluno %d ja esta inscrito neste exame", *all->data.numb);
+
+                } else {
+                    bubbleSort(submited);
+                    append_student_wOrder(&submited, all->data);
+                    append_exam_stex_list(connect, all->data, current->data);
+
+                    if(num_students % MAX_ROOM_CAPACITY == 0) {
+                        printf("Tem de reservar mais uma sala. Tem neste momento 1 aluno a mais.");
+                        possible_room(copy_ex, current->data.date, current->data.time, current->data.final, current->data.classrooms);
+                    }
                 }
             }
         }

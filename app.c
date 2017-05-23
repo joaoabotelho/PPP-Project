@@ -68,7 +68,6 @@ void exams_menu(Student_list list_student, Classes_list list_class, Exams_list l
             break;
         default:
             printf("Escolha errada. Tente de novo.\n");
-            exams_menu(list_student, list_class, list_exam, list_student_exams);
     }   
 }
 
@@ -101,7 +100,6 @@ void classes_menu(Student_list list_student, Classes_list list_class, Exams_list
             break;
         default:
             printf("Escolha errada. Tente de novo.\n");
-            classes_menu(list_student, list_class, list_exam, list_student_exams);
     }  
 }
 
@@ -139,7 +137,6 @@ void students_menu(Student_list list_student, Classes_list list_class, Exams_lis
             break;
         default:
             printf("Escolha errada. Tente de novo.\n");
-            students_menu(list_student, list_class, list_exam, list_student_exams);
     }
 }
 
@@ -160,32 +157,33 @@ void main_menu(Student_list list_student, Classes_list list_class, Exams_list li
         "Exit Menu"
     };
 
-    printf("\n\n@@@@@@      Welcome to this app      @@@@@@\n\n");
-    printf("$ MENU $");
-    display_of_options(options, 4);
-    printf("\n-->");
-    fgets(choice, CHAR_SIZE, stdin);
+    while(choice[0] != '1' || choice[0] != '2' || choice[0] != '3' || choice[0] != '4') {
+        printf("\n\n@@@@@@      Welcome to this app      @@@@@@\n\n");
+        printf("$ MENU $");
+        display_of_options(options, 4);
+        printf("\n-->");
+        fgets(choice, CHAR_SIZE, stdin);
 
-    switch(choice[0]) {
-        case '1':
-            students_menu(list_student, list_class, list_exam, list_student_exams);
-            main_menu(list_student, list_class, list_exam, list_student_exams);
+        switch(choice[0]) {
+            case '1':
+                students_menu(list_student, list_class, list_exam, list_student_exams);
+                break;
+            case '2':
+                classes_menu(list_student, list_class, list_exam, list_student_exams);
+                break;
+            case '3':
+                exams_menu(list_student, list_class, list_exam, list_student_exams);
+                break;
+            case '4':
+                exit_menu(list_student, list_class, list_exam, list_student_exams);
+                break;
+            default:
+                printf("Escolha errada. Tente de novo.\n");
+                break;
+        } 
+        if(choice[0] == '4')
             break;
-        case '2':
-            classes_menu(list_student, list_class, list_exam, list_student_exams);
-            main_menu(list_student, list_class, list_exam, list_student_exams);
-            break;
-        case '3':
-            exams_menu(list_student, list_class, list_exam, list_student_exams);
-            main_menu(list_student, list_class, list_exam, list_student_exams);
-            break;
-        case '4':
-            exit_menu(list_student, list_class, list_exam, list_student_exams);
-            break;
-        default:
-            printf("Escolha errada. Tente de novo.\n");
-            main_menu(list_student, list_class, list_exam, list_student_exams);
-    } 
+    }
 }
 
 int main() { 

@@ -62,17 +62,17 @@ void get_class(Classes_list *head) {
     char *class_name = (char *) malloc (CHAR_SIZE * sizeof(char));
     Classes_list copy = *head;
 
-    printf("\t Que disciplina pretende?");
-    print_classes_list(*head);
-    printf("\t-->");
-    fgets(class_name, CHAR_SIZE, stdin);
-    
-    while((strcmp((*head)->data.name, class_name) != 0) && ((*head)->next != NULL))
-        *head = (*head)->next;
-    if(strcmp((*head)->data.name, class_name) != 0) {
-        printf("\t\tNome de disciplina nao existente. Tende de novo.\n");
-        get_class(&copy);
-    }
+    do {
+        printf("\t Que disciplina pretende?");
+        print_classes_list(*head);
+        printf("\t-->");
+        fgets(class_name, CHAR_SIZE, stdin);
+
+        while((strcmp((*head)->data.name, class_name) != 0) && ((*head)->next != NULL))
+            *head = (*head)->next;
+        if(strcmp((*head)->data.name, class_name) != 0)
+            printf("\t\tNome de disciplina nao existente. Tende de novo.\n");
+    } while(strcmp((*head)->data.name, class_name) != 0);
 }
 
 

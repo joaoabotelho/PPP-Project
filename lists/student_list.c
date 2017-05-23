@@ -78,26 +78,27 @@ void regime(char str[]) {
 
     printf("\t\t1.Normal\n\t\t2.Trabalhador-estudante\n\t\t3.Atleta\n\t\t4.Dirigente associativo\n\t\t5.Aluno de Erasmus\n\t-->");
     fgets(temp, CHAR_SIZE, stdin);
-
-    switch(temp[0]) {
-        case '1':
-            strcpy(str, "Normal");
-            break;
-        case '2':
-            strcpy(str, "Trabalhador-estudante");
-            break;
-        case '3':
-            strcpy(str, "Atleta");
-            break;
-        case '4':
-            strcpy(str, "Dirigente associativo");
-            break;
-        case '5':
-            strcpy(str, "Aluno de Erasmus");
-            break;
-        default:
-            printf("\t\tEscolha errada. Tente de novo.\n");
-            regime(str);
+    
+    while(temp[0] != '1' || temp[0] != '2' ||  temp[0] != '3' || temp[0] != '4' || temp[0] != '5') {
+        switch(temp[0]) {
+            case '1':
+                strcpy(str, "Normal");
+                break;
+            case '2':
+                strcpy(str, "Trabalhador-estudante");
+                break;
+            case '3':
+                strcpy(str, "Atleta");
+                break;
+            case '4':
+                strcpy(str, "Dirigente associativo");
+                break;
+            case '5':
+                strcpy(str, "Aluno de Erasmus");
+                break;
+            default:
+                printf("\t\tEscolha errada. Tente de novo.\n");
+        }
     }
 }
 

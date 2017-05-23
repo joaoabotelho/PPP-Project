@@ -1,8 +1,2 @@
-20, Medicina, 2, Atleta 
-;
-30, Engenharia Electrotecnica, 3, Aluno de Erasmus 
-;
-40, Engenharia Mecanica, 1, Atleta 
-;
-50, Engenharia Informatica, 3, Aluno de Erasmus 
+10, Engenharia Informatica, 1, Normal 
 ;
