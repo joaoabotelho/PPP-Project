@@ -1,17 +1,18 @@
+#include "header.h"
+
 void check_student_exams(Student_exams_list head, Student st) {
     Student_exams_list useless, curr;
 
     if(head->next != NULL) {
         search_student_exams_list(head, *st.numb, &useless, &curr);
         if(curr == NULL)
-            append_student_exams_wOrder(&head, st); 
+            append_student_exams(&head, st); 
     } else {
-        append_student_exams_wOrder(&head, st);
+        append_student_exams(&head, st);
     }
 }
 
 int eligble_for_exam(Exam ex, Student st) {
-    const int LAST_YEAR = 3;
 
     if(strncmp(ex.type, "Epoca Especial", 14) == 0) {
         if((strncmp(st.regime, "Normal", 6) == 0) && (*st.year != LAST_YEAR)) {
@@ -29,7 +30,6 @@ void append_exam_stex_list(Student_exams_list head, Student st, Exam new) {
 }
 
 void submit_students(Student_list all, Exams_list head, Student_exams_list connect) {
-    const int MAX_ROOM_CAPACITY = 30;
     int num_students;
     Exams_list copy_ex = head, prev, current;
     Student_list submited, useless, curr;
@@ -38,7 +38,7 @@ void submit_students(Student_list all, Exams_list head, Student_exams_list conne
         printf("\n\n### Esta a querer submeter um aluno a um exame ###/n/n");
         search_exam(head, &prev, &current);
 
-        what_student(&all);
+        request_student(&all);
 
         if(eligble_for_exam(current->data, all->data) != 1) {
 
@@ -46,20 +46,18 @@ void submit_students(Student_list all, Exams_list head, Student_exams_list conne
             submited = current->data.students_submited;
 
             if(submited->next == NULL) { 
-                append_student_wOrder(&submited, all->data);
+                append_student(&submited, all->data);
                 append_exam_stex_list(connect, all->data, current->data);
                 printf("%d\n", *all->data.numb);
-
             } else {
-                num_students = size_of_sList(submited);
+                num_students = size_of_student_list(submited);
                 search_student_list(submited, *all->data.numb, &useless, &curr);
 
                 if(curr != NULL) {
                     printf("\n\tO aluno %d ja esta inscrito neste exame", *all->data.numb);
-
                 } else {
-                    bubbleSort(submited);
-                    append_student_wOrder(&submited, all->data);
+                    bubble_sort(submited);
+                    append_student(&submited, all->data);
                     append_exam_stex_list(connect, all->data, current->data);
 
                     if(num_students % MAX_ROOM_CAPACITY == 0) {
@@ -86,7 +84,7 @@ void print_submited_students(Exams_list head) {
         submited = curr->data.students_submited;
 
         if(submited->next != NULL) {
-            bubbleSort(submited);
+            bubble_sort(submited);
             print_student_list(submited);
         } else {
             printf("\nNao existem alunos inscritos");
@@ -101,7 +99,7 @@ void print_exams_of_student(Student_exams_list head, Student_list all) {
 
     if(all->next != NULL){
         printf("\n\n### Quer ver a lista de exames que um aluno se inscreveu ###\n\n");
-        what_student(&all);        
+        request_student(&all);        
         search_student_exams_list(head, *all->data.numb, &prev, &curr);
 
         if(curr == NULL) {
@@ -127,7 +125,7 @@ void remove_submit_students(Exams_list head, Student_exams_list head2) {
         submited = current->data.students_submited;
         copy = current->data.students_submited;
         if(submited->next != NULL) {
-            what_student(&submited);
+            request_student(&submited);
 
             student_num = *submited->data.numb;
 
@@ -161,5 +159,3 @@ void delete_exam(Exams_list head, Student_exams_list head2) {
     }
     remove_from_exam_list(head, curr->data.id);
 }
-
-

@@ -1,49 +1,10 @@
-typedef struct date {
-    int day;
-    int month;
-    int year;
-} Date;
-
-typedef struct time {
-    int hour;
-    int minutes;
-} Time;
-
-typedef struct classroom {
-    char letter;
-    int floor;
-    int room;
-} Classroom;
-
-typedef struct rnode *Classroom_list;
-typedef struct rnode {
-    Classroom data;
-    Classroom_list next;
-} Classrooms_node;
-
-typedef struct exam {
-    int id;
-    char *type;
-    Class *subject;
-    Date date;
-    Time time;
-    Time duration;
-    Time final;
-    Student_list students_submited;
-    Classroom_list classrooms;
-} Exam;
-
-typedef struct enode *Exams_list;
-typedef struct enode {
-    Exam data;
-    Exams_list next;
-} Exams_node;
+#include "../header.h"
 
 Exams_list create_exams_list() {
     Exams_list aux;
     Exam useless;
 
-    useless.type = (char *) malloc (CHAR_SIZE * sizeof(char));
+    useless.type = (char *)malloc(CHAR_SIZE * sizeof(char));
     useless.type = "";
     aux = (Exams_list) malloc (sizeof (Exams_node));
     if(aux != NULL) {
@@ -110,7 +71,7 @@ int search_room(Exams_list head, Classroom room) {
     return num;
 }
 
-int comparehours(Time a,Time b) {
+int compare_hours(Time a,Time b) {
     if ((a.hour == b.hour) && (a.minutes == b.minutes))
         return 0; /* "a" = "b" */
     else if ((a.hour > b.hour) || ((a.hour == b.hour) && (a.minutes > b.minutes)))
@@ -128,8 +89,7 @@ int compare_dates(Date a,Date b) {
         return 1;
 }
 
-void search_exam_list(Exams_list head, int id, Exams_list *prev, Exams_list *curr) {
-     
+void search_exam_list(Exams_list head, int id, Exams_list *prev, Exams_list *curr) { 
     *prev = head;
     *curr = head->next;
     while((*curr) != NULL && (*curr)->data.id < id) {
@@ -176,11 +136,11 @@ void append_classroom(Classroom_list head, Classroom new) {
 }
 
 void exam_type(char str[]) {
-    char *temp = (char*) malloc (CHAR_SIZE * sizeof(char));
+    char *temp = (char*)malloc(CHAR_SIZE * sizeof(char));
 
     while(temp[0] != '1' && temp[0] != '2' && temp[0] != '3') { 
-    printf("\t\t1.Epoca Normal\n\t\t2.Epoca de Recurso\n\t\t3.Epoca Especial\n\t-->");
-    fgets(temp, CHAR_SIZE, stdin);
+        printf("\t\t1.Epoca Normal\n\t\t2.Epoca de Recurso\n\t\t3.Epoca Especial\n\t-->");
+        fgets(temp, CHAR_SIZE, stdin);
 
         switch(temp[0]) {
             case '1':

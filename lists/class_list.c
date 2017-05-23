@@ -1,13 +1,4 @@
-typedef struct class{
-    char *name;
-    char *teacher;
-} Class;
-
-typedef struct cnode *Classes_list;
-typedef struct cnode {
-    Class data;
-    Classes_list next;
-} Classes_node;
+#include "../header.h"
 
 Classes_list create_classes_list() {
     Classes_list aux;
@@ -59,7 +50,7 @@ void print_classes_list(Classes_list head) {
 }
 
 void get_class(Classes_list *head) {
-    char *class_name = (char *) malloc (CHAR_SIZE * sizeof(char));
+    char *class_name = (char *)malloc(CHAR_SIZE * sizeof(char));
     Classes_list copy = *head;
 
     do {

@@ -1,4 +1,5 @@
 #include <time.h>
+#include "header.h"
 
 void already_exist(Student_list head, int student_numb) {
     Student_list curr, useless;
@@ -14,31 +15,30 @@ void new_student(Student_list head) {
 
     printf("\n\n### Esta a criar um novo aluno ###\n\n");
     printf("\tQual e o numero de aluno?\n\t-->");
-    new.numb = (int *) malloc (sizeof(int));
+    new.numb = (int *)malloc(sizeof(int));
     fgets_int(new.numb); 
 
     search_student_list(head, *new.numb, &useless, &curr);
     if(curr != NULL) { 
         printf("\tNumero de estudante invalido ou ja existente.");
-
     } else {
 
         printf("\tQue curso frequenta?\n\t-->");
-        new.course = (char *) malloc (CHAR_SIZE * sizeof(char));
+        new.course = (char *)malloc(CHAR_SIZE * sizeof(char));
         fgets(new.course, CHAR_SIZE, stdin);
 
         printf("\tQue ano frequenta?(1,2,3)\n\t-->");
-        new.year = (int *) malloc (sizeof(int));
+        new.year = (int *)malloc(sizeof(int));
         fgets_int(new.year);
 
         printf("\tQual o seu regime?\n");
-        new.regime = (char *) malloc (CHAR_SIZE * sizeof(char));
+        new.regime = (char *)malloc(CHAR_SIZE * sizeof(char));
         regime(new.regime);
-        append_student_wOrder(&head, new);
+        append_student(&head, new);
     }
 }
    
-void what_student(Student_list *head) {
+void request_student(Student_list *head) {
     int student_numb;
 
     do {
@@ -59,7 +59,7 @@ void change_slist_data(Student_list head) {
 
     if(head->next != NULL) {
         printf("\n\n### Esta a querer alterar os dados de um aluno ###\n\n");
-        what_student(&head);
+        request_student(&head);
 
         /* Numb */
         printf("\n\tEste e o numero do aluno --> %d\n", *head->data.numb);
@@ -86,7 +86,7 @@ void remove_student_data(Student_list head) {
 
     if(head->next != NULL) {
         printf("\n\n### ESTA A QUERER REMOVER UM ALUNO DA BASE DE DADOS ###\n\n");
-        what_student(&head);
+        request_student(&head);
 
         removes_from_student_list(copy, *head->data.numb);
         printf("\tAluno numero: %d foi retirado da base de dados\n\n", *head->data.numb); 

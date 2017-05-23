@@ -1,33 +1,29 @@
-/* Creates a new class */
+#include "header.h"
+
 void new_class(Classes_list head) {
     Class new;
     Classes_list curr, useless;
 
     printf("\n\n### Esta a criar uma nova disciplina ###\n\n");
 
-    /* Asks for name of class */
     printf("\tQual o nome da disciplina?\n\t-->");
-    new.name = (char *) malloc (CHAR_SIZE * sizeof(char));
+    new.name = (char *)malloc(CHAR_SIZE * sizeof(char));
     fgets(new.name, CHAR_SIZE, stdin);
 
     search_classes_list(head, new, &useless, &curr);
     if(curr != NULL) {
         printf("Uma disciplina com esse nome ja existe. Tente de novo.");
-
     } else {
-        /* Asks for name of teacher */
         printf("\tQual o nome do professor da disciplina?\n\t-->");
-        new.teacher = (char *) malloc (CHAR_SIZE * sizeof(char));
+        new.teacher = (char *)malloc(CHAR_SIZE * sizeof(char));
         fgets(new.teacher, CHAR_SIZE, stdin);
 
-        /* Adds to the list of classes this new class */
         append_class(head, new);
     }
 }
 
 /* Changes the data of classes */
-void change_classes_data(Class* cls) {
-               
+void change_classes_data(Class* cls) { 
         /* Name */
         printf("\n\tEste e o nome da disciplina --> %s", (*cls).name);
         confirm_answer("\tO novo nome da disciplina e\n\t-->", 0, (*cls).name);
@@ -38,7 +34,6 @@ void change_classes_data(Class* cls) {
 }
 
 void change_clist_data(Classes_list *head) {
-
         if((*head)->next != NULL) {
             printf("\n\n### Esta a querer alterar os dados de uma disciplina ###\n\n");
             get_class(&(*head)); 

@@ -1,15 +1,4 @@
-typedef struct student {
-    int *numb;
-    char *course;
-    int *year;
-    char *regime;
-} Student;
-
-typedef struct node *Student_list;
-typedef struct node {
-    Student data;
-    Student_list next;
-} Student_node;
+#include "../header.h"
 
 Student_list create_students_list() {
     Student_list aux;
@@ -47,7 +36,7 @@ void removes_from_student_list(Student_list head, int student_numb) {
     }
 }
 
-void append_student_wOrder(Student_list *head, Student new) {
+void append_student(Student_list *head, Student new) {
     Student_list node, prev, useless;
 
     node = (Student_list) malloc (sizeof (Student_node));
@@ -110,7 +99,7 @@ void swap(Student_list a, Student_list b) {
     b->data = temp;
 }
 
-void bubbleSort(Student_list head) {
+void bubble_sort(Student_list head) {
     int swapped;
     Student_list ptr1, lptr = NULL;
     
@@ -130,7 +119,7 @@ void bubbleSort(Student_list head) {
     while(swapped);
 }
 
-int size_of_sList(Student_list head) {
+int size_of_student_list(Student_list head) {
     int num = 0;
     
     while(head->next != NULL) {

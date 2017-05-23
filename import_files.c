@@ -1,3 +1,5 @@
+#include "header.h"
+
 void imp_classes(Classes_list head) {
     FILE *classes;
     char *p;
@@ -8,6 +10,7 @@ void imp_classes(Classes_list head) {
         p = strchr(head->data.name, '\n');
         *p = '\0';
         fprintf(classes, "%s,", head->data.name);
+
         p = strchr(head->data.teacher, '\n');
         *p = '\0';
         fprintf(classes," %s;\n", head->data.teacher);
@@ -36,6 +39,21 @@ void imp_students(Student_list head) {
     fclose(students);
 }
 
+void print_exam_info(Exam head, FILE *exams) {
+        fprintf(exams, "\n%d, ", head.id);
+        fprintf(exams, "%s, ", head.subject->name);
+        fprintf(exams, "%s, ", head.type);
+        fprintf(exams, "%d/ ", head.date.day);
+        fprintf(exams, "%d/ ", head.date.month);
+        fprintf(exams, "%d, ", head.date.year);
+        fprintf(exams, "%d: ", head.time.hour);
+        fprintf(exams, "%d, ", head.time.minutes);
+        fprintf(exams, "%d: ", head.duration.hour);
+        fprintf(exams, "%d, ", head.duration.minutes);
+        fprintf(exams, "%d: ", head.final.hour);
+        fprintf(exams, "%d;\n", head.final.minutes);
+}
+
 void imp_exams(Exams_list head) {
     FILE *exams;
     Student_list students, copy;
@@ -49,25 +67,14 @@ void imp_exams(Exams_list head) {
         head = head->next;
         i = 0;
 
-        fprintf(exams, "\n%d, ", head->data.id);
-        fprintf(exams, "%s, ", head->data.subject->name);
-        fprintf(exams, "%s, ", head->data.type);
-        fprintf(exams, "%d/ ", head->data.date.day);
-        fprintf(exams, "%d/ ", head->data.date.month);
-        fprintf(exams, "%d, ", head->data.date.year);
-        fprintf(exams, "%d: ", head->data.time.hour);
-        fprintf(exams, "%d, ", head->data.time.minutes);
-        fprintf(exams, "%d: ", head->data.duration.hour);
-        fprintf(exams, "%d, ", head->data.duration.minutes);
-        fprintf(exams, "%d: ", head->data.final.hour);
-        fprintf(exams, "%d;\n", head->data.final.minutes);
-
+        print_exam_info(head->data, exams);
         students = head->data.students_submited;
         copy = students;
         while(copy->next != NULL) {
             copy = copy->next;
             i++;
         } 
+
         fprintf(exams, "%d;", i);
         while(students->next != NULL) {
             students = students->next;
@@ -81,6 +88,7 @@ void imp_exams(Exams_list head) {
             copy_class = copy_class->next;
             i++;
         }
+
         fprintf(exams, "\n%d;", i);
         while(rooms->next != NULL) {
             rooms = rooms->next;
