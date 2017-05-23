@@ -1,19 +1,10 @@
-typedef struct student_exams {
-    Student a;
-    Exams_list submited;
-} Student_exams;
-
-typedef struct senode *Student_exams_list;
-typedef struct senode {
-    Student_exams data;
-    Student_exams_list next;
-} Student_exams_node;
+#include "../header.h"
 
 Student_exams_list create_student_exams_list() {
     Student_exams_list aux;
     Student_exams useless;
 
-    useless.a.numb = (int *) malloc (sizeof(int));
+    useless.a.numb = (int *)malloc(sizeof(int));
     *useless.a.numb = 0;
     useless.submited = create_exams_list();
     aux = (Student_exams_list) malloc (sizeof (Student_exams_node));
@@ -36,7 +27,7 @@ void search_student_exams_list(Student_exams_list head, int student_numb, Studen
         *curr = NULL;
 }
 
-void append_student_exams_wOrder(Student_exams_list *head, Student st) {
+void append_student_exams(Student_exams_list *head, Student st) {
     Student_exams_list node, prev, useless;
     Student_exams new;
 

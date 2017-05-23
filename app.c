@@ -1,23 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdbool.h>
-
-static int EXAM_ID;
-const int CHAR_SIZE = 50;
-
-#include "lists/student_list.c"
-#include "lists/class_list.c"
-#include "lists/exam_list.c"
-#include "lists/student_exams_list.c"
-#include "helpers.c"
-#include "student.c"
-#include "classes.c"
-#include "exams.c"
-#include "student_exams.c"
-#include "extract_files.c"
-#include "import_files.c"
+#include "header.h"
 
 void display_of_options(char *options[], int n) {
     int i;
@@ -28,7 +9,7 @@ void display_of_options(char *options[], int n) {
 }
 
 void exams_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
-    char *choice = (char*) malloc (CHAR_SIZE * sizeof(char));
+    char *choice = (char*)malloc(CHAR_SIZE * sizeof(char));
     char *options[] = {
         "Crie um novo exame.", 
         "Mostrar os exames.",
@@ -72,7 +53,7 @@ void exams_menu(Student_list list_student, Classes_list list_class, Exams_list l
 }
 
 void classes_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
-    char *choice = (char*) malloc (CHAR_SIZE * sizeof(char));
+    char *choice = (char*)malloc(CHAR_SIZE * sizeof(char));
     char *options[] = { 
         "Crie uma nova disciplina.",
         "Mude os dados de uma disciplina.",
@@ -104,7 +85,7 @@ void classes_menu(Student_list list_student, Classes_list list_class, Exams_list
 }
 
 void students_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
-    char *choice = (char*) malloc (CHAR_SIZE * sizeof(char));
+    char *choice = (char*)malloc(CHAR_SIZE * sizeof(char));
     char *options[] = {
         "Crie um novo aluno.",
         "Mude os dados de um aluno.",
@@ -124,7 +105,7 @@ void students_menu(Student_list list_student, Classes_list list_class, Exams_lis
             break;
         case '2': 
             change_slist_data(list_student);
-            bubbleSort(list_student);
+            bubble_sort(list_student);
             break;
         case '3':
             print_student_list(list_student);
@@ -149,7 +130,7 @@ void exit_menu(Student_list list_student, Classes_list list_class, Exams_list li
 }
 
 void main_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
-    char *choice = (char*) malloc (CHAR_SIZE * sizeof(char));
+    char *choice = (char*)malloc(CHAR_SIZE * sizeof(char));
     char *options[] = {
         "Students Menu",
         "Classes Menu",

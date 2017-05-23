@@ -1,3 +1,5 @@
+#include "header.h"
+
 void check_same_dates(Exams_list head, Exams_list *node, Date date) {
     while(head->next != NULL) {
         head = head->next;
@@ -12,10 +14,10 @@ int at_the_same_time(Time beg1, Time final1, Time beg2, Time final2) {
     int final2_bt1;
     int beg2_bt1;
 
-    b1_b2 = comparehours(beg1,beg2);
-    f1_f2 = comparehours(final1, final2);
-    f1_b2 = comparehours(final1, beg2);
-    f2_b1 = comparehours(beg1, final2);
+    b1_b2 = compare_hours(beg1,beg2);
+    f1_f2 = compare_hours(final1, final2);
+    f1_b2 = compare_hours(final1, beg2);
+    f2_b1 = compare_hours(beg1, final2);
 
     beg2_bt1 = (b1_b2 == 1) && (f1_b2 == -1);
     final2_bt1 = (f2_b1 == 1) && (f1_f2 == -1);
@@ -81,7 +83,6 @@ void possible_room(Exams_list head, Date date, Time time, Time final, Classroom_
         }
 
         chose_room(copy, &new);
-
     } else 
         chose_room(cnode, &new);
 
@@ -122,7 +123,7 @@ void create_exam(Exams_list head, Classes_list classes) {
         new.id = EXAM_ID + 1;
 
         printf("\tQual e o tipo do exame?\n");
-        new.type = (char*) malloc (CHAR_SIZE * sizeof(char));
+        new.type = (char*)malloc(CHAR_SIZE * sizeof(char));
         exam_type(new.type); 
 
         printf("\tA que dia/mes/ano se realiza o exame?\n\t(Day)-->");
@@ -173,9 +174,10 @@ void search_exam(Exams_list head, Exams_list *prev, Exams_list *curr) {
 
 void print_classrooms(Exams_list head) {
     Exams_list curr, prev;
+
     if(head->next != NULL) {
-    search_exam(head, &prev, &curr);
-    print_classroom_list(curr->data.classrooms); 
+        search_exam(head, &prev, &curr);
+        print_classroom_list(curr->data.classrooms); 
     } else {
         printf("\t Nao existem exames na base de dados");
     }
