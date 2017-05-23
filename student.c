@@ -19,7 +19,7 @@ void new_student(Student_list head) {
 
     search_student_list(head, *new.numb, &useless, &curr);
     if(curr != NULL) { 
-        printf("\tUm estudante com este numero ja foi criado.");
+        printf("\tNumero de estudante invalido ou ja existente.");
 
     } else {
 
