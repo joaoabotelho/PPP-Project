@@ -135,7 +135,7 @@ void search_student_exams_list(Student_exams_list head, int student_numb, Studen
 void append_student_exams(Student_exams_list *head, Student st);
 
 /* Student */
-void already_exist(Student_list head, int student_numb);
+int already_exist(Student_list head, int student_numb);
 void new_student(Student_list head);
 void request_student(Student_list *head);
 void change_slist_data(Student_list head);

@@ -1,27 +1,26 @@
 #include <time.h>
 #include "header.h"
 
-void already_exist(Student_list head, int student_numb) {
-    Student_list curr, useless;
-
-    search_student_list(head, student_numb, &useless, &curr);
-    if(curr != NULL) 
-        printf("Um estudante com este numero ja foi criado");
+int already_exist(Student_list head, int student_numb) {
+    while(*head->data.numb != student_numb && head != NULL)
+        head = head->next;
+    if(head != NULL) {
+        printf("\tNumero de estudante invalido ou ja existente.");
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 void new_student(Student_list head) {
     Student new;
-    Student_list curr, useless;
 
     printf("\n\n### Esta a criar um novo aluno ###\n\n");
     printf("\tQual e o numero de aluno?\n\t-->");
     new.numb = (int *)malloc(sizeof(int));
     fgets_int(new.numb); 
 
-    search_student_list(head, *new.numb, &useless, &curr);
-    if(curr != NULL) { 
-        printf("\tNumero de estudante invalido ou ja existente.");
-    } else {
+    if(already_exist(head, *new.numb) == 0) {
 
         printf("\tQue curso frequenta?\n\t-->");
         new.course = (char *)malloc(CHAR_SIZE * sizeof(char));
@@ -49,21 +48,28 @@ void request_student(Student_list *head) {
 
         while((*(*head)->data.numb != student_numb) && ((*head)->next != NULL))
             *head = (*head)->next;
-        if(*(*head)->data.numb != student_numb)
+        if(student_numb == 0 || *(*head)->data.numb != student_numb)
             printf("\tNao existe ninguem com esse numero. Tente de novo.");
-    } while(*(*head)->data.numb != student_numb);
+    } while(student_numb == 0 || *(*head)->data.numb != student_numb);
 }
 
 void change_slist_data(Student_list head) {
-    int numb = -1; 
+    int numb = -1, student_numb; 
+    Student_list copy = head;
 
+    
     if(head->next != NULL) {
         printf("\n\n### Esta a querer alterar os dados de um aluno ###\n\n");
         request_student(&head);
 
         /* Numb */
-        printf("\n\tEste e o numero do aluno --> %d\n", *head->data.numb);
-        confirm_answer("\tO novo numero do aluno e\n\t-->", head->data.numb, "0");
+        student_numb = *head->data.numb;
+        do {
+            if(student_numb != *head->data.numb)
+                *head->data.numb = student_numb;
+            printf("\n\tEste e o numero do aluno --> %d\n", *head->data.numb);
+            confirm_answer("\tO novo numero do aluno e\n\t-->", head->data.numb, "0");
+        } while(student_numb != *head->data.numb && already_exist(copy, *head->data.numb) == 1);
 
         /* Course */
         printf("\n\tEste e o curso do aluno --> %s", head->data.course);

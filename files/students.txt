@@ -2,3 +2,5 @@
 ;
 10, Engenharia Informatica, 1, Normal 
 ;
+20, , 0, Normal
+;
