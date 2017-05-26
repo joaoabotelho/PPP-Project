@@ -22,8 +22,9 @@ void search_student_list(Student_list head, int student_numb, Student_list *prev
         *prev = *curr;
         *curr = (*curr)->next;
     }
-    if((*curr) != NULL && *(*curr)->data.numb != student_numb)
+    if((*curr) != NULL && *(*curr)->data.numb != student_numb) {
         *curr = NULL;
+    }
 }
 
 void removes_from_student_list(Student_list head, int student_numb) {
@@ -88,7 +89,6 @@ void regime(char str[]) {
             default:
                 printf("\t\tEscolha errada. Tente de novo.\n");
         }
-        printf("lalal\n");
     }
 }
 

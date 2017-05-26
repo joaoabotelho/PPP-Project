@@ -1,4 +1,4 @@
-1, 1, 1, Normal 
-;
 10, Engenharia Informatica, 1, Normal 
+;
+20, Engenharia Mecanica, 3, Normal 
 ;
