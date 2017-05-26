@@ -89,6 +89,7 @@ typedef struct senode {
 } Student_exams_node;
 
 /* Helpers */
+void check_memory_char(char *string);
 int fgets_to_int(char *temp);
 void fgets_int(int *numb);
 char check_answer();

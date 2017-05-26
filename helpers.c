@@ -1,5 +1,12 @@
 #include "header.h"
 
+void check_memory_char(char *string) {
+    if(!string) { 
+        printf("HELL NOOOO!\n");
+        exit(0);
+    } 
+}
+
 /* Transforms the char of fgets to int */
 int fgets_to_int(char *temp) {
     int i, numb, len = strlen(temp) - 1;
