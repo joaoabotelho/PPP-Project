@@ -4,9 +4,8 @@ Classes_list create_classes_list() {
     Classes_list aux;
     Class useless;
 
-    useless.name = (char *) malloc (CHAR_SIZE * sizeof(char));
     useless.name = "";
-    aux = (Classes_list) malloc (sizeof (Classes_node));
+    aux = (Classes_list)malloc(sizeof (Classes_node));
     if(aux != NULL){
         aux->data = useless;
         aux->next = NULL;
@@ -67,6 +66,7 @@ void request_class(Classes_list *head) {
     Classes_list copy;
     int n, i;
 
+    check_memory_char(class_name);
     do {
         copy = *head;
         n = 0;
@@ -86,13 +86,14 @@ void request_class(Classes_list *head) {
     for(i = 0; i < n; i++) {
         *head = (*head)->next;
     }
+    free(class_name);
 }
 
 
 void append_class(Classes_list head, Class new) {
     Classes_list node;
 
-    node = (Classes_list) malloc (sizeof (Classes_node));
+    node = (Classes_list)malloc(sizeof (Classes_node));
     node->data = new;
 
     while(head->next != NULL)

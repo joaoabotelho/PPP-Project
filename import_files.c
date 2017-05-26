@@ -34,6 +34,8 @@ void imp_students(Student_list head) {
  
         fprintf(students, " %d,", *head->data.year);
 
+        p = strchr(head->data.regime, '\n');
+        *p = '\0';
         fprintf(students, " %s;\n", head->data.regime); 
     }
     fclose(students);
@@ -68,7 +70,7 @@ void imp_exams(Exams_list head) {
         i = 0;
 
         print_exam_info(head->data, exams);
-        students = head->data.students_submited;
+        students = head->data.students_submitted;
         copy = students;
         while(copy->next != NULL) {
             copy = copy->next;
@@ -112,7 +114,7 @@ void imp_student_exams(Student_exams_list head) {
         
         fprintf(st_exams, "%d; ", *head->data.a.numb);
         
-        copy = head->data.submited;
+        copy = head->data.submitted;
         n = 0;
         while(copy->next != NULL) {
             copy = copy->next;
@@ -120,9 +122,9 @@ void imp_student_exams(Student_exams_list head) {
         }
         fprintf(st_exams, "%d;", n);
 
-        while(head->data.submited->next != NULL) {
-            head->data.submited = head->data.submited->next;
-            fprintf(st_exams, " %d,", head->data.submited->data.id);
+        while(head->data.submitted->next != NULL) {
+            head->data.submitted = head->data.submitted->next;
+            fprintf(st_exams, " %d,", head->data.submitted->data.id);
         }
         fprintf(st_exams, "\n");
     }

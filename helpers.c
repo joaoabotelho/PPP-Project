@@ -20,7 +20,7 @@ int fgets_to_int(char *temp) {
 
     for(i = 0; i < len; i++) {
         if(!isdigit(temp[i]))
-            return 1;
+            return 0;
     }
     numb = atoi(temp);
 
@@ -30,6 +30,7 @@ int fgets_to_int(char *temp) {
 /* Gets the value of numb(int) from a fgets */
 void fgets_int(int *numb) {
     char *temp = (char*)malloc(CHAR_SIZE * sizeof(char));
+    check_memory_char(temp);
 
     fgets(temp, CHAR_SIZE, stdin);
     *numb = fgets_to_int(temp);
@@ -38,12 +39,16 @@ void fgets_int(int *numb) {
 
 /* yes or no question to confirm if user wants to change something */
 char check_answer() {
-    char *answer = (char*)malloc(CHAR_SIZE * sizeof(char));
+    char *temp = (char*)malloc(CHAR_SIZE * sizeof(char));
+    char answer;
 
+    check_memory_char(temp);
     printf("Pretende alterar(y/n)? ");
-    fgets(answer, CHAR_SIZE ,stdin);
+    fgets(temp, CHAR_SIZE ,stdin);
+    answer = temp[0];
+    free(temp);
 
-    return answer[0];
+    return answer;
 } 
 
 /* Used in classes.c and student.c to print a desired string and 

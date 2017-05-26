@@ -19,6 +19,7 @@ void new_class(Classes_list head) {
 
     printf("\tQual o nome da disciplina?\n\t-->");
     new.name = (char *)malloc(CHAR_SIZE * sizeof(char));
+    check_memory_char(new.name);
     fgets(new.name, CHAR_SIZE, stdin);
 
     search_classes_list(head, new, &useless, &curr);
@@ -27,6 +28,7 @@ void new_class(Classes_list head) {
     } else {
         printf("\tQual o nome do professor da disciplina?\n\t-->");
         new.teacher = (char *)malloc(CHAR_SIZE * sizeof(char));
+        check_memory_char(new.teacher);
         fgets(new.teacher, CHAR_SIZE, stdin);
 
         append_class(head, new);

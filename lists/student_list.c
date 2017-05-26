@@ -1,12 +1,11 @@
 #include "../header.h"
 
 Student_list create_students_list() {
-    Student_list aux;
+    Student_list aux = (Student_list)malloc(sizeof (Student_node));
     Student useless;
 
-    useless.numb = (int *) malloc (sizeof(int));
-    *useless.numb = 0;
-    aux = (Student_list) malloc (sizeof (Student_node));
+    useless.numb = (int *)malloc(sizeof(int));
+    *useless.numb = -1;
     if(aux != NULL){
         aux->data = useless;
         aux->next = NULL;
@@ -40,7 +39,7 @@ void removes_from_student_list(Student_list head, int student_numb) {
 void append_student(Student_list *head, Student new) {
     Student_list node, prev, useless;
 
-    node = (Student_list) malloc (sizeof (Student_node));
+    node = (Student_list)malloc(sizeof (Student_node));
     if(node != NULL) {
         node->data = new;
         search_student_list(*head, *new.numb, &prev, &useless);
@@ -64,32 +63,34 @@ void print_student_list(Student_list head){
 }   
 
 void regime(char str[]) {
-    char *temp = (char *) malloc (CHAR_SIZE * sizeof(char));
+    char *temp = (char *)malloc(CHAR_SIZE * sizeof(char));
 
+    check_memory_char(temp);
     while(temp[0] != '1' && temp[0] != '2' &&  temp[0] != '3' && temp[0] != '4' && temp[0] != '5') {
         printf("\t\t1.Normal\n\t\t2.Trabalhador-estudante\n\t\t3.Atleta\n\t\t4.Dirigente associativo\n\t\t5.Aluno de Erasmus\n\t-->");
         fgets(temp, CHAR_SIZE, stdin);
 
         switch(temp[0]) {
             case '1':
-                strcpy(str, "Normal");
+                strcpy(str, "Normal\n");
                 break;
             case '2':
-                strcpy(str, "Trabalhador-estudante");
+                strcpy(str, "Trabalhador-estudante\n");
                 break;
             case '3':
-                strcpy(str, "Atleta");
+                strcpy(str, "Atleta\n");
                 break;
             case '4':
-                strcpy(str, "Dirigente associativo");
+                strcpy(str, "Dirigente associativo\n");
                 break;
             case '5':
-                strcpy(str, "Aluno de Erasmus");
+                strcpy(str, "Aluno de Erasmus\n");
                 break;
             default:
                 printf("\t\tEscolha errada. Tente de novo.\n");
         }
     }
+    free(temp);
 }
 
 void swap(Student_list a, Student_list b) {

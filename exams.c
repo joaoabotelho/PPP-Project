@@ -66,9 +66,15 @@ void check_same_time(Exams_list head, Exams_list *node, Time time, Time final) {
     }
 }
 
-/* Gets data of room */
+/* chose_room creates a new Classroom that isnt ocuppied by another Exam
+ *
+ * asks the user wich room they wish 
+ * checks if it is ocuppied(search_room)
+ * if it is, asks the user again for another room
+*/
 void chose_room(Exams_list head, Classroom *new) {
-    char *temp = (char*) malloc (CHAR_SIZE * sizeof(char));
+    char *temp = (char*)malloc(CHAR_SIZE * sizeof(char));
+    check_memory_char(temp);
 
     do {
         printf("\tBloco?\n\t-->");
@@ -84,9 +90,20 @@ void chose_room(Exams_list head, Classroom *new) {
         if(search_room(head, *new) == 1) 
             printf("Essa sala esta ocupada. Por favor escolha outra.\n");
     } while(search_room(head, *new) == 1);
+    free(temp);
 }    
 
-/* Sees what rooms are available at the time of the exam in question  */
+/* possible_room sees what rooms are occupied in a certain Date and Time and
+ * saves them in cnode
+ *
+ * first sees what Exams have the same Date and saves them in node
+ *
+ * then sees in node wich exams are at the same time and saves them in cnode
+ * prints cnode
+ * asks the user to name a Classroom(chose_room)
+ *
+ * and appends that Classroom that is available to Classroom_list exam_room
+*/
 void possible_room(Exams_list head, Date date, Time time, Time final, Classroom_list exam_room) {
     Exams_list node = create_exams_list(); 
     Exams_list cnode = create_exams_list(); 
@@ -114,8 +131,14 @@ void possible_room(Exams_list head, Date date, Time time, Time final, Classroom_
     append_classroom(exam_room, new);
 }
 
-/* Says what times are available to the user 
-and makes the user choose a time for the exam */
+/* exam_time asks the user for a possible Time
+ *
+ * saves the possible times in time_available
+ * prints time_available with a number associated with each time
+ * and asks the user for the number he wants
+ *
+ * and saves the Time *time that he wants
+*/
 void exam_time(Time *time, int n, int hour, int minutes) {
     Time time_available[n];
     int i;
@@ -136,6 +159,33 @@ void exam_time(Time *time, int n, int hour, int minutes) {
     (*time).minutes = time_available[i-1].minutes;
 }
 
+/* create_exam creates a new Exam to append in Exams_list head
+ *
+ * first requests to use a Class in Classes_list classes to associate that Exam
+ * to that Class (new.subject)
+ *
+ * then it gets the global variable EXAM_ID to associate a id to the
+ * exam(new.id)
+ *
+ * asks the user wich exam_type they want(new.type)
+ *
+ * asks for the Date that the Exam is going to occur(new.date)
+ * 
+ * asks for the Time when the Exam starts (new.time) and the duration of the
+ * Exam (new.duration)
+ *
+ * calculates when the Exam ends(new.final)
+ *
+ * creates a new Student_list for the Students to submit for this new Exam
+ * (new.student_submitted)
+ *
+ * creates a new Classroom_list for the Classrooms that the exam is going to
+ * take place
+ * and asks the user to asign the first Classroom 
+ *
+ * appends the new Exam to the Exams_list head and adds 1 to the global
+ * variable EXAM_ID
+*/
 void create_exam(Exams_list head, Classes_list classes) {
     Exam new;
     Exams_list copy = head;
@@ -149,14 +199,24 @@ void create_exam(Exams_list head, Classes_list classes) {
 
         printf("\tQual e o tipo do exame?\n");
         new.type = (char*)malloc(CHAR_SIZE * sizeof(char));
+        check_memory_char(new.type);
         exam_type(new.type); 
 
-        printf("\tA que dia/mes/ano se realiza o exame?\n\t(Day)-->");
-        fgets_int(&new.date.day); 
-        printf("\n\t(Month)-->");
-        fgets_int(&new.date.month);
-        printf("\n\t(Year)-->");
-        fgets_int(&new.date.year);
+        printf("\tA que dia/mes/ano se realiza o exame?");
+        do {
+            printf("\n\t(Year)-->");
+            fgets_int(&new.date.year);
+        } while(new.date.year < CURRENT_YEAR);
+
+        do {
+            printf("\n\t(Month)-->");
+            fgets_int(&new.date.month);
+        } while(new.date.month < 1 || new.date.month > 12);
+    
+        do {
+            printf("\n\t(Day)-->");
+            fgets_int(&new.date.day); 
+        } while(new.date.day < 1 || new.date.day > max_day(new.date.year, new.date.month));
 
         printf("\n\tA que horas?\n\n");
         exam_time(&new.time, 19, 9, 0); 
@@ -171,7 +231,7 @@ void create_exam(Exams_list head, Classes_list classes) {
             new.final.hour += 1;
         }
 
-        new.students_submited = create_students_list();
+        new.students_submitted = create_students_list();
 
         new.classrooms = create_classroom_list();
         possible_room(copy, new.date, new.time, new.final, new.classrooms); 
@@ -184,6 +244,14 @@ void create_exam(Exams_list head, Classes_list classes) {
     }
 }
 
+/* search_exam asks the user wich Exam they want
+ *
+ * prints the Exams_list head
+ * and asks the user for the id number associated to the Exam he wants
+ * 
+ * searchs for the exam
+ * if it doesnt exist repeats the process
+*/
 void search_exam(Exams_list head, Exams_list *prev, Exams_list *curr) {
     int num;
 
@@ -197,6 +265,12 @@ void search_exam(Exams_list head, Exams_list *prev, Exams_list *curr) {
     } while(*curr == NULL);
 }
 
+/* print_classrooms prints the Classroom_list of a Exam
+ *
+ * first asks the user wich Exam he wants
+ *
+ * prints the Classroom_list of that Exam
+*/
 void print_classrooms(Exams_list head) {
     Exams_list curr, prev;
 

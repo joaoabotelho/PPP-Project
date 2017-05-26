@@ -1,4 +1,3 @@
-10, Engenharia Informatica, 1, Normal 
-;
-20, Engenharia Mecanica, 3, Normal 
-;
+10, Engenharia Informatica, 1, Normal;
+24, Engenharia Mecanica, 2, Trabalhador-estudante;
+30, Medicina, 3, Normal;

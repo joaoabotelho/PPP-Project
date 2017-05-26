@@ -1,1 +1,12 @@
 PPP, Marco Vieira;
+IPRP, Nome do professor?;
+ESTA, Nome do professor?;
+AMI, Nome do professor?;
+AMII, Nome do professor?;
+ALGA, Nome do professor?;
+ED, Nome do professor?;
+TC, Nome do professor?;
+AC, Nome do professor?;
+TPF, Nome do professor?;
+Anatomia, Nome do professor?;
+Farmacologia, Nome do professor?;

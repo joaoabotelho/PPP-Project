@@ -43,10 +43,12 @@ void new_student(Student_list head) {
         check_memory_char(new.course); 
         fgets(new.course, CHAR_SIZE, stdin);
 
-        printf("\tQue ano frequenta?(1,2,3)\n\t-->");
-        new.year = (int *)malloc(sizeof(int));
-        check_memory_int(new.year);
-        fgets_int(new.year);
+        do {
+            printf("\tQue ano frequenta?(1,2,3)\n\t-->");
+            new.year = (int *)malloc(sizeof(int));
+            check_memory_int(new.year);
+            fgets_int(new.year);
+        } while(*new.year < 1 || *new.year > LAST_YEAR);
 
         printf("\tQual o seu regime?\n");
         new.regime = (char *)malloc(CHAR_SIZE * sizeof(char));
@@ -86,9 +88,9 @@ void request_student(Student_list *head) {
             n++;
         }
         
-        if(student_numb == 0 || *copy->data.numb != student_numb)
+        if(*copy->data.numb != student_numb)
             printf("\tNao existe ninguem com esse numero. Tente de novo.");
-    } while(student_numb == 0 || *copy->data.numb != student_numb);
+    } while(*copy->data.numb != student_numb);
 
     for(i = 0; i < n; i++) {
         *head = (*head)->next;
@@ -109,7 +111,7 @@ void request_student(Student_list *head) {
  * new information
 */
 void change_slist_data(Student_list head) {
-    int numb = -1, student_numb; 
+    int flag = -1, numb; 
     Student_list copy = head;
 
     
@@ -118,25 +120,30 @@ void change_slist_data(Student_list head) {
         request_student(&head);
 
         /* Numb */
-        student_numb = *head->data.numb;
+        numb = *head->data.numb;
         do {
             printf("\n\tEste e o numero do aluno --> %d\n", *head->data.numb);
-            confirm_answer("\tO novo numero do aluno e\n\t-->", &student_numb, "0");
-        } while(student_numb != *head->data.numb && already_exist(copy, student_numb) == 1);
-        if(student_numb != 0)
-            *head->data.numb = student_numb;
+            confirm_answer("\tO novo numero do aluno e\n\t-->", &numb, "0");
+        } while(numb != *head->data.numb && already_exist(copy, numb) == 1);
+        *head->data.numb = numb;
 
         /* Course */
         printf("\n\tEste e o curso do aluno --> %s", head->data.course);
         confirm_answer("\tO novo curso do aluno e\n\t-->", 0, head->data.course); 
 
         /* Year */
-        printf("\n\tO aluno esta neste ano --> %d\n", *head->data.year);
-        confirm_answer("\tO novo ano do aluno e\n\t-->", head->data.year, "0");
+        numb = *head->data.year;
+        do {
+            printf("\n\tO aluno esta neste ano --> %d\n", *head->data.year);
+            confirm_answer("\tO novo ano do aluno e\n\t-->", &numb, "0");
+            if(numb < 1 || numb > LAST_YEAR)
+                printf("Ano invalido. Tente de novo");
+        } while(numb < 1 || numb > LAST_YEAR);
+        *head->data.year = numb;
 
         /* Regime  */
         printf("\n\tEste e o regime do aluno --> %s\n", head->data.regime); 
-        confirm_answer("\tO novo regime do aluno e\n", &numb, head->data.regime); 
+        confirm_answer("\tO novo regime do aluno e\n", &flag, head->data.regime); 
     } else {
         printf("Nao existem alunos na base de dados");
     }
@@ -162,4 +169,3 @@ void remove_student_data(Student_list head) {
         printf("Nao existem alunos na base de dados");
     }
 }
-

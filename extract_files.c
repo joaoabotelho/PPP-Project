@@ -1,13 +1,15 @@
 #include "header.h"
 
 void add_until(FILE *file, char look, char *string1) {
-    char *string2 = (char*) malloc (CHAR_SIZE * sizeof(char)); 
+    char *string2 = (char*)malloc(CHAR_SIZE * sizeof(char)); 
+    check_memory_char(string2);
 
     while(!strchr(string1, look)) {
         fscanf(file, "%s", string2);
         strcat(string1, " ");
         strcat(string1, string2);
     }
+    free(string2);
 }
 
 void associate_string(FILE *file, char look, char *string) {
@@ -27,11 +29,13 @@ void get_int_file(FILE *file, char look, int *numb, char *string) {
  
 
 void get_int_file_fscan(FILE *file, char look, int *numb) {
-    char *string = (char*) malloc (CHAR_SIZE * sizeof(char));
+    char *string = (char*)malloc(CHAR_SIZE * sizeof(char));
+    check_memory_char(string);
 
     fscanf(file, "%s", string);
     associate_string(file, look, string);
     *numb = fgets_to_int(string);
+    free(string);
 }
 
 void get_string_file(FILE *file, char look, char **change, char *string) {
@@ -42,6 +46,7 @@ void get_string_file(FILE *file, char look, char **change, char *string) {
 
 void get_string_file_fscan(FILE *file, char look, char **change) {
     char *string = (char*)malloc(CHAR_SIZE * sizeof(char));
+    check_memory_char(string);
 
     fscanf(file, "%s", string);
     associate_string(file, look, string);
@@ -59,6 +64,7 @@ void ex_classes(Classes_list head) {
     FILE *classes;
     Class temp;
     char *string = (char*)malloc(CHAR_SIZE * sizeof(char));
+    check_memory_char(string);
 
     classes = fopen("files/classes.txt", "r");
 
@@ -67,7 +73,7 @@ void ex_classes(Classes_list head) {
              
             get_string_file_fscan(classes, ';', &temp.teacher);
             string = (char*)malloc(CHAR_SIZE * sizeof(char));
-
+            check_memory_char(string);
             append_class(head, temp);
     }
     fclose(classes);
@@ -77,25 +83,32 @@ void ex_students(Student_list head) {
     FILE *students;
     Student temp;
     char *string = (char*)malloc(CHAR_SIZE * sizeof(char));
+    check_memory_char(string);
+
 
     students = fopen("files/students.txt", "r");
 
     while(fscanf(students, "%s", string) != EOF) {
         temp.numb = (int *)malloc(sizeof(int));
+        check_memory_int(temp.numb);
         get_int_file(students, ',', temp.numb, string);
 
         temp.course = (char *)malloc(CHAR_SIZE * sizeof(char));
+        check_memory_char(temp.course);
         get_string_file_fscan(students, ',', &temp.course);
 
         temp.year = (int *)malloc(sizeof(int));
+        check_memory_int(temp.numb);
         get_int_file_fscan(students, ',', temp.year); 
 
         temp.regime = (char *)malloc(CHAR_SIZE * sizeof(char));
+        check_memory_char(temp.regime);
         get_string_file_fscan(students, ';', &temp.regime);
         
         append_student(&head, temp);
     }
     fclose(students);
+    free(string);
 }
 
 void ex_exams(Exams_list head, Classes_list *classes, Student_list students) {
@@ -107,20 +120,19 @@ void ex_exams(Exams_list head, Classes_list *classes, Student_list students) {
     int student_num, i, n; 
     char *p;
 
+    check_memory_char(string);
     ex_id(&EXAM_ID);
     exams = fopen("files/exams.txt", "r");
     fscanf(exams, "%s", string);
 
     while(fscanf(exams, "%s", string) != EOF) {
         get_int_file(exams, ',', &temp.id, string);
-        string = (char*)malloc(CHAR_SIZE * sizeof(char));
  
         fscanf(exams, "%s", string);
         associate_string(exams, ',', string);
         while((strcmp((*classes)->data.name, string) != 0) && ((*classes)->next != NULL))
             *classes = (*classes)->next;
         temp.subject = &(*classes)->data; 
-        string = (char*)malloc(CHAR_SIZE * sizeof(char));
         
         fscanf(exams, "%s", string);
         add_until(exams, ',', string); 
@@ -143,14 +155,14 @@ void ex_exams(Exams_list head, Classes_list *classes, Student_list students) {
   
         get_int_file_fscan(exams, ';', &n); 
          
-        temp.students_submited = create_students_list();
+        temp.students_submitted = create_students_list();
         for(i = 0; i < n; i++) {
             copy = students;
             get_int_file_fscan(exams, ',', &student_num); 
 
             while((*copy->data.numb != student_num) && (copy->next != NULL))
                 copy = copy->next;
-            append_student(&temp.students_submited, copy->data); 
+            append_student(&temp.students_submitted, copy->data); 
         }
         
         get_int_file_fscan(exams, ';', &n); 
@@ -168,8 +180,10 @@ void ex_exams(Exams_list head, Classes_list *classes, Student_list students) {
         }
         append_exam(&head, temp); 
         string = (char*)malloc(CHAR_SIZE * sizeof(char));
+        check_memory_char(string);
     } 
     fclose(exams);
+    free(string);
 }
 
 void ex_student_exams(Exams_list exams, Student_list students, Student_exams_list head) {
@@ -178,8 +192,8 @@ void ex_student_exams(Exams_list exams, Student_list students, Student_exams_lis
     Exams_list useless_exam, curr_exam;
     int student_numb, n, i, id_exam;
     char *string = (char*)malloc(CHAR_SIZE * sizeof(char));
-
-
+    
+    check_memory_char(string);
     st_exams = fopen("files/student_exams.txt", "r");
 
     while(fscanf(st_exams, "%s", string) != EOF) {
@@ -195,4 +209,5 @@ void ex_student_exams(Exams_list exams, Student_list students, Student_exams_lis
         } 
     }
     fclose(st_exams);
+    free(string);
 }

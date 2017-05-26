@@ -4,9 +4,8 @@ Exams_list create_exams_list() {
     Exams_list aux;
     Exam useless;
 
-    useless.type = (char *)malloc(CHAR_SIZE * sizeof(char));
     useless.type = "";
-    aux = (Exams_list) malloc (sizeof (Exams_node));
+    aux = (Exams_list)malloc(sizeof (Exams_node));
     if(aux != NULL) {
         aux->data = useless;
         aux->next = NULL;
@@ -19,7 +18,7 @@ Classroom_list create_classroom_list() {
     Classroom useless;
 
     useless.room = 0;
-    aux = (Classroom_list) malloc (sizeof (Classrooms_node));
+    aux = (Classroom_list)malloc(sizeof (Classrooms_node));
     if(aux != NULL) {
         aux->data = useless;
         aux->next = NULL;
@@ -73,11 +72,11 @@ int search_room(Exams_list head, Classroom room) {
 
 int compare_hours(Time a,Time b) {
     if ((a.hour == b.hour) && (a.minutes == b.minutes))
-        return 0; /* "a" = "b" */
+        return 0; /* a = b */
     else if ((a.hour > b.hour) || ((a.hour == b.hour) && (a.minutes > b.minutes)))
-        return -1; /* "a" after "b" */
+        return -1; /* a after b */
     else
-        return 1; /* "b" after "a" */
+        return 1; /* b after a */
 }
 
 int compare_dates(Date a,Date b) {
@@ -113,7 +112,7 @@ void remove_from_exam_list(Exams_list head, int id) {
 void append_exam(Exams_list *head, Exam new) {
     Exams_list node, prev, useless;
 
-    node = (Exams_list) malloc (sizeof (Exams_node));
+    node = (Exams_list)malloc(sizeof (Exams_node));
     if(node != NULL) {
         node->data = new;
         search_exam_list(*head, new.id, &prev, &useless);
@@ -125,7 +124,7 @@ void append_exam(Exams_list *head, Exam new) {
 void append_classroom(Classroom_list head, Classroom new) {
     Classroom_list node;
 
-    node = (Classroom_list) malloc (sizeof (Classrooms_node));
+    node = (Classroom_list)malloc(sizeof (Classrooms_node));
     node->data = new;
 
     while(head->next != NULL)
@@ -135,9 +134,28 @@ void append_classroom(Classroom_list head, Classroom new) {
     head->next = NULL;
 }
 
+int max_day(int year,int month) {
+    int max_day;
+
+    if(month == 2) {
+        if(year % 4 == 0) {
+            max_day = 29;
+        } else {
+            max_day = 28;
+        }
+    } else if(month == 4 || month == 6 || month == 9 || month == 11) {
+        max_day = 30;
+    } else {
+        max_day = 31;
+    }
+
+    return max_day;
+}
+
 void exam_type(char str[]) {
     char *temp = (char*)malloc(CHAR_SIZE * sizeof(char));
 
+    check_memory_char(temp);
     while(temp[0] != '1' && temp[0] != '2' && temp[0] != '3') { 
         printf("\t\t1.Epoca Normal\n\t\t2.Epoca de Recurso\n\t\t3.Epoca Especial\n\t-->");
         fgets(temp, CHAR_SIZE, stdin);
@@ -156,6 +174,7 @@ void exam_type(char str[]) {
                 printf("\t\tEscolha errada. Tente de novo..\n");
         }
     }
+    free(temp);
 }
 
 void possible_hours(Time time_available[], int n, int hour, int minutes) {

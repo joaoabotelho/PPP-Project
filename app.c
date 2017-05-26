@@ -10,6 +10,7 @@ void display_of_options(char *options[], int n) {
 
 void exams_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
     char *choice = (char*)malloc(CHAR_SIZE * sizeof(char));
+    check_memory_char(choice);
     char *options[] = {
         "Crie um novo exame.", 
         "Mostrar os exames.",
@@ -39,7 +40,7 @@ void exams_menu(Student_list list_student, Classes_list list_class, Exams_list l
             remove_submit_students(list_exam, list_student_exams);
             break;
         case '5':
-            print_submited_students(list_exam);
+            print_submitted_students(list_exam);
             break;
         case '6':
             print_classrooms(list_exam);
@@ -50,10 +51,12 @@ void exams_menu(Student_list list_student, Classes_list list_class, Exams_list l
         default:
             printf("Escolha errada. Tente de novo.\n");
     }   
+    free(choice);
 }
 
 void classes_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
     char *choice = (char*)malloc(CHAR_SIZE * sizeof(char));
+    check_memory_char(choice);
     char *options[] = { 
         "Crie uma nova disciplina.",
         "Mude os dados de uma disciplina.",
@@ -82,10 +85,12 @@ void classes_menu(Student_list list_student, Classes_list list_class, Exams_list
         default:
             printf("Escolha errada. Tente de novo.\n");
     }  
+    free(choice);
 }
 
 void students_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
     char *choice = (char*)malloc(CHAR_SIZE * sizeof(char));
+    check_memory_char(choice);
     char *options[] = {
         "Crie um novo aluno.",
         "Mude os dados de um aluno.",
@@ -119,6 +124,7 @@ void students_menu(Student_list list_student, Classes_list list_class, Exams_lis
         default:
             printf("Escolha errada. Tente de novo.\n");
     }
+    free(choice);
 }
 
 void exit_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
@@ -126,11 +132,11 @@ void exit_menu(Student_list list_student, Classes_list list_class, Exams_list li
     imp_students(list_student);
     imp_exams(list_exam); 
     imp_student_exams(list_student_exams);
-    printf("\nObrigado. Os dados foram atualizados nos ficheiros.");
+    printf("\nObrigado. Os dados foram atualizados nos ficheiros.\n");
 }
 
 void main_menu(Student_list list_student, Classes_list list_class, Exams_list list_exam, Student_exams_list list_student_exams) {
-    char *choice = (char*)malloc(CHAR_SIZE * sizeof(char));
+    char *choice;
     char *options[] = {
         "Students Menu",
         "Classes Menu",
@@ -139,6 +145,8 @@ void main_menu(Student_list list_student, Classes_list list_class, Exams_list li
     };
 
     while(1) {
+        choice = (char*)malloc(CHAR_SIZE * sizeof(char));
+        check_memory_char(choice);
         printf("\n\n@@@@@@      Welcome to this app      @@@@@@\n\n");
         printf("$ MENU $");
         display_of_options(options, 4);
@@ -164,6 +172,7 @@ void main_menu(Student_list list_student, Classes_list list_class, Exams_list li
         } 
         if(choice[0] == '4')
             break;
+        free(choice);
     }
 }
 

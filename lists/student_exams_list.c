@@ -4,10 +4,10 @@ Student_exams_list create_student_exams_list() {
     Student_exams_list aux;
     Student_exams useless;
 
-    useless.a.numb = (int *)malloc(sizeof(int));
-    *useless.a.numb = 0;
-    useless.submited = create_exams_list();
-    aux = (Student_exams_list) malloc (sizeof (Student_exams_node));
+    useless.a.numb = (int *) malloc (sizeof(int));
+    *useless.a.numb = -1;
+    useless.submitted = create_exams_list();
+    aux = (Student_exams_list)malloc(sizeof (Student_exams_node));
     if(aux != NULL) {
         aux->data = useless;
         aux->next = NULL;
@@ -32,9 +32,9 @@ void append_student_exams(Student_exams_list *head, Student st) {
     Student_exams new;
 
     new.a = st;
-    new.submited = create_exams_list();
+    new.submitted = create_exams_list();
 
-    node = (Student_exams_list) malloc (sizeof (Student_exams_node));
+    node = (Student_exams_list)malloc(sizeof (Student_exams_node));
     if(node != NULL) {
         node->data = new;
         search_student_exams_list(*head, *new.a.numb, &prev, &useless);

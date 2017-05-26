@@ -11,6 +11,7 @@ static int EXAM_ID;
 #define CHAR_SIZE 50
 #define LAST_YEAR 3
 #define MAX_ROOM_CAPACITY 30
+#define CURRENT_YEAR 2017
 
 typedef struct student {
     int *numb;
@@ -67,7 +68,7 @@ typedef struct exam {
     Time time;
     Time duration;
     Time final;
-    Student_list students_submited;
+    Student_list students_submitted;
     Classroom_list classrooms;
 } Exam;
 
@@ -79,7 +80,7 @@ typedef struct enode {
 
 typedef struct student_exams {
     Student a;
-    Exams_list submited;
+    Exams_list submitted;
 } Student_exams;
 
 typedef struct senode *Student_exams_list;
@@ -127,6 +128,7 @@ void search_exam_list(Exams_list head, int id, Exams_list *prev, Exams_list *cur
 void remove_from_exam_list(Exams_list head, int id);
 void append_exam(Exams_list *head, Exam new);
 void append_classroom(Classroom_list head, Classroom new);
+int max_day(int year, int month);
 void exam_type(char str[]);
 void possible_hours(Time time_available[], int n, int hour, int minutes);
 void remove_from_exams_list(Exams_list head, int id);
@@ -165,7 +167,7 @@ void check_student_exams(Student_exams_list head, Student st);
 int eligble_for_exam(Exam ex, Student st);
 void append_exam_stex_list(Student_exams_list head, Student st, Exam new);
 void submit_students(Student_list all, Exams_list head, Student_exams_list connect);
-void print_submited_students(Exams_list head);
+void print_submitted_students(Exams_list head);
 void print_exams_of_student(Student_exams_list head, Student_list all);
 void remove_submit_students(Exams_list head, Student_exams_list head2);
 void delete_exam(Exams_list head, Student_exams_list head2);
@@ -189,6 +191,9 @@ void imp_students(Student_list head);
 void print_exam_info(Exam head, FILE *exams);
 void imp_exams(Exams_list head);
 void imp_student_exams(Student_exams_list head);
+
+void rand_str(char *dest, int length);
+void generate_class();
 
 #endif /* __header_h_ */
 
