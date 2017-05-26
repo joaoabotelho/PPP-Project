@@ -192,8 +192,5 @@ void print_exam_info(Exam head, FILE *exams);
 void imp_exams(Exams_list head);
 void imp_student_exams(Student_exams_list head);
 
-void rand_str(char *dest, int length);
-void generate_class();
-
 #endif /* __header_h_ */
 
