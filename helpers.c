@@ -2,7 +2,14 @@
 
 void check_memory_char(char *string) {
     if(!string) { 
-        printf("HELL NOOOO!\n");
+        printf("No memory\n");
+        exit(0);
+    } 
+}
+
+void check_memory_int(int *numb) {
+    if(!numb) { 
+        printf("No memory!\n");
         exit(0);
     } 
 }
@@ -26,6 +33,7 @@ void fgets_int(int *numb) {
 
     fgets(temp, CHAR_SIZE, stdin);
     *numb = fgets_to_int(temp);
+    free(temp);
 }
 
 /* yes or no question to confirm if user wants to change something */
@@ -59,4 +67,5 @@ void confirm_answer(char print[], int *numb, char str[]) {
             *numb = fgets_to_int(temp);
         }
     }
+    free(temp);
 }

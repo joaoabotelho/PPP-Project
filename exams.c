@@ -1,14 +1,17 @@
 #include "header.h"
 
-void check_same_dates(Exams_list head, Exams_list *node, Date date) {
-    while(head->next != NULL) {
-        head = head->next;
-
-        if(compare_dates(head->data.date, date) == 0)
-            append_exam(node, head->data);
-    }
-} 
-
+/* at_the_same_time compares the times of two exams(1 and 2) 
+ * to check if they are at the same time
+ *
+ * returns
+ *      sees if the exams start at the same time (b1_b2 == 0)
+ *      or
+ *      sees if the exams end at the same time (f1_f2 == 0)
+ *      or
+ *      sees if 2 starts in the middle of 1 (beg2_bt1)
+ *      or
+ *      sees if 2 ends in the middle of 1 (final2_bt1)
+*/
 int at_the_same_time(Time beg1, Time final1, Time beg2, Time final2) {
     int b1_b2, f1_b2, f2_b1, f1_f2;
     int final2_bt1;
@@ -24,7 +27,29 @@ int at_the_same_time(Time beg1, Time final1, Time beg2, Time final2) {
 
     return final2_bt1 || beg2_bt1 || (b1_b2 == 0) || (f1_f2 == 0);
 }
-    
+ 
+/* check_same_dates compares the dates of the Exams in head to a Date(date)
+ * and append to the list *node the Exams that have the same Date
+ *
+ * it goes through all the Exams in head and if they have the same date
+ * appends the Exam to *node
+*/
+void check_same_dates(Exams_list head, Exams_list *node, Date date) {
+    while(head->next != NULL) {
+        head = head->next;
+
+        if(compare_dates(head->data.date, date) == 0)
+            append_exam(node, head->data);
+    }
+} 
+
+/* check_same_time compares the dates of the Exams in head to a beginning(time)
+ * of a exam and a end(final)
+ * and appends to the list *node the Exams that are at_the_same_time
+ *
+ * it goes through all the Exams in head and if same_time is true
+ * appends the Exam to *node
+*/   
 void check_same_time(Exams_list head, Exams_list *node, Time time, Time final) {
     Time beg_exam, final_exam;
     int same_time;
@@ -117,7 +142,7 @@ void create_exam(Exams_list head, Classes_list classes) {
 
     if (classes->next != NULL) {
         printf("\n\n### Esta a criar um novo exame ###\n\n");
-        get_class(&classes); 
+        request_class(&classes); 
         new.subject = &classes->data;
 
         new.id = EXAM_ID + 1;

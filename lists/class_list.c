@@ -49,21 +49,43 @@ void print_classes_list(Classes_list head) {
     }
 }
 
-void get_class(Classes_list *head) {
+/* request_class asks the user wich Class in head they wish to use
+ *
+ * prints head for the user to pick wich Class they wish
+ * the user writes the name of the Clas and its saved on class_name
+ *
+ * it goes through the list copy(wich is a copy of the head list) unitl they find the same class name
+ * 
+ * if they dont find it, it prints "Nome de disciplina nao existente. Tente de novo."
+ * and it asks the user for another Class
+ *
+ * when it finds the same Class name it goes to the position of that Class in
+ * head list returning head in that position 
+*/
+void request_class(Classes_list *head) {
     char *class_name = (char *)malloc(CHAR_SIZE * sizeof(char));
-    Classes_list copy = *head;
+    Classes_list copy;
+    int n, i;
 
     do {
+        copy = *head;
+        n = 0;
         printf("\t Que disciplina pretende?");
         print_classes_list(copy);
         printf("\t-->");
         fgets(class_name, CHAR_SIZE, stdin);
 
-        while((strcmp((*head)->data.name, class_name) != 0) && ((*head)->next != NULL))
-            *head = (*head)->next;
-        if(strcmp((*head)->data.name, class_name) != 0)
+        while((strcmp(copy->data.name, class_name) != 0) && (copy->next != NULL)) {
+            copy = copy->next;
+            n++;
+        }
+        if(strcmp(copy->data.name, class_name) != 0)
             printf("\t\tNome de disciplina nao existente. Tende de novo.\n");
-    } while(strcmp((*head)->data.name, class_name) != 0);
+    } while(strcmp(copy->data.name, class_name) != 0);
+
+    for(i = 0; i < n; i++) {
+        *head = (*head)->next;
+    }
 }
 
 

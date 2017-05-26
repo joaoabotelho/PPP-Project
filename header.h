@@ -90,6 +90,7 @@ typedef struct senode {
 
 /* Helpers */
 void check_memory_char(char *string);
+void check_memory_int(int *numb);
 int fgets_to_int(char *temp);
 void fgets_int(int *numb);
 char check_answer();
@@ -111,7 +112,7 @@ Classes_list create_classes_list();
 void search_classes_list(Classes_list head, Class search, Classes_list *prev, Classes_list *curr);
 void removes_from_classes_list(Classes_list head, Class remv);
 void print_classes_list(Classes_list head);
-void get_class(Classes_list *head);
+void request_class(Classes_list *head);
 void append_class(Classes_list head, Class new);
 
 /* List Exams */

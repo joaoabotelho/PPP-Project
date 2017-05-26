@@ -1,7 +1,7 @@
 #include <time.h>
 #include "header.h"
 
-/* already_exist confirms the existance of a student
+/* already_exist confirms the existance of a Student
  * in the head list by searching for the student_numb
  *
  * if there is this student_numb this prints 
@@ -22,8 +22,8 @@ int already_exist(Student_list head, int student_numb) {
 
 /* new_student creates a new Student and appends it to the head list
  *
- * asks to user for the new student number and checks if it already exists
- * then asks for the course, the year and the regime of this new student
+ * asks to user for the new Student number and checks if it already exists
+ * then asks for the course, the year and the regime of this new Student
  *
  * finaly appends to the list head
 */
@@ -33,21 +33,24 @@ void new_student(Student_list head) {
     printf("\n\n### Esta a criar um novo aluno ###\n\n");
     printf("\tQual e o numero de aluno?\n\t-->");
     new.numb = (int *)malloc(sizeof(int));
+    check_memory_int(new.numb);
     fgets_int(new.numb); 
 
     if(already_exist(head, *new.numb) == 0) {
 
         printf("\tQue curso frequenta?\n\t-->");
         new.course = (char *)malloc(CHAR_SIZE * sizeof(char));
-        check_memory_char(new.course); // AJDJAJSDAJDJSAJDAJSDAJ
+        check_memory_char(new.course); 
         fgets(new.course, CHAR_SIZE, stdin);
 
         printf("\tQue ano frequenta?(1,2,3)\n\t-->");
         new.year = (int *)malloc(sizeof(int));
+        check_memory_int(new.year);
         fgets_int(new.year);
 
         printf("\tQual o seu regime?\n");
         new.regime = (char *)malloc(CHAR_SIZE * sizeof(char));
+        check_memory_char(new.regime); 
         regime(new.regime);
         append_student(&head, new);
     }
@@ -56,14 +59,14 @@ void new_student(Student_list head) {
 /* request_student asks the user wich Student in head they wish to use
  *
  * prints head for the user to pick wich Student they wish
- * the user writes the number of the student and its saved on student_numb
+ * the user writes the number of the Student and its saved on student numb
  *
  * it goes through the list copy(wich is a copy of the head list) unitl they find the same student_numb 
  * 
  * if they dont find it, it prints "Nao existe ninguem com esse numero. Tente de novo."
- * and it asks the user for another student
+ * and it asks the user for another Student
  *
- * when it finds the student_numb it goes to the position of that Student in
+ * when it finds the same Student number it goes to the position of that Student in
  * head list returning head in that position 
 */
 void request_student(Student_list *head) {
@@ -95,7 +98,7 @@ void request_student(Student_list *head) {
 /* change_slist_data changes information of a Student in head list 
  *
  * checks if there are Students in head
- * asks for the user wich Student they wish to change
+ * asks to the user wich Student they wish to change
  * 
  * asks if they want to change the number
  *      if the new number they want to change to already exists it asks the user
@@ -143,7 +146,7 @@ void change_slist_data(Student_list head) {
  *
  * checks if there are Students in head
  *
- * it asks for the user wich Student they want
+ * it asks to the user wich Student they want
  * and then removes it from the head list
 */
 void remove_student_data(Student_list head) {
