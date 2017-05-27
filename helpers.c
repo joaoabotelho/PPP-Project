@@ -1,5 +1,7 @@
 #include "header.h"
 
+/* check_memory_char checks if string equals NULL
+ * if it is NULL the whole program stops because its a sign of no memory */
 void check_memory_char(char *string) {
     if(!string) { 
         printf("No memory\n");
@@ -7,6 +9,8 @@ void check_memory_char(char *string) {
     } 
 }
 
+/* check_memory_int checks if numb equals NULL
+ * if it is NULL the whole program stops because its a sign of no memory */
 void check_memory_int(int *numb) {
     if(!numb) { 
         printf("No memory!\n");

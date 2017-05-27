@@ -1,5 +1,14 @@
 #include "header.h"
 
+/* add_until adds 2 strings in a *file until it finds a char look
+ *
+ * while it string1 doesnt have the char look scans the *file saving the scaned
+ * string in string2 
+ *
+ * adds to string1 a space and then adds string1 to string2
+ * 
+ * returning string1 full until it finds the char look
+*/
 void add_until(FILE *file, char look, char *string1) {
     char *string2 = (char*)malloc(CHAR_SIZE * sizeof(char)); 
     check_memory_char(string2);
@@ -12,6 +21,8 @@ void add_until(FILE *file, char look, char *string1) {
     free(string2);
 }
 
+/* associate_string scans *file until it finds char look and substitutes the
+ * char look for "\n" */
 void associate_string(FILE *file, char look, char *string) {
     char *p;
 
@@ -21,13 +32,25 @@ void associate_string(FILE *file, char look, char *string) {
     strcat(string, "\n");
 }
 
+/* get_int_file scans a int in *file
+ * 
+ * first gets the full *string until it finds the char look
+ * 
+ * and transforms the string into a int associating to *numb
+*/
 void get_int_file(FILE *file, char look, int *numb, char *string) {
 
     associate_string(file, look, string);
     *numb = fgets_to_int(string);
 }
  
-
+/* get_int_file_fscan scans a int in *file
+ * 
+ * first scans the first time and saves to string
+ * then gets the full *string until it finds the char look
+ * 
+ * and transforms the string into a int associating to *numb
+*/
 void get_int_file_fscan(FILE *file, char look, int *numb) {
     char *string = (char*)malloc(CHAR_SIZE * sizeof(char));
     check_memory_char(string);
@@ -38,12 +61,25 @@ void get_int_file_fscan(FILE *file, char look, int *numb) {
     free(string);
 }
 
+/* get_string_file scans a string(*change) in *file
+ * 
+ * first gets the full *string until it finds the char look
+ * 
+ * and associates the *string to *change
+*/
 void get_string_file(FILE *file, char look, char **change, char *string) {
 
     associate_string(file, look, string);
     *change = string;
 }
 
+/* get_string_file_fscanscans a string(*change) in *file
+ * 
+ * first scans the first time and saves to string
+ * first gets the full *string until it finds the char look
+ * 
+ * and associates the *string to *change
+*/
 void get_string_file_fscan(FILE *file, char look, char **change) {
     char *string = (char*)malloc(CHAR_SIZE * sizeof(char));
     check_memory_char(string);
@@ -53,13 +89,19 @@ void get_string_file_fscan(FILE *file, char look, char **change) {
     *change = string;
 }
 
+/* ex_id gets the first line of the file exams.txt
+ * that is the value of the global variable 
+ *
+*/
 void ex_id(int *num) {
     FILE *exams;
 
     exams = fopen("files/exams.txt", "r");
     fscanf(exams, "%d", num);
-    fclose(exams);}
+    fclose(exams);
+}
 
+/* ex_classes gets all the information of classes.txt to Classes_list head */
 void ex_classes(Classes_list head) {
     FILE *classes;
     Class temp;
@@ -79,6 +121,7 @@ void ex_classes(Classes_list head) {
     fclose(classes);
 }
 
+/* ex_students gets all the information of student.txt to Student_list head */
 void ex_students(Student_list head) {
     FILE *students;
     Student temp;
@@ -111,6 +154,8 @@ void ex_students(Student_list head) {
     free(string);
 }
 
+/* ex_exams gets all the information of exam.txt to Exams_list head associating
+ * the Classes and Students submited to each exam */
 void ex_exams(Exams_list head, Classes_list *classes, Student_list students) {
     FILE *exams;
     Exam temp;
@@ -121,18 +166,19 @@ void ex_exams(Exams_list head, Classes_list *classes, Student_list students) {
     char *p;
 
     check_memory_char(string);
-    ex_id(&EXAM_ID);
     exams = fopen("files/exams.txt", "r");
     fscanf(exams, "%s", string);
 
     while(fscanf(exams, "%s", string) != EOF) {
         get_int_file(exams, ',', &temp.id, string);
+        string = (char*)malloc(CHAR_SIZE * sizeof(char));
  
         fscanf(exams, "%s", string);
         associate_string(exams, ',', string);
         while((strcmp((*classes)->data.name, string) != 0) && ((*classes)->next != NULL))
             *classes = (*classes)->next;
         temp.subject = &(*classes)->data; 
+        string = (char*)malloc(CHAR_SIZE * sizeof(char));
         
         fscanf(exams, "%s", string);
         add_until(exams, ',', string); 
@@ -183,9 +229,10 @@ void ex_exams(Exams_list head, Classes_list *classes, Student_list students) {
         check_memory_char(string);
     } 
     fclose(exams);
-    free(string);
 }
 
+/* ex_student_exams gets all the information of student_exams.txt to
+ * Student_exams_list head associating all the Students submited to each Exam */
 void ex_student_exams(Exams_list exams, Student_list students, Student_exams_list head) {
     FILE *st_exams;
     Student_list useless_st, curr_st;

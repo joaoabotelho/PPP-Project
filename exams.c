@@ -190,6 +190,7 @@ void create_exam(Exams_list head, Classes_list classes) {
     Exam new;
     Exams_list copy = head;
 
+    printf("%d\n", EXAM_ID);
     if (classes->next != NULL) {
         printf("\n\n### Esta a criar um novo exame ###\n\n");
         request_class(&classes); 
@@ -270,7 +271,7 @@ void search_exam(Exams_list head, Exams_list *prev, Exams_list *curr) {
  * first asks the user wich Exam he wants
  *
  * prints the Classroom_list of that Exam
-*/
+ */
 void print_classrooms(Exams_list head) {
     Exams_list curr, prev;
 

@@ -1,5 +1,6 @@
 #include "header.h"
 
+/* check_student_exams  */
 void check_student_exams(Student_exams_list head, Student st) {
     Student_exams_list useless, curr;
 

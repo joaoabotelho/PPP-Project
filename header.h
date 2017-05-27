@@ -7,7 +7,7 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-static int EXAM_ID;
+int EXAM_ID;
 #define CHAR_SIZE 50
 #define LAST_YEAR 3
 #define MAX_ROOM_CAPACITY 30
@@ -193,4 +193,3 @@ void imp_exams(Exams_list head);
 void imp_student_exams(Student_exams_list head);
 
 #endif /* __header_h_ */
-

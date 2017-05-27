@@ -182,11 +182,17 @@ int main() {
     Exams_list list_exam = create_exams_list();
     Student_exams_list list_student_exams = create_student_exams_list();
 
+    ex_id(&EXAM_ID);
     ex_classes(list_class);
+    printf("%d\n", EXAM_ID);
     ex_students(list_student);
+    printf("%d\n", EXAM_ID);
     copy = list_class;
+    printf("%d\n", EXAM_ID);
     ex_exams(list_exam, &copy, list_student);
+    printf("%d\n", EXAM_ID);
     ex_student_exams(list_exam, list_student, list_student_exams);
+    printf("%d\n", EXAM_ID);
     main_menu(list_student, list_class, list_exam, list_student_exams);
 
     return 0;

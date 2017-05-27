@@ -1,5 +1,7 @@
 #include "header.h"
 
+/* imp_classes imports all the data from the Classes_list head to the file
+ * classes.txt */
 void imp_classes(Classes_list head) {
     FILE *classes;
     char *p;
@@ -18,6 +20,8 @@ void imp_classes(Classes_list head) {
     fclose(classes);
 }
 
+/* imp_students imports all the data from the Student_list head to the file
+ * student.txt */
 void imp_students(Student_list head) {
     FILE *students;
     char *p;
@@ -41,6 +45,8 @@ void imp_students(Student_list head) {
     fclose(students);
 }
 
+/* print_exam_info passes almost all the info from the Exam to the file
+ * exams.txt */
 void print_exam_info(Exam head, FILE *exams) {
         fprintf(exams, "\n%d, ", head.id);
         fprintf(exams, "%s, ", head.subject->name);
@@ -56,6 +62,7 @@ void print_exam_info(Exam head, FILE *exams) {
         fprintf(exams, "%d;\n", head.final.minutes);
 }
 
+/* imp_exams imports all the data from Exams_list head to the file exams.txt */
 void imp_exams(Exams_list head) {
     FILE *exams;
     Student_list students, copy;
@@ -102,6 +109,8 @@ void imp_exams(Exams_list head) {
     fclose(exams);
 }
 
+/* imp_student_exams imports all the data from Student_exams_list head to the
+ * file student_exams.txt */
 void imp_student_exams(Student_exams_list head) {
     FILE *st_exams;
     int n;
@@ -130,5 +139,3 @@ void imp_student_exams(Student_exams_list head) {
     }
     fclose(st_exams);
 }
-
-
