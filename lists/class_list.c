@@ -1,11 +1,19 @@
 #include "../header.h"
 
+void check_memory_clist(Classes_list a) {
+    if(!a) { 
+        printf("No memory\n");
+        exit(0);
+    } 
+}
+
 Classes_list create_classes_list() {
     Classes_list aux;
     Class useless;
 
     useless.name = "";
     aux = (Classes_list)malloc(sizeof (Classes_node));
+    check_memory_clist(aux);
     if(aux != NULL){
         aux->data = useless;
         aux->next = NULL;
@@ -94,6 +102,7 @@ void append_class(Classes_list head, Class new) {
     Classes_list node;
 
     node = (Classes_list)malloc(sizeof (Classes_node));
+    check_memory_clist(node);
     node->data = new;
 
     while(head->next != NULL)

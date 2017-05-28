@@ -1,7 +1,15 @@
 #include "../header.h"
 
+void check_memory_slist(Student_list a) {
+    if(!a) { 
+        printf("No memory\n");
+        exit(0);
+    } 
+}
+
 Student_list create_students_list() {
     Student_list aux = (Student_list)malloc(sizeof (Student_node));
+    check_memory_slist(aux);
     Student useless;
 
     useless.numb = (int *)malloc(sizeof(int));
@@ -40,6 +48,7 @@ void append_student(Student_list *head, Student new) {
     Student_list node, prev, useless;
 
     node = (Student_list)malloc(sizeof (Student_node));
+    check_memory_slist(node);
     if(node != NULL) {
         node->data = new;
         search_student_list(*head, *new.numb, &prev, &useless);

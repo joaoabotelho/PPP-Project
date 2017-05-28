@@ -1,11 +1,19 @@
 #include "../header.h"
 
+void check_memory_elist(Exams_list a) {
+    if(!a) { 
+        printf("No memory\n");
+        exit(0);
+    } 
+}
+
 Exams_list create_exams_list() {
     Exams_list aux;
     Exam useless;
 
     useless.type = "";
     aux = (Exams_list)malloc(sizeof (Exams_node));
+    check_memory_elist(aux);
     if(aux != NULL) {
         aux->data = useless;
         aux->next = NULL;
@@ -113,6 +121,7 @@ void append_exam(Exams_list *head, Exam new) {
     Exams_list node, prev, useless;
 
     node = (Exams_list)malloc(sizeof (Exams_node));
+    check_memory_elist(node);
     if(node != NULL) {
         node->data = new;
         search_exam_list(*head, new.id, &prev, &useless);

@@ -164,6 +164,7 @@ void ex_exams(Exams_list head, Classes_list *classes, Student_list students) {
     char *string = (char*)malloc(CHAR_SIZE * sizeof(char));
     int student_num, i, n; 
     char *p;
+    Classes_list copy2;
 
     check_memory_char(string);
     exams = fopen("files/exams.txt", "r");
@@ -173,11 +174,13 @@ void ex_exams(Exams_list head, Classes_list *classes, Student_list students) {
         get_int_file(exams, ',', &temp.id, string);
         string = (char*)malloc(CHAR_SIZE * sizeof(char));
  
+        copy2 = *classes;
         fscanf(exams, "%s", string);
         associate_string(exams, ',', string);
-        while((strcmp((*classes)->data.name, string) != 0) && ((*classes)->next != NULL))
-            *classes = (*classes)->next;
-        temp.subject = &(*classes)->data; 
+        while((strcmp(copy2->data.name, string) != 0) && (copy2->next != NULL))
+            copy2 = copy2->next;
+        temp.subject = &copy2->data; 
+        printf("%s", temp.subject->name);
         string = (char*)malloc(CHAR_SIZE * sizeof(char));
         
         fscanf(exams, "%s", string);

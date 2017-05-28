@@ -8,10 +8,13 @@
 #include <stdbool.h>
 
 int EXAM_ID;
+int CURRENT_MONTH;
+int CURRENT_DAY;
+#define CURRENT_YEAR 2017
 #define CHAR_SIZE 50
 #define LAST_YEAR 3
 #define MAX_ROOM_CAPACITY 30
-#define CURRENT_YEAR 2017
+
 
 typedef struct student {
     int *numb;
@@ -96,8 +99,10 @@ int fgets_to_int(char *temp);
 void fgets_int(int *numb);
 char check_answer();
 void confirm_answer(char print[], int *numb, char str[]);
+void ask_for_the_current_date(int *month, int *day);
 
 /* List Student */
+void check_memory_slist(Student_list a);
 Student_list create_students_list();
 void search_student_list(Student_list head, int student_numb, Student_list *prev, Student_list *curr);
 void removes_from_student_list(Student_list head, int student_numb);
@@ -109,6 +114,7 @@ void bubble_sort(Student_list head);
 int size_of_student_list(Student_list head);
 
 /* List Classes */
+void check_memory_clist(Classes_list a);
 Classes_list create_classes_list();
 void search_classes_list(Classes_list head, Class search, Classes_list *prev, Classes_list *curr);
 void removes_from_classes_list(Classes_list head, Class remv);
@@ -117,6 +123,7 @@ void request_class(Classes_list *head);
 void append_class(Classes_list head, Class new);
 
 /* List Exams */
+void check_memory_elist(Exams_list a);
 Exams_list create_exams_list();
 Classroom_list create_classroom_list();
 void print_classroom_list(Classroom_list head);
@@ -134,6 +141,7 @@ void possible_hours(Time time_available[], int n, int hour, int minutes);
 void remove_from_exams_list(Exams_list head, int id);
 
 /* List Student-Exams */
+void check_memory_selist(Student_exams_list a);
 Student_exams_list create_student_exams_list();
 void search_student_exams_list(Student_exams_list head, int student_numb, Student_exams_list *prev, Student_exams_list *curr);
 void append_student_exams(Student_exams_list *head, Student st);
@@ -171,6 +179,7 @@ void print_submitted_students(Exams_list head);
 void print_exams_of_student(Student_exams_list head, Student_list all);
 void remove_submit_students(Exams_list head, Student_exams_list head2);
 void delete_exam(Exams_list head, Student_exams_list head2);
+void pass_date_exams(Exams_list head, Student_exams_list head2);
 
 /* Extract from files */
 void add_until(FILE *file, char look, char *string1);

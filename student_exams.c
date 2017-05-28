@@ -1,6 +1,14 @@
 #include "header.h"
 
-/* check_student_exams  */
+/* check_student_exams checks if there is the Student st in the list Student_exams_list
+ * head
+ *
+ * if the list head is empty 
+ *      the Student st is added to the list
+ *  if the list head isnt empty
+ *     checks if the Student st is in the list head
+ *     if it isnt in the list head the Student is added to the list
+*/
 void check_student_exams(Student_exams_list head, Student st) {
     Student_exams_list useless, curr;
 
@@ -13,16 +21,34 @@ void check_student_exams(Student_exams_list head, Student st) {
     }
 }
 
+/* eligble_for_exam checks if the Student is eligble for the Exam ex
+ * 
+ * if the Exam has the type Epoca Especial
+ *      and if the Student has the regime Normal and has the year different to
+ *      the LAST_YEAR (the Student isnt eligble for the Exam)
+ *          prints "Este aluno nao esta elegivel para este exame."
+ *          and returns 1
+ *      else the Student is eligble to the Exam so it returns 0
+ * else the Exam doesnt have any special condition so it returns 0
+*/
 int eligble_for_exam(Exam ex, Student st) {
 
     if(strncmp(ex.type, "Epoca Especial", 14) == 0) {
         if((strncmp(st.regime, "Normal", 6) == 0) && (*st.year != LAST_YEAR)) {
-            printf("\tEste aluno não está elegivel para este exame.");
+            printf("\tEste aluno nao esta elegivel para este exame.");
             return 1;
         } else return 0;  
     } else return 0;
 }
 
+/* append_exam_stex_list appends a Exam to the Student st in Student_exams_list
+ * head
+ *
+ * it looks for the Student in head returning curr(place in list where the
+ * Student is)
+ *
+ * appends the Exam to the Exam_list(submitted) in the struct Student_exams
+*/
 void append_exam_stex_list(Student_exams_list head, Student st, Exam new) {
     Student_exams_list useless, curr;
 
@@ -30,6 +56,22 @@ void append_exam_stex_list(Student_exams_list head, Student st, Exam new) {
     append_exam(&curr->data.submitted, new);
 }
 
+/* submit_students submits a Student to a Exam
+ *
+ * if the Exams list and the Student list arent empty
+ *      asks the user wich Exam they want
+ *      asks the user wich Student they want
+ *      checks if the Student is eligble for the Exam(eligble_for_exam)
+ *      if it is
+ *         checks if the Student is already in Student_exams_list
+ *         checks if the Student_list students_submitted associated to the Exam is empty
+ *         if it is
+ *              appends the Student to the Student_list
+ *              students_submitted(append_student)
+ *              and appends to the Student_exams_list connect associating to
+ *              the Student the Exam(append_exam_stex_list)
+ *
+*/
 void submit_students(Student_list all, Exams_list head, Student_exams_list connect) {
     int num_students;
     Exams_list copy_ex = head, prev, current;
@@ -49,7 +91,6 @@ void submit_students(Student_list all, Exams_list head, Student_exams_list conne
             if(submitted->next == NULL) { 
                 append_student(&submitted, all->data);
                 append_exam_stex_list(connect, all->data, current->data);
-                printf("%d\n", *all->data.numb);
             } else {
                 num_students = size_of_student_list(submitted);
                 search_student_list(submitted, *all->data.numb, &useless, &curr);
@@ -159,4 +200,30 @@ void delete_exam(Exams_list head, Student_exams_list head2) {
         remove_from_exam_list(submitted, curr->data.id);
     }
     remove_from_exam_list(head, curr->data.id);
+}
+
+void pass_date_exams(Exams_list head, Student_exams_list head2) {
+    Exams_list copy = head;
+    Student_exams_list copy2;
+    Date current_date;
+    int i = 0;
+
+    current_date.day = CURRENT_DAY;
+    current_date.month = CURRENT_MONTH;
+    current_date.year = CURRENT_YEAR;
+    
+    while(copy->next != NULL) {
+        copy = copy->next;
+        if(compare_dates(copy->data.date, current_date) == 1) {
+            copy2 = head2;            
+            while(copy2->next != NULL) {
+                copy2 = copy2->next;
+                remove_from_exam_list(copy2->data.submitted, copy->data.id);
+            }
+            remove_from_exam_list(head, copy->data.id);
+            i++;
+        }
+    }
+    printf("%d exames foram apagados por ja terem sido realizados", i);
+
 }

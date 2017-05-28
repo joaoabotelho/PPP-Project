@@ -78,3 +78,16 @@ void confirm_answer(char print[], int *numb, char str[]) {
     }
     free(temp);
 }
+
+/* Asks the user for the current Date */
+void ask_for_the_current_date(int *month, int *day) {
+    do {
+        printf("Mes actual\n-->");
+        fgets_int(month);
+    } while(*month < 1 || *month > 12);
+
+    do {
+        printf("Dia actual\n-->");
+        fgets_int(day);
+    } while(*day < 1 || *day > max_day(CURRENT_YEAR, *month));
+}

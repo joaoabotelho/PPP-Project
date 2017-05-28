@@ -9,4 +9,4 @@ TC, Nome do professor?;
 AC, Nome do professor?;
 TPF, Nome do professor?;
 Anatomia, Nome do professor?;
-Farmacologia, Nome do professor?;
+Farmacologia, Helena Martins;
