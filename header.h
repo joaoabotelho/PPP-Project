@@ -167,7 +167,7 @@ void chose_room(Exams_list head, Classroom *new);
 void possible_room(Exams_list head, Date date, Time time, Time final, Classroom_list exam_room);
 void exam_time(Time *time, int n, int hour, int minutes);
 void create_exam(Exams_list head, Classes_list classes);
-void search_exam(Exams_list head, Exams_list *prev, Exams_list *curr);
+void request_exam(Exams_list head, Exams_list *prev, Exams_list *curr);
 void print_classrooms(Exams_list head);
 
 /* Student-Exams */

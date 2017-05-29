@@ -69,8 +69,17 @@ void append_exam_stex_list(Student_exams_list head, Student st, Exam new) {
  *              appends the Student to the Student_list
  *              students_submitted(append_student)
  *              and appends to the Student_exams_list connect associating to
- *              the Student the Exam(append_exam_stex_list)
+ *              the Student to the Exam(append_exam_stex_list)
+ *         if it isnt 
+ *              searches for the Student in Student_list students_submitted 
+ *              if it finds it it means this Student is already submitted to the Exam
+ *              sorts the list(bubble_sort) and appends to the Student_list
+ *              students_submitted and appends to the Student_exam_list connect
+ *              asssociating the Student to the Exam(append_exams_stex_list)
  *
+ *              at the end checks if there are 31 Students submitted to the
+ *              Exam if there are it mears the Classroom is full so asks the
+ *              user to name another room
 */
 void submit_students(Student_list all, Exams_list head, Student_exams_list connect) {
     int num_students;
@@ -79,7 +88,7 @@ void submit_students(Student_list all, Exams_list head, Student_exams_list conne
 
     if(head->next != NULL && all->next != NULL) {
         printf("\n\n### Esta a querer submeter um aluno a um exame ###/n/n");
-        search_exam(head, &prev, &current);
+        request_exam(head, &prev, &current);
 
         request_student(&all);
 
@@ -122,7 +131,7 @@ void print_submitted_students(Exams_list head) {
     Exams_list prev, curr;
 
     if(head->next != NULL) {
-        search_exam(head, &prev, &curr);
+        request_exam(head, &prev, &curr);
         submitted = curr->data.students_submitted;
 
         if(submitted->next != NULL) {
@@ -136,6 +145,16 @@ void print_submitted_students(Exams_list head) {
     }
 }
 
+/* print_exams_of_student prints the Exams signed in of a Student 
+ *
+ * asks the user wich Student he wants(request_student)
+ * searches the Student_exams_list for that student
+ *
+ * if it doesnt find it prints "O aluno (number of the Student) nao esta
+ * inscrito em exames"
+ *
+ * if it does find it prints the Exam_list associated to the Student
+*/
 void print_exams_of_student(Student_exams_list head, Student_list all) {
     Student_exams_list prev, curr;
 
@@ -154,6 +173,19 @@ void print_exams_of_student(Student_exams_list head, Student_list all) {
     }
 }
 
+/* remove_submit_students removes a Student from the Student_list associated to
+ * a Exam and removes that same Exam from the Student_exams_list associated to
+ * that Student
+ *
+ *  first asks to the user for the Exam he wants
+ *  then asks for the Student they wish in the Student_list student_submitted associated to the
+ *  Exam
+ *
+ *  removes from that list that Student(removes_from_student_list)
+ *  searches for that Student in Student_exams_list head2
+ *  and removes the Exam in the Exams_list associated to that
+ *  Student(remove_from_exams_list)
+*/
 void remove_submit_students(Exams_list head, Student_exams_list head2) {
     int student_num;
     Student_list copy, submitted;
@@ -162,7 +194,7 @@ void remove_submit_students(Exams_list head, Student_exams_list head2) {
 
     if(head->next != NULL && head2->next != NULL) {
         printf("\n\n### Esta a querer remover a inscricao de um aluno ###\n\n");
-        search_exam(head, &less, &current);
+        request_exam(head, &less, &current);
 
         submitted = current->data.students_submitted;
         copy = current->data.students_submitted;
@@ -187,12 +219,21 @@ void remove_submit_students(Exams_list head, Student_exams_list head2) {
     }
 }
 
+/* delete_exam deletes a Exam from the Exams_list 
+ *
+ * asks the user wich Exam they want(request_exam)
+ *
+ * goes through each node in Student_exams_list to remove that Exam on each
+ * Exams_list(remove_from_exam_list)
+ *
+ * then removes the Exam in the Exams_list(remove_from_exam_list)
+*/ 
 void delete_exam(Exams_list head, Student_exams_list head2) {
     Exams_list curr, prev;
     Exams_list submitted;
 
     printf("\n\n### Esta a querer apagar um exame ###\n\n");
-    search_exam(head, &prev, &curr);
+    request_exam(head, &prev, &curr);
 
     while(head2->next != NULL) {
         head2 = head2->next;
@@ -202,6 +243,14 @@ void delete_exam(Exams_list head, Student_exams_list head2) {
     remove_from_exam_list(head, curr->data.id);
 }
 
+/* pass_date_exams deletes all the exams that already have been done
+ * 
+ * goes through the Exams_list head
+ *      if it finds a Exam wich has a Date before the current_date
+ *           goes through the Student_exams_list head2 deleting that Exam in every
+ *           Exams_list submitted
+ *           then removes the Exam from the Exams_list head 
+*/
 void pass_date_exams(Exams_list head, Student_exams_list head2) {
     Exams_list copy = head;
     Student_exams_list copy2;

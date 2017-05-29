@@ -245,7 +245,7 @@ void create_exam(Exams_list head, Classes_list classes) {
     }
 }
 
-/* search_exam asks the user wich Exam they want
+/* request_exam asks the user wich Exam they want
  *
  * prints the Exams_list head
  * and asks the user for the id number associated to the Exam he wants
@@ -253,7 +253,7 @@ void create_exam(Exams_list head, Classes_list classes) {
  * searchs for the exam
  * if it doesnt exist repeats the process
 */
-void search_exam(Exams_list head, Exams_list *prev, Exams_list *curr) {
+void request_exam(Exams_list head, Exams_list *prev, Exams_list *curr) {
     int num;
 
     do {
@@ -276,7 +276,7 @@ void print_classrooms(Exams_list head) {
     Exams_list curr, prev;
 
     if(head->next != NULL) {
-        search_exam(head, &prev, &curr);
+        request_exam(head, &prev, &curr);
         print_classroom_list(curr->data.classrooms); 
     } else {
         printf("\t Nao existem exames na base de dados");

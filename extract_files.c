@@ -180,7 +180,6 @@ void ex_exams(Exams_list head, Classes_list *classes, Student_list students) {
         while((strcmp(copy2->data.name, string) != 0) && (copy2->next != NULL))
             copy2 = copy2->next;
         temp.subject = &copy2->data; 
-        printf("%s", temp.subject->name);
         string = (char*)malloc(CHAR_SIZE * sizeof(char));
         
         fscanf(exams, "%s", string);
