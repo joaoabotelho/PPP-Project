@@ -124,6 +124,7 @@ void append_class(Classes_list head, Class new);
 
 /* List Exams */
 void check_memory_elist(Exams_list a);
+void check_memory_crlist(Classroom_list a);
 Exams_list create_exams_list();
 Classroom_list create_classroom_list();
 void print_classroom_list(Classroom_list head);
@@ -132,7 +133,6 @@ int search_room(Exams_list head, Classroom room);
 int compare_hours(Time a,Time b);
 int compare_dates(Date a,Date b);
 void search_exam_list(Exams_list head, int id, Exams_list *prev, Exams_list *curr);
-void remove_from_exam_list(Exams_list head, int id);
 void append_exam(Exams_list *head, Exam new);
 void append_classroom(Classroom_list head, Classroom new);
 int max_day(int year, int month);

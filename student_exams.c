@@ -238,9 +238,9 @@ void delete_exam(Exams_list head, Student_exams_list head2) {
     while(head2->next != NULL) {
         head2 = head2->next;
         submitted = head2->data.submitted;
-        remove_from_exam_list(submitted, curr->data.id);
+        remove_from_exams_list(submitted, curr->data.id);
     }
-    remove_from_exam_list(head, curr->data.id);
+    remove_from_exams_list(head, curr->data.id);
 }
 
 /* pass_date_exams deletes all the exams that already have been done
@@ -267,9 +267,9 @@ void pass_date_exams(Exams_list head, Student_exams_list head2) {
             copy2 = head2;            
             while(copy2->next != NULL) {
                 copy2 = copy2->next;
-                remove_from_exam_list(copy2->data.submitted, copy->data.id);
+                remove_from_exams_list(copy2->data.submitted, copy->data.id);
             }
-            remove_from_exam_list(head, copy->data.id);
+            remove_from_exams_list(head, copy->data.id);
             i++;
         }
     }

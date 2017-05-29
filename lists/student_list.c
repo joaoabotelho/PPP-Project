@@ -1,5 +1,7 @@
 #include "../header.h"
 
+/* check_memory_slits checks if a Student_list equals NULL
+ * if it is NULL the whole program stops because its a sign of no dynamic memory */
 void check_memory_slist(Student_list a) {
     if(!a) { 
         printf("No memory\n");
@@ -7,6 +9,7 @@ void check_memory_slist(Student_list a) {
     } 
 }
 
+/* create_students_list returns a new Students_list */ 
 Student_list create_students_list() {
     Student_list aux = (Student_list)malloc(sizeof (Student_node));
     check_memory_slist(aux);
@@ -21,6 +24,11 @@ Student_list create_students_list() {
     return aux;
 }
 
+/* search_student_list searches for a Student number in the Student_list 
+ *
+ * if it finds it curr will be in the position of the searched Student
+ * if it doesnt find it curr will be NULL
+*/
 void search_student_list(Student_list head, int student_numb, Student_list *prev, Student_list *curr) {
 
     *prev = head;
@@ -34,6 +42,7 @@ void search_student_list(Student_list head, int student_numb, Student_list *prev
     }
 }
 
+/* removes_from_student_list removes a Student from the Student_list */
 void removes_from_student_list(Student_list head, int student_numb) {
     Student_list prev, curr;
 
@@ -44,6 +53,7 @@ void removes_from_student_list(Student_list head, int student_numb) {
     }
 }
 
+/* append_student appends to the Student_list head the new Student */
 void append_student(Student_list *head, Student new) {
     Student_list node, prev, useless;
 
@@ -57,6 +67,7 @@ void append_student(Student_list *head, Student new) {
     }
 }
 
+/* print_classes_list prints the Classes_list head */
 void print_student_list(Student_list head){
     Student_list I = head->next;
 
@@ -71,6 +82,8 @@ void print_student_list(Student_list head){
     }
 }   
 
+/* regime asks the user wich regime the Student is on and saves the regime in
+ * str */
 void regime(char str[]) {
     char *temp = (char *)malloc(CHAR_SIZE * sizeof(char));
 
@@ -102,6 +115,7 @@ void regime(char str[]) {
     free(temp);
 }
 
+/* bubble sort algorithm */
 void swap(Student_list a, Student_list b) {
     Student temp = a->data;
 
@@ -129,6 +143,7 @@ void bubble_sort(Student_list head) {
     while(swapped);
 }
 
+/* size_of_student_list returns the size of a Student_list */
 int size_of_student_list(Student_list head) {
     int num = 0;
     

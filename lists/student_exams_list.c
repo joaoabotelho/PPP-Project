@@ -1,5 +1,7 @@
 #include "../header.h"
 
+/* check_memory_selist checks if a Student_exams_list equals NULL
+ * if it is NULL the whole program stops because its a sign of no dynamic memory */
 void check_memory_selist(Student_exams_list a) {
     if(!a) { 
         printf("No memory\n");
@@ -7,6 +9,7 @@ void check_memory_selist(Student_exams_list a) {
     } 
 }
 
+/* create_student_exams_list returns a new Student_exams_list */ 
 Student_exams_list create_student_exams_list() {
     Student_exams_list aux;
     Student_exams useless;
@@ -23,6 +26,12 @@ Student_exams_list create_student_exams_list() {
     return aux;
 }
 
+/* search_student_exams_list searches for a Student number in the
+ * Students_exams_list 
+ *
+ * if it finds it curr will be in the position of the searched Student_exams
+ * if it doesnt find it curr will be NULL
+*/
 void search_student_exams_list(Student_exams_list head, int student_numb, Student_exams_list *prev, Student_exams_list *curr) {
 
     *prev = head;
@@ -35,6 +44,8 @@ void search_student_exams_list(Student_exams_list head, int student_numb, Studen
         *curr = NULL;
 }
 
+/* append_student_exams appends to the Student_exams_list head the new Student_exams
+ * associating st Student and a empty Exams_list */
 void append_student_exams(Student_exams_list *head, Student st) {
     Student_exams_list node, prev, useless;
     Student_exams new;

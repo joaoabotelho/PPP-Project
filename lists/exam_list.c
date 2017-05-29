@@ -1,5 +1,7 @@
 #include "../header.h"
 
+/* check_memory_elist checks if a Exams_list equals NULL
+ * if it is NULL the whole program stops because its a sign of no dynamic memory */
 void check_memory_elist(Exams_list a) {
     if(!a) { 
         printf("No memory\n");
@@ -7,6 +9,16 @@ void check_memory_elist(Exams_list a) {
     } 
 }
 
+/* check_memory_crlist checks if a Classroom_list equals NULL
+ * if it is NULL the whole program stops because its a sign of no dynamic memory */
+void check_memory_crlist(Classroom_list a) {
+    if(!a) { 
+        printf("No memory\n");
+        exit(0);
+    } 
+}
+
+/* create_exams_list returns a new Exams_list */ 
 Exams_list create_exams_list() {
     Exams_list aux;
     Exam useless;
@@ -21,12 +33,14 @@ Exams_list create_exams_list() {
     return aux;
 }
 
+/* create_classroom_list returns a new Classroom_list */ 
 Classroom_list create_classroom_list() {
     Classroom_list aux;
     Classroom useless;
 
     useless.room = 0;
     aux = (Classroom_list)malloc(sizeof (Classrooms_node));
+    check_memory_crlist(aux);
     if(aux != NULL) {
         aux->data = useless;
         aux->next = NULL;
@@ -34,6 +48,7 @@ Classroom_list create_classroom_list() {
     return aux;
 }
 
+/* print_classroom_list prints the Classroom_list head */
 void print_classroom_list(Classroom_list head) {
     Classroom_list I = head->next;
 
@@ -44,6 +59,7 @@ void print_classroom_list(Classroom_list head) {
 
 }
 
+/* print_exams_list prints the Exams_list head */
 void print_exams_list(Exams_list head) {
     Exams_list I = head->next;
 
@@ -62,6 +78,14 @@ void print_exams_list(Exams_list head) {
     }
 }
 
+/* search_room trys to find a room in the Exams_list
+ *
+ * checks every Exam in Exams_list the Classroom_list associated to it
+ * if it finds it
+ *      returns 1
+ * if it doesnt
+ *      returns 0
+*/
 int search_room(Exams_list head, Classroom room) {
     Classroom_list copy;
     int num = 0;
@@ -78,24 +102,41 @@ int search_room(Exams_list head, Classroom room) {
     return num;
 }
 
+/* compares 2 Times "a" and "b" 
+ *
+ * if "a" and "b" are the same returns 0
+ * if "a" is after b returns -1
+ * if "a" if before b returns 1
+*/
 int compare_hours(Time a,Time b) {
     if ((a.hour == b.hour) && (a.minutes == b.minutes))
-        return 0; /* a = b */
+        return 0; 
     else if ((a.hour > b.hour) || ((a.hour == b.hour) && (a.minutes > b.minutes)))
-        return -1; /* a after b */
-    else
-        return 1; /* b after a */
-}
-
-int compare_dates(Date a,Date b) {
-    if ((a.day==b.day) && (a.month==b.month) && (a.year==b.year))  
-        return 0;
-    if ((a.year>b.year) || ((a.year==b.year) && (a.month>b.month)) || ((a.year==b.year) && (a.month==b.month) && (a.day>b.day)))
         return -1;
     else
         return 1;
 }
 
+/* compares 2 Dates "a" and "b" 
+ *
+ * if "a" and "b" are the same returns 0
+ * if "a" is after b returns -1
+ * if "a" if before b returns 1
+*/
+int compare_dates(Date a,Date b) {
+    if ((a.day==b.day) && (a.month==b.month) && (a.year==b.year))  
+        return 0;
+    else if ((a.year>b.year) || ((a.year==b.year) && (a.month>b.month)) || ((a.year==b.year) && (a.month==b.month) && (a.day>b.day)))
+        return -1;
+    else
+        return 1;
+}
+
+/* search_exam_list searches for a id of a Exam in Exams_list 
+ *
+ * if it finds it curr will be in the position of the searched Exam
+ * if it doesnt find it curr will be NULL
+*/
 void search_exam_list(Exams_list head, int id, Exams_list *prev, Exams_list *curr) { 
     *prev = head;
     *curr = head->next;
@@ -107,16 +148,7 @@ void search_exam_list(Exams_list head, int id, Exams_list *prev, Exams_list *cur
         *curr = NULL;
 }
 
-void remove_from_exam_list(Exams_list head, int id) {
-    Exams_list prev, curr;
-
-    search_exam_list(head, id, &prev, &curr);
-    if(curr != NULL) {
-        prev->next = curr->next;
-        free(curr);
-    }
-}
-
+/* append_exam appends to the Exams_list *head the new Exam */
 void append_exam(Exams_list *head, Exam new) {
     Exams_list node, prev, useless;
 
@@ -130,6 +162,7 @@ void append_exam(Exams_list *head, Exam new) {
     }
 }
 
+/* append_classroom appends to the Classroom_list head the new Classroom */
 void append_classroom(Classroom_list head, Classroom new) {
     Classroom_list node;
 
@@ -143,6 +176,10 @@ void append_classroom(Classroom_list head, Classroom new) {
     head->next = NULL;
 }
 
+/* max_day returns the last day of that specific month
+ *
+ * (checks if its February and if its a leap year)
+*/
 int max_day(int year,int month) {
     int max_day;
 
@@ -161,6 +198,7 @@ int max_day(int year,int month) {
     return max_day;
 }
 
+/* exam_type makes the user pick a type for the Exam */
 void exam_type(char str[]) {
     char *temp = (char*)malloc(CHAR_SIZE * sizeof(char));
 
@@ -186,6 +224,8 @@ void exam_type(char str[]) {
     free(temp);
 }
 
+/* possible_hours calculates all the n hours starting at hour:minutes with a 30min space between each
+ * possbile hours */ 
 void possible_hours(Time time_available[], int n, int hour, int minutes) {
     int i;
 
@@ -202,6 +242,7 @@ void possible_hours(Time time_available[], int n, int hour, int minutes) {
     }
 }
 
+/* removes_from_exams_list removes Exam from the Exams_list */
 void remove_from_exams_list(Exams_list head, int id) {
     Exams_list prev, curr;
 

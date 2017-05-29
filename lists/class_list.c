@@ -1,5 +1,7 @@
 #include "../header.h"
 
+/* check_memory_clist checks if a Classes_list equals NULL
+ * if it is NULL the whole program stops because its a sign of no dynamic memory */
 void check_memory_clist(Classes_list a) {
     if(!a) { 
         printf("No memory\n");
@@ -7,6 +9,7 @@ void check_memory_clist(Classes_list a) {
     } 
 }
 
+/* create_classes_list returns a new Classes_list */ 
 Classes_list create_classes_list() {
     Classes_list aux;
     Class useless;
@@ -21,6 +24,11 @@ Classes_list create_classes_list() {
     return aux;
 }
 
+/* search_classes_list searches for a Class in the Classes_list 
+ *
+ * if it finds it curr will be in the position of the searched Class
+ * if it doesnt find it curr will be NULL
+*/
 void search_classes_list(Classes_list head, Class search, Classes_list *prev, Classes_list *curr) {
 
     *prev = head;
@@ -34,6 +42,7 @@ void search_classes_list(Classes_list head, Class search, Classes_list *prev, Cl
         *curr = NULL;
 }
 
+/* removes_from_classes_list removes a Class from the Classes_list */
 void removes_from_classes_list(Classes_list head, Class remv) {
     Classes_list prev, curr;
 
@@ -44,6 +53,7 @@ void removes_from_classes_list(Classes_list head, Class remv) {
     }
 }
 
+/* print_classes_list prints the Classes_list head */
 void print_classes_list(Classes_list head) {
     Classes_list I = head->next;
 
@@ -97,7 +107,7 @@ void request_class(Classes_list *head) {
     free(class_name);
 }
 
-
+/* append_class appends to the Classes_list head the new Class */
 void append_class(Classes_list head, Class new) {
     Classes_list node;
 
