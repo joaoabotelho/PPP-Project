@@ -1,8 +1,8 @@
 #include "header.h"
 
-/* new_class creates a new Class and append it to the head list
+/* new_class creates a new Class and appends it to the head list
  *
- * asks to user for the new Class name 
+ * asks the user for the new Class name 
  *
  * checks if it already exists that Class
  *      if it already exists prints "Uma disciplina com esse nome ja existe. Tente de novo."
@@ -59,7 +59,7 @@ void change_classes_data(Class *cls) {
 /* change_clist_data changes information of a Class in head list
  * 
  * checks if there are Classes in head
- * asks to the user wich Class they wish to change
+ * asks to the user which Class they wish to change
  *
  * and changes the class information
 */
@@ -77,7 +77,7 @@ void change_clist_data(Classes_list *head) {
  *
  * checks if there are Classes in head
  *
- * it asks to the user wich Class they want
+ * it asks to the user which Class they want
  * and then removes it from the head list
 */
 void remove_class_data(Classes_list head) {

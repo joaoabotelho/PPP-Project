@@ -82,7 +82,7 @@ void print_student_list(Student_list head){
     }
 }   
 
-/* regime asks the user wich regime the Student is on and saves the regime in
+/* regime asks the user which regime the Student is on and saves the regime in
  * str */
 void regime(char str[]) {
     char *temp = (char *)malloc(CHAR_SIZE * sizeof(char));

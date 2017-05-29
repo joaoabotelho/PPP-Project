@@ -2,8 +2,7 @@
 
 /* add_until adds 2 strings in a *file until it finds a char look
  *
- * while it string1 doesnt have the char look scans the *file saving the scaned
- * string in string2 
+ * while string1 doesn't have the char look, it scans the *file saving the scanned string in string2
  *
  * adds to string1 a space and then adds string1 to string2
  * 

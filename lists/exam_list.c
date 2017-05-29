@@ -225,7 +225,7 @@ void exam_type(char str[]) {
 }
 
 /* possible_hours calculates all the n hours starting at hour:minutes with a 30min space between each
- * possbile hours */ 
+ * possible hours */ 
 void possible_hours(Time time_available[], int n, int hour, int minutes) {
     int i;
 

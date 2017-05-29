@@ -1,7 +1,7 @@
 #include <time.h>
 #include "header.h"
 
-/* already_exist confirms the existance of a Student
+/* already_exist confirms the existence of a Student
  * in the head list by searching for the student_numb
  *
  * if there is this student_numb this prints 
@@ -58,12 +58,12 @@ void new_student(Student_list head) {
     }
 }
 
-/* request_student asks the user wich Student in head they wish to use
+/* request_student asks the user which Student in head they wish to use
  *
- * prints head for the user to pick wich Student they wish
+ * prints head for the user to pick which Student they wish
  * the user writes the number of the Student and its saved on student numb
  *
- * it goes through the list copy(wich is a copy of the head list) unitl they find the same student_numb 
+ * it goes through the list copy(which is a copy of the head list) unitl they find the same student_numb 
  * 
  * if they dont find it, it prints "Nao existe ninguem com esse numero. Tente de novo."
  * and it asks the user for another Student
@@ -100,7 +100,7 @@ void request_student(Student_list *head) {
 /* change_slist_data changes information of a Student in head list 
  *
  * checks if there are Students in head
- * asks to the user wich Student they wish to change
+ * asks the user which Student they wish to change
  * 
  * asks if they want to change the number
  *      if the new number they want to change to already exists it asks the user
@@ -153,7 +153,7 @@ void change_slist_data(Student_list head) {
  *
  * checks if there are Students in head
  *
- * it asks to the user wich Student they want
+ * it asks the user which Student they want
  * and then removes it from the head list
 */
 void remove_student_data(Student_list head) {

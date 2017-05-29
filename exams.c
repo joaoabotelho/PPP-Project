@@ -68,7 +68,7 @@ void check_same_time(Exams_list head, Exams_list *node, Time time, Time final) {
 
 /* chose_room creates a new Classroom that isnt ocuppied by another Exam
  *
- * asks the user wich room they wish 
+ * asks the user which room they wish 
  * checks if it is ocuppied(search_room)
  * if it is, asks the user again for another room
 */
@@ -98,7 +98,7 @@ void chose_room(Exams_list head, Classroom *new) {
  *
  * first sees what Exams have the same Date and saves them in node
  *
- * then sees in node wich exams are at the same time and saves them in cnode
+ * then sees in node which exams are at the same time and saves them in cnode
  * prints cnode
  * asks the user to name a Classroom(chose_room)
  *
@@ -167,9 +167,9 @@ void exam_time(Time *time, int n, int hour, int minutes) {
  * then it gets the global variable EXAM_ID to associate a id to the
  * exam(new.id)
  *
- * asks the user wich exam_type they want(new.type)
+ * asks the user which exam_type they want(new.type)
  *
- * asks for the Date that the Exam is going to occur(new.date)
+ * asks for the Date that the Exam is going to occur in new.date
  * 
  * asks for the Time when the Exam starts (new.time) and the duration of the
  * Exam (new.duration)
@@ -180,8 +180,8 @@ void exam_time(Time *time, int n, int hour, int minutes) {
  * (new.student_submitted)
  *
  * creates a new Classroom_list for the Classrooms that the exam is going to
- * take place
- * and asks the user to asign the first Classroom 
+ * take place in
+ * and asks the user to assign the first Classroom 
  *
  * appends the new Exam to the Exams_list head and adds 1 to the global
  * variable EXAM_ID
@@ -245,7 +245,7 @@ void create_exam(Exams_list head, Classes_list classes) {
     }
 }
 
-/* request_exam asks the user wich Exam they want
+/* request_exam asks the user which Exam they want
  *
  * prints the Exams_list head
  * and asks the user for the id number associated to the Exam he wants
@@ -268,7 +268,7 @@ void request_exam(Exams_list head, Exams_list *prev, Exams_list *curr) {
 
 /* print_classrooms prints the Classroom_list of a Exam
  *
- * first asks the user wich Exam he wants
+ * first asks the user which Exam he wants
  *
  * prints the Classroom_list of that Exam
  */

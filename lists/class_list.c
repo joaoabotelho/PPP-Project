@@ -66,12 +66,12 @@ void print_classes_list(Classes_list head) {
     }
 }
 
-/* request_class asks the user wich Class in head they wish to use
+/* request_class asks the user which Class in head they wish to use
  *
- * prints head for the user to pick wich Class they wish
- * the user writes the name of the Clas and its saved on class_name
+ * prints head for the user to pick which Class they wish
+ * the user writes the name of the Class and its saved on class_name
  *
- * it goes through the list copy(wich is a copy of the head list) unitl they find the same class name
+ * it goes through the list copy(which is a copy of the head list) until they find the same class name
  * 
  * if they dont find it, it prints "Nome de disciplina nao existente. Tente de novo."
  * and it asks the user for another Class

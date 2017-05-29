@@ -59,8 +59,8 @@ void append_exam_stex_list(Student_exams_list head, Student st, Exam new) {
 /* submit_students submits a Student to a Exam
  *
  * if the Exams list and the Student list arent empty
- *      asks the user wich Exam they want
- *      asks the user wich Student they want
+ *      asks the user which Exam they want
+ *      asks the user which Student they want
  *      checks if the Student is eligble for the Exam(eligble_for_exam)
  *      if it is
  *         checks if the Student is already in Student_exams_list
@@ -68,7 +68,7 @@ void append_exam_stex_list(Student_exams_list head, Student st, Exam new) {
  *         if it is
  *              appends the Student to the Student_list
  *              students_submitted(append_student)
- *              and appends to the Student_exams_list connect associating to
+ *              and appends to the Student_exams_list connect associating
  *              the Student to the Exam(append_exam_stex_list)
  *         if it isnt 
  *              searches for the Student in Student_list students_submitted 
@@ -147,7 +147,7 @@ void print_submitted_students(Exams_list head) {
 
 /* print_exams_of_student prints the Exams signed in of a Student 
  *
- * asks the user wich Student he wants(request_student)
+ * asks the user which Student he wants(request_student)
  * searches the Student_exams_list for that student
  *
  * if it doesnt find it prints "O aluno (number of the Student) nao esta
@@ -177,7 +177,7 @@ void print_exams_of_student(Student_exams_list head, Student_list all) {
  * a Exam and removes that same Exam from the Student_exams_list associated to
  * that Student
  *
- *  first asks to the user for the Exam he wants
+ *  first asks the user for the Exam he wants
  *  then asks for the Student they wish in the Student_list student_submitted associated to the
  *  Exam
  *
@@ -221,7 +221,7 @@ void remove_submit_students(Exams_list head, Student_exams_list head2) {
 
 /* delete_exam deletes a Exam from the Exams_list 
  *
- * asks the user wich Exam they want(request_exam)
+ * asks the user which Exam they want(request_exam)
  *
  * goes through each node in Student_exams_list to remove that Exam on each
  * Exams_list(remove_from_exam_list)
@@ -246,7 +246,7 @@ void delete_exam(Exams_list head, Student_exams_list head2) {
 /* pass_date_exams deletes all the exams that already have been done
  * 
  * goes through the Exams_list head
- *      if it finds a Exam wich has a Date before the current_date
+ *      if it finds a Exam which has a Date before the current_date
  *           goes through the Student_exams_list head2 deleting that Exam in every
  *           Exams_list submitted
  *           then removes the Exam from the Exams_list head 

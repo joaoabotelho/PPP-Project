@@ -45,7 +45,7 @@ void imp_students(Student_list head) {
     fclose(students);
 }
 
-/* print_exam_info passes almost all the info from the Exam to the file
+/* print_exam_info passes almost all the info necessary from the Exam to the file
  * exams.txt */
 void print_exam_info(Exam head, FILE *exams) {
         fprintf(exams, "\n%d, ", head.id);
