@@ -13,7 +13,7 @@ int CURRENT_DAY;
 #define CURRENT_YEAR 2017
 #define CHAR_SIZE 50
 #define LAST_YEAR 3
-#define MAX_ROOM_CAPACITY 30
+#define MAX_ROOM_CAPACITY 3
 
 
 typedef struct student {
@@ -145,13 +145,14 @@ void check_memory_selist(Student_exams_list a);
 Student_exams_list create_student_exams_list();
 void search_student_exams_list(Student_exams_list head, int student_numb, Student_exams_list *prev, Student_exams_list *curr);
 void append_student_exams(Student_exams_list *head, Student st);
+void removes_from_student_exams_list(Student_exams_list head, int student_numb);
 
 /* Student */
 int already_exist(Student_list head, int student_numb);
 void new_student(Student_list head);
 void request_student(Student_list *head);
 void change_slist_data(Student_list head);
-void remove_student_data(Student_list head);
+void remove_student_data(Student_list head, Exams_list head2, Student_exams_list head3);
 
 /* Class */
 void new_class(Classes_list head);

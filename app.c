@@ -116,7 +116,7 @@ void students_menu(Student_list list_student, Classes_list list_class, Exams_lis
             print_student_list(list_student);
             break;
         case '4':
-            remove_student_data(list_student);
+            remove_student_data(list_student, list_exam, list_student_exams);
             break;
         case '5':
             print_exams_of_student(list_student_exams, list_student);

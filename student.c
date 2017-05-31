@@ -156,13 +156,22 @@ void change_slist_data(Student_list head) {
  * it asks the user which Student they want
  * and then removes it from the head list
 */
-void remove_student_data(Student_list head) {
-    Student_list copy = head;
+void remove_student_data(Student_list head, Exams_list head2, Student_exams_list head3) {
+    Student_list copy = head, submitted;
+    
 
     if(head->next != NULL) {
         printf("\n\n### ESTA A QUERER REMOVER UM ALUNO DA BASE DE DADOS ###\n\n");
         request_student(&head);
 
+        while(head2->next != NULL) {
+            head2 = head2->next;
+            
+            submitted = head2->data.students_submitted;
+            removes_from_student_list(submitted, *head->data.numb);
+        }
+
+        removes_from_student_exams_list(head3, *head->data.numb);
         removes_from_student_list(copy, *head->data.numb);
         printf("\tAluno numero: %d foi retirado da base de dados\n\n", *head->data.numb); 
     } else {

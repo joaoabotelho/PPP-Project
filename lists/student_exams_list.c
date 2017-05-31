@@ -63,3 +63,12 @@ void append_student_exams(Student_exams_list *head, Student st) {
     }
 }
 
+void removes_from_student_exams_list(Student_exams_list head, int student_numb) {
+    Student_exams_list prev, curr;
+    
+    search_student_exams_list(head, student_numb, &prev, &curr);
+    if(curr != NULL) {
+        prev->next = curr->next;
+        free(curr);
+    }
+}
